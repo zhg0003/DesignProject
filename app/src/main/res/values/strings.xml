@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Test_app</string>
+    <string name="action_settings">Settings</string>
+    <string name="this_answer_is">this answer is</string>
+    <string name="button">Button</string>
+    <string name="add">+</string>
+    <string name="sub">-</string>
+    <string name="mul">X</string>
+    <string name="div">/</string>
+</resources>
