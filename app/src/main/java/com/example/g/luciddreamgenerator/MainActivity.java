@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        frequency  = (EditText)findViewById(R.id.frequency);
+        /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
         result = (TextView)findViewById(R.id.result);
@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 });
                 thread.start();
             }
-        });
+        });*/
     }
 
-    void generate()
+    /*void generate()
     {
         //https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
         for(int i = 0;i<numSamp;i++)
@@ -91,5 +91,5 @@ public class MainActivity extends AppCompatActivity {
 
         audio.write(sound,0,sound.length);
         audio.play();
-    }
+    }*/
 }
