@@ -10,6 +10,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
+import android.media.MediaPlayer;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     //UI stuff
@@ -17,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText amplitude;
     private Button generate;
     private TextView result;
+    private Spinner spinner1; // sound one
+    private Spinner spinner2; // sound two
 
     //AudioTrack related stuff
     private final int sampleRate = 8000;
@@ -28,12 +41,15 @@ public class MainActivity extends AppCompatActivity {
     //sound related stuff
     private float Hz ;
     private float amp;
+    private MediaPlayer mp;
 
     Handler handle = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        addItemsOnSpinner();
+        setUpStartButton();
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
@@ -57,6 +73,49 @@ public class MainActivity extends AppCompatActivity {
                 thread.start();
             }
         });*/
+    }
+
+    public void addItemsOnSpinner() {
+
+        spinner1 = (Spinner) findViewById(R.id.spinner);
+        List<String> list = new ArrayList<String>();
+        list.add("Ocean");
+        list.add("Rain");
+        list.add("Wind");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(dataAdapter);
+    }
+
+    public void setUpStartButton(){
+        Button start_button = (Button) findViewById(R.id.button);
+        start_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopPlaying();
+                String selected_mp3 = spinner1.getSelectedItem().toString();
+
+                if (selected_mp3 == "Ocean")
+                    mp = MediaPlayer.create(MainActivity.this, R.raw.ocean);
+                else if (selected_mp3 == "Rain")
+                    mp = MediaPlayer.create(MainActivity.this, R.raw.rain);
+                else if (selected_mp3 == "Wind")
+                    mp = MediaPlayer.create(MainActivity.this, R.raw.wind);
+                else
+                    mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
+
+                mp.start();
+            }
+        });
+    }
+
+    private void stopPlaying() {
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
     }
 
     /*void generate()
