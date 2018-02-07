@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import android.media.MediaPlayer;
+import android.content.Intent;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addItemsOnSpinner();
         setUpStartButton();
+        setUpRecordButton();
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
@@ -75,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
+
+
     public void addItemsOnSpinner() {
 
         spinner1 = (Spinner) findViewById(R.id.spinner);
@@ -86,6 +90,18 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
+    }
+
+    public void setUpRecordButton() {
+        Button record_button = (Button) findViewById(R.id.button2);
+
+        record_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopPlaying();
+                startActivity(new Intent(MainActivity.this, JournalActivity.class));
+            }
+        });
     }
 
     public void setUpStartButton(){

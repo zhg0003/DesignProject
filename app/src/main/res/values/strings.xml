@@ -4,4 +4,5 @@
     <string name="Hz">Hz</string>
     <string name="Generate">Generate</string>
     <string name="result">result</string>
+    <string name="title_activity_journal">JournalActivity</string>
 </resources>
