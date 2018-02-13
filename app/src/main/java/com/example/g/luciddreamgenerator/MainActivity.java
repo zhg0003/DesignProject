@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpStartButton(){
-        Button start_button = (Button) findViewById(R.id.generate);
+        Button start_button = (Button) findViewById(R.id.play);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
