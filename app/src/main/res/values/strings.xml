@@ -5,4 +5,5 @@
     <string name="Generate">Generate</string>
     <string name="result">result</string>
     <string name="title_activity_journal">JournalActivity</string>
+    <string name="title_activity_journal_list">JournalListActivity</string>
 </resources>

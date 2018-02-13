@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         addItemsOnSpinner();
         setUpStartButton();
         setUpRecordButton();
+        setUpJournalListButton();
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
@@ -90,6 +91,18 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
+    }
+
+    public void setUpJournalListButton() {
+        Button viewJournal_button = (Button) findViewById(R.id.view_journal_button);
+
+        viewJournal_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopPlaying();
+                startActivity(new Intent(MainActivity.this, JournalListActivity.class));
+            }
+        });
     }
 
     public void setUpRecordButton() {
