@@ -15,6 +15,10 @@ import android.widget.ListView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
+import java.util.Arrays;
+import java.util.ArrayList;
+
 
 import java.util.List;
 import java.util.LinkedList;
@@ -32,6 +36,7 @@ public class JournalListActivity extends ListActivity {
         setContentView(R.layout.activity_journal_list);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setUpBackButton();
+        loadDreams();
 
         if (getIntent().getStringExtra("DREAM_CONTENT") != null) {
             String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
@@ -54,6 +59,27 @@ public class JournalListActivity extends ListActivity {
         dream_list.setAdapter(adapter);
 
     }
+
+
+    protected void loadDreams() {
+        String[] temp_loaded_dreams;
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("stored_dreams", 0);
+        String loaded_dreams = settings.getString("dreams", "0");
+        temp_loaded_dreams = loaded_dreams.split("~");
+        dreams = new ArrayList<String>(Arrays.asList(temp_loaded_dreams));
+    }
+
+
+    protected void saveDreams() {
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("stored_dreams", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < dreams.size(); i++) {
+            sb.append(dreams.get(i)).append("~");
+        }
+        editor.putString("dreams", sb.toString());
+        editor.apply();
+    }
 /*
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -73,6 +99,7 @@ public class JournalListActivity extends ListActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveDreams();
                 startActivity(new Intent(JournalListActivity.this, MainActivity.class));
             }
         });
