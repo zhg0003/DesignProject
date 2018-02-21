@@ -64,7 +64,7 @@ public class JournalListActivity extends ListActivity {
     protected void loadDreams() {
         String[] temp_loaded_dreams;
         SharedPreferences settings = getApplicationContext().getSharedPreferences("stored_dreams", 0);
-        String loaded_dreams = settings.getString("dreams", "0");
+        String loaded_dreams = settings.getString("dreams", "");
         temp_loaded_dreams = loaded_dreams.split("~");
         dreams = new ArrayList<String>(Arrays.asList(temp_loaded_dreams));
     }
@@ -90,7 +90,7 @@ public class JournalListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView dream_list, View v, int position, long id) {
         TextView temp = (TextView) v;
-        Toast.makeText(this, "" + temp.getText() + " " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "" + temp.getText() + " " + position, Toast.LENGTH_LONG).show();
     }
 
     public void setUpBackButton() {
@@ -100,7 +100,7 @@ public class JournalListActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 saveDreams();
-                startActivity(new Intent(JournalListActivity.this, MainActivity.class));
+                startActivity(new Intent(JournalListActivity.this, NavigationMainActivity.class));
             }
         });
     }

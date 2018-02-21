@@ -173,7 +173,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="68dp"
-        android:text="Record"
+        android:text="Cancel"
         app:layout_constraintBottom_toTopOf="@+id/view_journal_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -184,7 +184,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="View Dream Journal"
+        android:text="Write Down Dream"
         app:layout_constraintBottom_toTopOf="@+id/result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

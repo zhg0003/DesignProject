@@ -6,4 +6,10 @@
     <string name="result">result</string>
     <string name="title_activity_journal">JournalActivity</string>
     <string name="title_activity_journal_list">JournalListActivity</string>
+    <string name="title_activity_navigation_main">NavigationMainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

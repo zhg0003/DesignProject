@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addItemsOnSpinner();
         setUpStartButton();
-        setUpRecordButton();
+        setUpCancelButton();
         setUpJournalListButton();
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
@@ -100,19 +100,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopPlaying();
-                startActivity(new Intent(MainActivity.this, JournalListActivity.class));
+                startActivity(new Intent(MainActivity.this, JournalActivity.class));
             }
         });
     }
 
-    public void setUpRecordButton() {
+    public void setUpCancelButton() {
         Button record_button = (Button) findViewById(R.id.button2);
 
         record_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stopPlaying();
-                startActivity(new Intent(MainActivity.this, JournalActivity.class));
+                startActivity(new Intent(MainActivity.this, NavigationMainActivity.class));
             }
         });
     }
