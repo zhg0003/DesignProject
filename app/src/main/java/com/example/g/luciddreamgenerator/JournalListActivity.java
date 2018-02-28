@@ -29,6 +29,7 @@ public class JournalListActivity extends ListActivity {
     private ListView dream_list;
     //String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
     List<String> dreams = new LinkedList<String>();
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class JournalListActivity extends ListActivity {
 
         //String[] dreams_array = {"Empty"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, dreams_array);
 
         //dream_list = (ListView) findViewById(R.id.list);
@@ -89,8 +90,16 @@ public class JournalListActivity extends ListActivity {
 */
     @Override
     protected void onListItemClick(ListView dream_list, View v, int position, long id) {
-        TextView temp = (TextView) v;
-        Toast.makeText(this, "" + temp.getText() + " " + position, Toast.LENGTH_LONG).show();
+        dreams.remove(position);
+        //adapter.remove(adapter.getItem(position));
+        //adapter.notifyDataSetChanged();
+        saveDreams();
+        //dream_list.invalidateViews();
+        //finish();
+        startActivity(getIntent());
+        //adapter.notifyDataSetChanged();
+        //TextView temp = (TextView) v;
+        //Toast.makeText(this, "" + temp.getText() + " " + position, Toast.LENGTH_LONG).show();
     }
 
     public void setUpBackButton() {

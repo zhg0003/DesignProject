@@ -9,7 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import java.text.*;
+import java.util.Date;
+import java.util.Calendar;
+
 
 public class JournalActivity extends AppCompatActivity {
 
@@ -53,6 +60,9 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 myEdit = (EditText)findViewById(R.id.editText2);
                 String content = myEdit.getText().toString();
+                ToggleButton isLucid = (ToggleButton) findViewById(R.id.toggleButton2);
+                RatingBar dreamRating = (RatingBar) findViewById(R.id.ratingBar);
+
                 if (content.isEmpty())
                 {
                     Toast.makeText(getBaseContext(), "Can't Save Empty Dream Log!", Toast.LENGTH_SHORT).show();
@@ -60,7 +70,25 @@ public class JournalActivity extends AppCompatActivity {
                 }
                 Intent intent = new Intent(getBaseContext(), JournalListActivity.class);
 
-                intent.putExtra("DREAM_CONTENT", content);
+                Date c = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                String formattedDream = df.format(c);
+                Toast.makeText(getBaseContext(), formattedDream, Toast.LENGTH_SHORT).show();
+
+                formattedDream = formattedDream.concat(" - \"");
+                formattedDream = formattedDream.concat(content);
+                formattedDream = formattedDream.concat("\"");
+
+                if (isLucid.isChecked())
+                    formattedDream = formattedDream.concat("\nLUCID");
+                else
+                    formattedDream = formattedDream.concat("\nNOT LUCID");
+
+                if (dreamRating.getRating() != 0)
+                    formattedDream = formattedDream.concat("\nDream Quality: " + String.valueOf(dreamRating.getRating()) + " stars.");
+
+
+                intent.putExtra("DREAM_CONTENT", formattedDream);
                 startActivity(intent);
                 //startActivity(new Intent(JournalActivity.this, MainActivity.class));
             }
