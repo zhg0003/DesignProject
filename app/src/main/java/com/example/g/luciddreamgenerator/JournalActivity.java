@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
@@ -31,14 +33,7 @@ public class JournalActivity extends AppCompatActivity {
         setUpSaveButton();
         setUpCancelButton();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     public void setUpCancelButton() {
@@ -60,7 +55,7 @@ public class JournalActivity extends AppCompatActivity {
             public void onClick(View v) {
                 myEdit = (EditText)findViewById(R.id.editText2);
                 String content = myEdit.getText().toString();
-                ToggleButton isLucid = (ToggleButton) findViewById(R.id.toggleButton2);
+                CheckBox isLucid = findViewById(R.id.checkBox);
                 RatingBar dreamRating = (RatingBar) findViewById(R.id.ratingBar);
 
                 if (content.isEmpty())

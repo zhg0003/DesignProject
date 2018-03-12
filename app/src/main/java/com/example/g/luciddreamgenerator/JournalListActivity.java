@@ -5,10 +5,6 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -43,14 +39,14 @@ public class JournalListActivity extends ListActivity {
             String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
             dreams.add(new_dream);
         }
+
         if (dreams.size() < 1) {
-            String empty = "Empty";
+            String empty = "Dream Journal";
             dreams.add(empty);
         }
+
         String[] dreams_array = new String[dreams.size()];
         dreams_array = dreams.toArray(dreams_array);
-
-        //String[] dreams_array = {"Empty"};
 
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, dreams_array);
@@ -90,16 +86,15 @@ public class JournalListActivity extends ListActivity {
 */
     @Override
     protected void onListItemClick(ListView dream_list, View v, int position, long id) {
-        dreams.remove(position);
-        //adapter.remove(adapter.getItem(position));
-        //adapter.notifyDataSetChanged();
-        saveDreams();
-        //dream_list.invalidateViews();
-        //finish();
-        startActivity(getIntent());
-        //adapter.notifyDataSetChanged();
-        //TextView temp = (TextView) v;
-        //Toast.makeText(this, "" + temp.getText() + " " + position, Toast.LENGTH_LONG).show();
+        //dreams.remove(position);
+
+
+        //saveDreams();
+
+
+        //startActivity(getIntent());
+
+
     }
 
     public void setUpBackButton() {
@@ -109,7 +104,7 @@ public class JournalListActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 saveDreams();
-                startActivity(new Intent(JournalListActivity.this, NavigationMainActivity.class));
+                startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
             }
         });
     }

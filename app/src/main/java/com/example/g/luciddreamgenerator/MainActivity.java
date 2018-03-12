@@ -7,8 +7,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private Button generate;
     private TextView result;
     private Spinner spinner1; // sound one
+    private SeekBar freq1;
+    private SeekBar amp1;
     private Spinner spinner2; // sound two
 
     //AudioTrack related stuff
@@ -52,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         addItemsOnSpinner();
         setUpStartButton();
         setUpCancelButton();
-        setUpJournalListButton();
+        freq1 = (SeekBar) findViewById(R.id.seekBar);
+        amp1 = (SeekBar) findViewById(R.id.seekBar2);
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
@@ -91,19 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
+
     }
 
-    public void setUpJournalListButton() {
-        Button viewJournal_button = (Button) findViewById(R.id.view_journal_button);
 
-        viewJournal_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                stopPlaying();
-                startActivity(new Intent(MainActivity.this, JournalActivity.class));
-            }
-        });
-    }
 
     public void setUpCancelButton() {
         Button record_button = (Button) findViewById(R.id.button2);
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stopPlaying();
-                startActivity(new Intent(MainActivity.this, NavigationMainActivity.class));
+                startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
         });
     }
@@ -122,7 +120,15 @@ public class MainActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopPlaying();
+                Intent my_intent = new Intent(getBaseContext(), TimerActivity.class);
+                String selected_values = spinner1.getSelectedItem().toString();
+                selected_values = selected_values.concat("~");
+                selected_values = selected_values.concat(Integer.toString(freq1.getProgress()));
+                selected_values = selected_values.concat("~");
+                selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
+                my_intent.putExtra("SELECTED_VALUES", selected_values);
+                startActivity(my_intent);
+                /*stopPlaying();
                 String selected_mp3 = spinner1.getSelectedItem().toString();
 
                 if (selected_mp3 == "Ocean")
@@ -134,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 else
                     mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
 
-                mp.start();
+                mp.start();*/
             }
         });
     }
