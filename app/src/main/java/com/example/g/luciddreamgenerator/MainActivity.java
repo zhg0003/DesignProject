@@ -92,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
         freq1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                showhz.setText(String.valueOf((float)i/10)+" Hz");
+                if (spinner1.getSelectedItem().toString().equals("Tone"))
+                    showhz.setText(String.valueOf((float)i/10)+" Hz");
+                else
+                    showhz.setText("Only Applicable to Tone");
             }
 
             @Override
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent my_intent = new Intent(getBaseContext(), TimerActivity.class);
                 String selected_values = spinner1.getSelectedItem().toString();
                 selected_values = selected_values.concat("~");
-                selected_values = selected_values.concat(Integer.toString(freq1.getProgress()));
+                selected_values = selected_values.concat(Float.toString((float)freq1.getProgress() / 10));
                 //selected_values = selected_values.concat("~");
                 //selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
                 my_intent.putExtra("SELECTED_VALUES", selected_values);
