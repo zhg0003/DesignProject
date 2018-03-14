@@ -25,6 +25,7 @@ public class MenuActivity extends AppCompatActivity {
         /* Set up buttons */
         setUpAudioButton();
         setUpJournalButton();
+        setUpTrainingButton();
     }
 
     public void setUpAudioButton() {
@@ -43,6 +44,16 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MenuActivity.this, JournalListActivity.class));
+            }
+        });
+    }
+
+    public void setUpTrainingButton() {
+        Button b = (Button) findViewById(R.id.button7);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MenuActivity.this, ToolsActivity.class));
             }
         });
     }
