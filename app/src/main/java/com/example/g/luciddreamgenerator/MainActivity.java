@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText amplitude;
     private Button generate;
     private TextView result;
+    private TextView showhz;
     private Spinner spinner1; // sound one
     private SeekBar freq1;
     private SeekBar amp1;
@@ -55,11 +56,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        freq1 = (SeekBar) findViewById(R.id.seekBar);
+        showhz = (TextView) findViewById(R.id.textView3);
         addItemsOnSpinner();
         setUpStartButton();
         setUpCancelButton();
-        freq1 = (SeekBar) findViewById(R.id.seekBar);
-        amp1 = (SeekBar) findViewById(R.id.seekBar2);
+        setUpFrequencyBar();
+
         /*frequency  = (EditText)findViewById(R.id.frequency);
         amplitude = (EditText)findViewById(R.id.amplitude);
         generate = (Button)findViewById(R.id.generate);
@@ -85,12 +88,30 @@ public class MainActivity extends AppCompatActivity {
         });*/
     }
 
+    public void setUpFrequencyBar(){
+        freq1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                showhz.setText(String.valueOf((float)i/10)+" Hz");
+            }
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
 
     public void addItemsOnSpinner() {
 
         spinner1 = (Spinner) findViewById(R.id.spinner);
         List<String> list = new ArrayList<String>();
+        list.add("Tone");
         list.add("Ocean");
         list.add("Rain");
         list.add("Wind");
@@ -124,8 +145,8 @@ public class MainActivity extends AppCompatActivity {
                 String selected_values = spinner1.getSelectedItem().toString();
                 selected_values = selected_values.concat("~");
                 selected_values = selected_values.concat(Integer.toString(freq1.getProgress()));
-                selected_values = selected_values.concat("~");
-                selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
+                //selected_values = selected_values.concat("~");
+                //selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
                 my_intent.putExtra("SELECTED_VALUES", selected_values);
                 startActivity(my_intent);
                 /*stopPlaying();
