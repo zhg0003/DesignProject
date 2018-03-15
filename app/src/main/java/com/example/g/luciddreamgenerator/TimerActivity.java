@@ -357,7 +357,7 @@ public class TimerActivity extends AppCompatActivity {
 
                     if (sound1.getText().toString().equals("Tone")) {
 
-                        Hz = (float) Integer.parseInt(freq1.getText().toString()) / 10;
+                        Hz = Float.parseFloat(freq1.getText().toString()) / 10;
                         if (Hz == 0) {
                             Log.d("lol", "hz cant be 0");
                             //warning.setText("frequency cannot be 0");
