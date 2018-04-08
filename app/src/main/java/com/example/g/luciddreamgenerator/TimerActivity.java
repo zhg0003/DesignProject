@@ -359,9 +359,10 @@ public class TimerActivity extends AppCompatActivity {
 
                         Hz = Float.parseFloat(freq1.getText().toString()) / 10;
                         if (Hz == 0) {
-                            Log.d("lol", "hz cant be 0");
+                            Log.d("Tag", "hz cant be 0");
                             //warning.setText("frequency cannot be 0");
-                        } else {
+                        }
+                        else {
                             final Thread thread = new Thread(new Runnable() {
                                 public void run() {
                                     generate();
@@ -374,13 +375,13 @@ public class TimerActivity extends AppCompatActivity {
                                 }
                             });
                             thread.start();
-                            Log.d("lol", "playing tone");
+                            Log.d("Tag", "playing tone");
                             //warning.setText("playing");
                         }
                     }
                     else { // mp3
                         String selected_mp3 = sound1.getText().toString();
-                        Log.d("lol", selected_mp3);
+                        Log.d("Tag", selected_mp3);
 
                         if (selected_mp3.equals("Ocean"))
                             mp = MediaPlayer.create(TimerActivity.this, R.raw.ocean);

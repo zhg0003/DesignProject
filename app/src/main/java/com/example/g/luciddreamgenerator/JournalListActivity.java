@@ -40,10 +40,10 @@ public class JournalListActivity extends ListActivity {
             dreams.add(new_dream);
         }
 
-        if (dreams.size() < 1) {
+        /*if (dreams.size() < 1) {
             String empty = "Dream Journal";
             dreams.add(empty);
-        }
+        }*/
 
         String[] dreams_array = new String[dreams.size()];
         dreams_array = dreams.toArray(dreams_array);
@@ -64,6 +64,9 @@ public class JournalListActivity extends ListActivity {
         String loaded_dreams = settings.getString("dreams", "");
         temp_loaded_dreams = loaded_dreams.split("~");
         dreams = new ArrayList<String>(Arrays.asList(temp_loaded_dreams));
+
+        if (temp_loaded_dreams[0].isEmpty()) // remove initial empty dream
+            dreams.clear();
     }
 
 
