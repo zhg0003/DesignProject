@@ -9,16 +9,16 @@
     tools:showIn="@layout/activity_journal">
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editText0"
         android:layout_width="348dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -30,7 +30,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:text="What Did You Dream About?"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/editText0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -39,20 +39,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="84dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="8dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/ratingBar" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="84dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="8dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/ratingBar" />
 
     <TextView
         android:id="@+id/textView8"
@@ -78,15 +78,81 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Was Dream Lucid?"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox3"
+        app:layout_constraintStart_toStartOf="@+id/editText0" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox4"
+        app:layout_constraintEnd_toStartOf="@+id/editText2" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Custom Field 1"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/editText3"
+        app:layout_constraintStart_toEndOf="@+id/checkBox1" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Custom Field 2"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintEnd_toEndOf="@+id/editText0" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/checkBox1" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Custom Field 3"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/checkBox3" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/editText4" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Custom Field 4"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="@+id/editText2" />
 
 </android.support.constraint.ConstraintLayout>

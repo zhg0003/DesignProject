@@ -20,96 +20,98 @@
         android:id="@+id/textView"
         android:layout_width="55dp"
         android:layout_height="22dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
         android:text="Sound"
         android:textStyle="bold"
-        android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="200dp"
-        android:layout_height="25dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="191dp"
+        android:layout_height="28dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="#33e3e3e3"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:gravity="left"
         android:text="Frequency"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="350dp"
         android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:background="#33e3e3e3"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="68dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="72dp"
         android:text="Start"
-        app:layout_constraintBottom_toTopOf="@+id/result"
+        app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="72dp"
         android:text="Cancel"
-        app:layout_constraintBottom_toTopOf="@+id/result"
+        app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:text="Hz:"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
         android:text="0"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/textView4" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Write Down Dream"
+        app:layout_constraintBottom_toTopOf="@+id/result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

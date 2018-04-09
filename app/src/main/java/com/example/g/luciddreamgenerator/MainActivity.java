@@ -26,12 +26,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+//to do
+//spawn a pause and stop button once start button is pressed
+//add a button that takes user to alarm
+//
 
 public class MainActivity extends AppCompatActivity {
     //UI stuff
     private EditText frequency;
     private EditText amplitude;
     private Button generate;
+    private Button goToWrite;
     private TextView result;
     private TextView showhz;
     private Spinner spinner1; // sound one
@@ -45,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
     private final int numSamp = duration * sampleRate;
     private final double Sample[] = new double[numSamp];
     private final byte sound[] = new byte[2*numSamp];
+    private float default_Hz = 440;
+
+
+    private AudioTrack audio;
+    private boolean ready = false;
 
     //sound related stuff
     private float Hz ;
@@ -60,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         showhz = (TextView) findViewById(R.id.textView3);
         addItemsOnSpinner();
         setUpStartButton();
+        setUpJournalButton();
         setUpCancelButton();
         setUpFrequencyBar();
 
@@ -92,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
         freq1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (spinner1.getSelectedItem().toString().equals("Tone"))
-                    showhz.setText(String.valueOf((float)i*10)+" Hz");
+                if (spinner1.getSelectedItem().toString().equals("Tone")) {
+                    Hz = (float)i/100*360;
+                    showhz.setText(String.valueOf(Hz + " Hz"));
+                }
                 else
                     showhz.setText("Only Applicable to Tone");
             }
@@ -139,32 +152,67 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setUpJournalButton() {
+        Button journal_button = (Button) findViewById(R.id.button10);
+
+        journal_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, JournalActivity.class));
+            }
+        });
+    }
+
     public void setUpStartButton(){
         Button start_button = (Button) findViewById(R.id.button);
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent my_intent = new Intent(getBaseContext(), TimerActivity.class);
-                String selected_values = spinner1.getSelectedItem().toString();
+                if(spinner1.getSelectedItem().toString() == "Tone"){
+                    //audio.stop();
+                    generate_default();
+                    play(sound);
+                }
+               // Intent my_intent = new Intent(getBaseContext(), TimerActivity.class);
+               /* String selected_values = spinner1.getSelectedItem().toString();
                 selected_values = selected_values.concat("~");
                 selected_values = selected_values.concat(Float.toString((float)freq1.getProgress()*100 / 10));
                 //selected_values = selected_values.concat("~");
                 //selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
-                my_intent.putExtra("SELECTED_VALUES", selected_values);
-                startActivity(my_intent);
-                /*stopPlaying();
-                String selected_mp3 = spinner1.getSelectedItem().toString();
+              //  my_intent.putExtra("SELECTED_VALUES", selected_values);
 
-                if (selected_mp3 == "Ocean")
-                    mp = MediaPlayer.create(MainActivity.this, R.raw.ocean);
-                else if (selected_mp3 == "Rain")
-                    mp = MediaPlayer.create(MainActivity.this, R.raw.rain);
-                else if (selected_mp3 == "Wind")
-                    mp = MediaPlayer.create(MainActivity.this, R.raw.wind);
-                else
-                    mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
+                final Thread thread = new Thread(new Runnable() {
+                    public void run() {
+                        generate();
+                        handle.post(new Runnable() {
+                            public void run() {
+                                generate_default();
+                                play(sound);
+                            }
+                        });
+                    }
+                });
+                thread.start();
+                */
+                //startActivity(my_intent);
 
-                mp.start();*/
+
+                else {
+                    stopPlaying();
+
+                    String selected_mp3 = spinner1.getSelectedItem().toString();
+
+                    if (selected_mp3 == "Ocean")
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.ocean);
+                    else if (selected_mp3 == "Rain")
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.rain);
+                    else if (selected_mp3 == "Wind")
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.wind);
+                    else
+                        mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
+
+                    mp.start();
+                }
             }
         });
     }
@@ -177,7 +225,67 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*void generate()
+    void interpolation(int begin, int end, double[] oldSample, double[] newSample,int ratio){//begin and end is the index of newSample
+        //calculate the slope
+        double slope = (oldSample[end] - oldSample[begin])/(end-begin);
+
+        //copy the end points
+        newSample[begin*ratio] = oldSample[begin];
+        newSample[end*ratio] = oldSample[end];
+
+        //fill in the gap with slope
+        for(int i = begin*ratio+1; i <= end*ratio-1; i++){
+            newSample[i] = newSample[i-1]+slope;
+        }
+
+        //print out result
+        //System.out.println("the end point values and slope are "+oldSample[begin]+" "+oldSample[end]+" "+slope);
+    }
+
+    double[] copySample(int start, int end, double[] oldSample){//this is for copying samples from an oldSample, from start index to end index,
+        double newSample[] = new double[end-start+1];
+        for(int i = start; i<= end;i++){
+            newSample[i] = oldSample[i];
+//            System.out.println("i is "+i);
+        }
+        return newSample;
+    }
+
+    byte[] generate(){ //apply linear interpolation
+        //obtain 1 hz of sample from the audio
+        generate_default();
+        int ratio = (int)Math.floor(default_Hz/Hz); //ratio of increase of index. ex old index is 1, new index in the newsample will be 1*ratio
+        int OldSamplesPerPeriod = sampleRate / (int)default_Hz; //this is the amount of data points we have
+
+
+        //calculate the new sampleAmount according to user input frequency by oldHz/newHz
+        int newSampleAmount = ratio*OldSamplesPerPeriod;
+        byte[] sound = new byte[2*newSampleAmount];
+
+        //create new sound sample array and then copy the old samples for manipulation
+        double oldSample[] = copySample(0,OldSamplesPerPeriod-1,Sample);
+        double newSample[] = new double[newSampleAmount];
+
+        //insert between 2 points
+        for(int i = 0; i<oldSample.length-1;i++){
+            newSample[i*ratio] = oldSample[i];
+            interpolation(i, i+1,oldSample,newSample,ratio);
+        }
+
+        //scale to maximum amp
+        int idx = 0;
+        for (final double dVal : newSample) {
+            // scale to maximum amplitude
+            final short val = (short) ((dVal * 32767));
+            // in 16 bit wav PCM, first byte is the low order byte
+            sound[idx++] = (byte) (val & 0x00ff);
+            sound[idx++] = (byte) ((val & 0xff00) >>> 8);
+
+        }
+        return sound;
+    }
+
+    void generate_default() //generate the default wave
     {
         //https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
         for(int i = 0;i<numSamp;i++)
@@ -196,18 +304,23 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    void play()
+
+    void play(byte[] sound)
     {
         //https://stackoverflow.com/questions/8698633/how-to-generate-a-particular-sound-frequency
-        System.out.print("got here");
-        final AudioTrack audio = new AudioTrack(AudioManager.STREAM_MUSIC,sampleRate,
+        ready = true;
+        audio = new AudioTrack(AudioManager.STREAM_MUSIC,sampleRate,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
                 AudioFormat.ENCODING_PCM_16BIT,
                 numSamp,
                 AudioTrack.MODE_STATIC);
-        System.out.print("done configuration");
 
         audio.write(sound,0,sound.length);
         audio.play();
-    }*/
+//        while(audio.getPlayState() == 3) {
+//            System.out.println("currently playing");
+//        }
+    }
+
+
 }
