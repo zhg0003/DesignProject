@@ -211,11 +211,15 @@ public class MainActivity extends AppCompatActivity {
                     else
                         mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
 
+
+                    mp.setLooping(true);
                     mp.start();
                 }
             }
         });
     }
+
+
 
     private void stopPlaying() {
         if (mp != null) {
