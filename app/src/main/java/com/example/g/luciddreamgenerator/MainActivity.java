@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button generate;
     private Button goToWrite;
     private TextView result;
+    private TextView warning;
     private TextView showhz;
     private Spinner spinner1; // sound one
     private SeekBar freq1;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private final byte sound[] = new byte[2*numSamp];
     private float default_Hz = 440;
 
+    private int play_state = 0; //0 means nothing is playing, 1 means default sound playing, 2 means tone is playing
 
     private AudioTrack audio;
     private boolean ready = false;
@@ -68,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         freq1 = (SeekBar) findViewById(R.id.seekBar);
         showhz = (TextView) findViewById(R.id.textView3);
+        warning = findViewById(R.id.warning);
+        warning.setText("");
+
         addItemsOnSpinner();
         setUpStartButton();
         setUpJournalButton();
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         record_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopPlaying();
+                stop_current_sound();
                 startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
         });
@@ -168,62 +173,43 @@ public class MainActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(spinner1.getSelectedItem().toString() == "Tone"){
                     //audio.stop();
-                    generate_default();
-                    play(sound);
-                }
-               // Intent my_intent = new Intent(getBaseContext(), TimerActivity.class);
-               /* String selected_values = spinner1.getSelectedItem().toString();
-                selected_values = selected_values.concat("~");
-                selected_values = selected_values.concat(Float.toString((float)freq1.getProgress()*100 / 10));
-                //selected_values = selected_values.concat("~");
-                //selected_values = selected_values.concat(Integer.toString(amp1.getProgress()));
-              //  my_intent.putExtra("SELECTED_VALUES", selected_values);
-
-                final Thread thread = new Thread(new Runnable() {
-                    public void run() {
-                        generate();
-                        handle.post(new Runnable() {
-                            public void run() {
-                                generate_default();
-                                play(sound);
-                            }
-                        });
+                    if(Hz == 0)
+                        warning.setText("Hz cannot be 0");
+                    else {
+                        warning.setText("");
+                        generate_default();
+                        play(sound);
                     }
-                });
-                thread.start();
-                */
-                //startActivity(my_intent);
-
+                }
 
                 else {
-                    stopPlaying();
-
+                    warning.setText("");
+                    stop_current_sound();
                     String selected_mp3 = spinner1.getSelectedItem().toString();
 
-                    if (selected_mp3 == "Ocean")
+                    if (selected_mp3 == "Ocean") {
                         mp = MediaPlayer.create(MainActivity.this, R.raw.ocean);
-                    else if (selected_mp3 == "Rain")
+                    }
+                    else if (selected_mp3 == "Rain") {
                         mp = MediaPlayer.create(MainActivity.this, R.raw.rain);
-                    else if (selected_mp3 == "Wind")
+                    }
+                    else if (selected_mp3 == "Wind") {
                         mp = MediaPlayer.create(MainActivity.this, R.raw.wind);
-                    else
+                    }
+                    else {
                         mp = MediaPlayer.create(MainActivity.this, R.raw.rain); // play rain by default
-
+                    }
                     mp.start();
+                    play_state = 1;
                 }
             }
         });
     }
 
-    private void stopPlaying() {
-        if (mp != null) {
-            mp.stop();
-            mp.release();
-            mp = null;
-        }
-    }
+
 
     void interpolation(int begin, int end, double[] oldSample, double[] newSample,int ratio){//begin and end is the index of newSample
         //calculate the slope
@@ -305,21 +291,31 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    void stop_current_sound(){
+        if(play_state == 1) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
+        else if(play_state == 2)
+            audio.stop();
+    }
+
     void play(byte[] sound)
     {
         //https://stackoverflow.com/questions/8698633/how-to-generate-a-particular-sound-frequency
+        stop_current_sound();
         ready = true;
-        audio = new AudioTrack(AudioManager.STREAM_MUSIC,sampleRate,
+        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
                 AudioFormat.CHANNEL_CONFIGURATION_MONO,
                 AudioFormat.ENCODING_PCM_16BIT,
                 numSamp,
                 AudioTrack.MODE_STATIC);
 
-        audio.write(sound,0,sound.length);
+        audio.write(sound, 0, sound.length);
+        audio.setLoopPoints(0, sound.length / 4, -1);
         audio.play();
-//        while(audio.getPlayState() == 3) {
-//            System.out.println("currently playing");
-//        }
+        play_state = 2;
     }
 
 
