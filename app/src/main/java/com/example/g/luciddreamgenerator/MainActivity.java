@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         journal_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                stop_current_sound();
                 startActivity(new Intent(MainActivity.this, JournalActivity.class));
             }
         });
@@ -300,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(play_state == 2)
             audio.stop();
+        play_state = 0;
     }
 
     void play(byte[] sound)
