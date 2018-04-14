@@ -190,6 +190,9 @@ public class ToolsActivity extends AppCompatActivity {
             am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
             already_active = true;
         }
+        else if (!active) {
+            am.cancel(pi);
+        }
     }
 
     public void loadSettings() {
