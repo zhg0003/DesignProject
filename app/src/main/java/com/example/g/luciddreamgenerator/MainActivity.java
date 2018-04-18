@@ -164,30 +164,6 @@ public class MainActivity extends AppCompatActivity {
         setUpJournalButton();
         setUpCancelButton();
         setUpFrequencyBar();
-
-        /*frequency  = (EditText)findViewById(R.id.frequency);
-        amplitude = (EditText)findViewById(R.id.amplitude);
-        generate = (Button)findViewById(R.id.generate);
-        result = (TextView)findViewById(R.id.result);
-        generate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                result.setText("Amp is "+amplitude.getText().toString()+" Hz is "+frequency.getText().toString());
-                Hz = Float.parseFloat(frequency.getText().toString());
-                amp = Float.parseFloat(amplitude.getText().toString());
-                final Thread thread = new Thread(new Runnable() {
-                    public void run() {
-                        generate();
-                        handle.post(new Runnable() {
-                            public void run() {
-                                play();
-                            }
-                        });
-                    }
-                });
-                thread.start();
-            }
-        });*/
     }
 
     public void setUpFrequencyBar(){
@@ -404,10 +380,9 @@ public class MainActivity extends AppCompatActivity {
                 AudioTrack.MODE_STATIC);
 
         audio.write(sound, 0, sound.length);
-        audio.play();
         audio.setLoopPoints(0, sound.length/4, -1);
+        audio.play();
+
         play_state = 2;
     }
-
-
 }
