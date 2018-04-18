@@ -6,6 +6,8 @@ import android.media.AudioTrack;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText amplitude;
     private Button generate;
     private Button goToWrite;
+    private Button inc1;
+    private Button dec1;
     private TextView result;
     private TextView warning;
     private TextView showhz;
@@ -44,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar freq1;
     private SeekBar amp1;
     private Spinner spinner2; // sound two
-
+    private TextView editHz;
     //AudioTrack related stuff
     private final int sampleRate = 8000;
     private final int duration = 3; // in seconds
@@ -67,11 +71,66 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("in here");
         setContentView(R.layout.activity_main);
+
+        inc1=findViewById(R.id.inc1);
+        dec1=findViewById(R.id.dec1);
+
         freq1 = (SeekBar) findViewById(R.id.seekBar);
         showhz = (TextView) findViewById(R.id.textView3);
+        editHz = findViewById(R.id.enterHz);
+        editHz.setText("");
+        freq1.setProgress(70);
+
         warning = findViewById(R.id.warning);
         warning.setText("");
+        editHz.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                 System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
+                warning.setText("in here");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
+                //freq1.setProgress((int)Float.parseFloat(editHz.getText().toString())*10);
+                warning.setText("in ontextchange");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                System.out.println("in afterchange");
+                if(editHz.getText().length() == 0){
+                    editHz.setText("1");
+                }
+
+                freq1.setProgress((int)(Float.parseFloat(editHz.getText().toString())*10));
+                warning.setText("changed to "+freq1.getProgress()+" user entered "+(int)Float.parseFloat(editHz.getText().toString())*10);
+            }
+        });
+        inc1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((freq1.getProgress()+10)>3600)
+                    freq1.setProgress(3600);
+                else
+                    freq1.setProgress(freq1.getProgress()+10);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
+
+        dec1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((freq1.getProgress()-10)<=0)
+                    freq1.setProgress(10);
+                else
+                    freq1.setProgress(freq1.getProgress()-10);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
 
         addItemsOnSpinner();
         setUpStartButton();
@@ -108,9 +167,11 @@ public class MainActivity extends AppCompatActivity {
         freq1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                System.out.println("seekbar progress is "+freq1.getProgress()+" i is "+i);
                 if (spinner1.getSelectedItem().toString().equals("Tone")) {
-                    Hz = (float)i/100*360;
+                    Hz = (float)freq1.getProgress()/10;
                     showhz.setText(String.valueOf(Hz + " Hz"));
+                    editHz.setText(String.valueOf(Hz));
                 }
                 else
                     showhz.setText("Only Applicable to Tone");
@@ -152,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stop_current_sound();
-                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
         });
     }
