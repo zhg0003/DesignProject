@@ -135,7 +135,7 @@
         android:id="@+id/enterHz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
@@ -147,28 +147,48 @@
 
     <Button
         android:id="@+id/inc1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="8dp"
-        android:text="+1"
+        android:text="+1 Hz"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.321" />
 
     <Button
         android:id="@+id/dec1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginStart="92dp"
         android:layout_marginTop="8dp"
-        android:text="-1"
+        android:text="-1 Hz"
         app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/inc1"
         app:layout_constraintTop_toBottomOf="@+id/seekBar"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.321" />
+
+    <Button
+        android:id="@+id/inc01"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:text="+0.1Hz"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inc1" />
+
+    <Button
+        android:id="@+id/dec01"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="8dp"
+        android:text="-0.1Hz"
+        app:layout_constraintStart_toEndOf="@+id/inc01"
+        app:layout_constraintTop_toBottomOf="@+id/dec1" />
 
 </android.support.constraint.ConstraintLayout>

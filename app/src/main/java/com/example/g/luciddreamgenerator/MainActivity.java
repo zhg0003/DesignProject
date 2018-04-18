@@ -37,10 +37,14 @@ public class MainActivity extends AppCompatActivity {
     //UI stuff
     private EditText frequency;
     private EditText amplitude;
+
     private Button generate;
     private Button goToWrite;
     private Button inc1;
     private Button dec1;
+    private Button inc01;
+    private Button dec01;
+
     private TextView result;
     private TextView warning;
     private TextView showhz;
@@ -76,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         inc1=findViewById(R.id.inc1);
         dec1=findViewById(R.id.dec1);
+        inc01=findViewById(R.id.inc01);
+        dec01=findViewById(R.id.dec01);
 
         freq1 = (SeekBar) findViewById(R.id.seekBar);
         showhz = (TextView) findViewById(R.id.textView3);
@@ -132,6 +138,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        dec01.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((freq1.getProgress()-1)<=0)
+                    freq1.setProgress(1);
+                else
+                    freq1.setProgress(freq1.getProgress()-1);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
+
+        inc01.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if((freq1.getProgress()+1)<=0)
+                    freq1.setProgress(3600);
+                else
+                    freq1.setProgress(freq1.getProgress()+1);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
         addItemsOnSpinner();
         setUpStartButton();
         setUpJournalButton();
@@ -377,8 +404,8 @@ public class MainActivity extends AppCompatActivity {
                 AudioTrack.MODE_STATIC);
 
         audio.write(sound, 0, sound.length);
-        audio.setLoopPoints(0, sound.length / 4, -1);
         audio.play();
+        audio.setLoopPoints(0, sound.length/4, -1);
         play_state = 2;
     }
 
