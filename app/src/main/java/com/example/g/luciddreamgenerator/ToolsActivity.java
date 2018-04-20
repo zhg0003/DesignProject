@@ -120,8 +120,8 @@ public class ToolsActivity extends AppCompatActivity {
         //Select sound to be used in the repeating alarm
         List<String> list = new ArrayList<>();
         list.add("Coin");
+        list.add("Dream");
         list.add("Notification");
-        list.add("Alarm");
         list.add("None");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
@@ -129,8 +129,8 @@ public class ToolsActivity extends AppCompatActivity {
         spin.setAdapter(adapter);
 
         if (saved_song.equals("Coin")) {spin.setSelection(0);}
-        else if (saved_song.equals("Notification")) {spin.setSelection(1);}
-        else if (saved_song.equals("Alarm")) {spin.setSelection(2);}
+        else if (saved_song.equals("Dream")) {spin.setSelection(1);}
+        else if (saved_song.equals("Notification")) {spin.setSelection(2);}
         else if (saved_song.equals("None")) {spin.setSelection(3);}
 
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
