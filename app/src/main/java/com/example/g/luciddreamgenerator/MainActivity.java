@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import android.media.MediaPlayer;
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("in here");
         setContentView(R.layout.activity_main);
-
         inc1=findViewById(R.id.inc1);
         dec1=findViewById(R.id.dec1);
         inc01=findViewById(R.id.inc01);
@@ -86,9 +86,11 @@ public class MainActivity extends AppCompatActivity {
         freq1 = (SeekBar) findViewById(R.id.seekBar);
         showhz = (TextView) findViewById(R.id.textView3);
         editHz = findViewById(R.id.enterHz);
-        editHz.setText("");
-        freq1.setProgress(70);
 
+        freq1.setProgress(70);
+        Hz = (float)freq1.getProgress()/10;
+        showhz.setText(String.valueOf(Hz + " Hz"));
+        editHz.setText(String.valueOf(Hz));
         warning = findViewById(R.id.warning);
         warning.setText("");
         editHz.addTextChangedListener(new TextWatcher() {
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 freq1.setProgress((int)(Float.parseFloat(editHz.getText().toString())*10));
-                warning.setText("changed to "+freq1.getProgress()+" user entered "+(int)Float.parseFloat(editHz.getText().toString())*10);
+                warning.setText("changed to "+freq1.getProgress()+" user entered "+Float.parseFloat(editHz.getText().toString())*10);
             }
         });
         inc1.setOnClickListener(new View.OnClickListener() {
