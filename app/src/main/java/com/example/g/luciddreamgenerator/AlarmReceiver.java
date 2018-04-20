@@ -24,6 +24,7 @@ import android.support.v4.app.NotificationCompat;
 import java.io.IOException;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static android.content.Context.POWER_SERVICE;
 
 public class AlarmReceiver extends BroadcastReceiver{
     private static final int uniqueID = 12345;
@@ -37,15 +38,13 @@ public class AlarmReceiver extends BroadcastReceiver{
         String check = "song null";
 
         if (song != null) {
-            if (song.equals("Alert")) {
-                alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            if (song.equals("Dream")) {
+                alert = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.dream);
                 check = song;
-            }
-            else if (song.equals("Notification")) {
+            } else if (song.equals("Notification")) {
                 alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 check = song;
-            }
-            else if (song.equals("Coin")) {
+            } else if (song.equals("Coin")) {
                 alert = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.coin);
                 check = song;
             }
@@ -77,13 +76,13 @@ public class AlarmReceiver extends BroadcastReceiver{
         mBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
-                .setContentTitle("Are you dreaming?")
+                .setContentTitle("Am I dreaming?")
                 .setContentText("")
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSound(alert, AudioManager.STREAM_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setVibrate(new long[] {1000, 1000})
+                .setVibrate(new long[]{1000, 1000})
                 .setAutoCancel(true)
                 .setTicker("Are you dreaming?")
                 .setWhen(System.currentTimeMillis())
@@ -91,7 +90,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         nm.notify(uniqueID, mBuilder.build());
 
         if (!song.equals("None")) {
-            final MediaPlayer mMediaPlayer = new MediaPlayer();
+            /*final MediaPlayer mMediaPlayer = new MediaPlayer();
             try {
                 mMediaPlayer.setDataSource(context, alert);
                 final AudioManager audioManager = (AudioManager) context
@@ -111,6 +110,21 @@ public class AlarmReceiver extends BroadcastReceiver{
                     cdt.start();
                 }
             } catch (IOException e) {
+                System.out.println("OOPS");
+            }*/
+            final MediaPlayer player = new MediaPlayer();
+            try {
+                player.setDataSource(context, alert);
+                final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
+                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+                        player.setLooping(false);
+                        player.prepare();
+                        player.start();
+                }
+            }
+            catch (IOException e) {
                 System.out.println("OOPS");
             }
         }
