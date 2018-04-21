@@ -38,7 +38,7 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginStart="8dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="72dp"
         android:layout_marginEnd="8dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -81,7 +81,7 @@
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="11dp"
         app:layout_constraintBottom_toTopOf="@+id/checkBox3"
         app:layout_constraintStart_toStartOf="@+id/editText0" />
 
@@ -89,7 +89,7 @@
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
+        android:layout_marginBottom="11dp"
         app:layout_constraintBottom_toTopOf="@+id/checkBox4"
         app:layout_constraintEnd_toStartOf="@+id/editText2" />
 
@@ -97,6 +97,7 @@
         android:id="@+id/editText1"
         android:layout_width="140dp"
         android:layout_height="34dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Custom Field 1"
@@ -108,6 +109,7 @@
         android:id="@+id/editText2"
         android:layout_width="140dp"
         android:layout_height="34dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Custom Field 2"
@@ -119,40 +121,81 @@
         android:id="@+id/checkBox3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox5"
         app:layout_constraintStart_toStartOf="@+id/checkBox1" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Custom Field 3"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintBottom_toTopOf="@+id/editText5"
         app:layout_constraintStart_toEndOf="@+id/checkBox3" />
 
     <CheckBox
         android:id="@+id/checkBox4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox6"
         app:layout_constraintEnd_toStartOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Custom Field 4"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintBottom_toTopOf="@+id/editText6"
         app:layout_constraintEnd_toEndOf="@+id/editText2" />
+
+    <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintStart_toStartOf="@+id/checkBox3" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintEnd_toStartOf="@+id/editText6" />
+
+        <EditText
+            android:id="@+id/editText5"
+            android:layout_width="140dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Custom Field 5"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintStart_toEndOf="@+id/checkBox5" />
+
+        <EditText
+            android:id="@+id/editText6"
+            android:layout_width="140dp"
+            android:layout_height="34dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Custom Field 6"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="@+id/editText4" />
+
 
 </android.support.constraint.ConstraintLayout>
