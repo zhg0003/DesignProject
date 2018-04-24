@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -39,16 +40,17 @@ public class MainActivity extends AppCompatActivity {
     private EditText frequency;
     private EditText amplitude;
 
+    private CheckBox left;
+    private CheckBox right;
+
     private Button generate;
     private Button goToWrite;
-    private Button inc1;
-    private Button dec1;
     private Button inc01;
     private Button dec01;
 
     private TextView result;
-    private TextView warning;
-    private TextView showhz;
+    //private TextView warning;
+
     private Spinner spinner1; // sound one
     private SeekBar freq1;
     private SeekBar amp1;
@@ -78,33 +80,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("in here");
         setContentView(R.layout.activity_main);
-        inc1=findViewById(R.id.inc1);
-        dec1=findViewById(R.id.dec1);
         inc01=findViewById(R.id.inc01);
         dec01=findViewById(R.id.dec01);
 
+        left=findViewById(R.id.leftChannel);
+        right=findViewById(R.id.rightChannel);
+
         freq1 = (SeekBar) findViewById(R.id.seekBar);
-        showhz = (TextView) findViewById(R.id.textView3);
+
         editHz = findViewById(R.id.enterHz);
 
         freq1.setProgress(70);
         Hz = (float)freq1.getProgress()/10;
-        showhz.setText(String.valueOf(Hz + " Hz"));
+
         editHz.setText(String.valueOf(Hz));
-        warning = findViewById(R.id.warning);
-        warning.setText("");
+        //warning = findViewById(R.id.warning);
+        //warning.setText("");
         editHz.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                  System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
-                warning.setText("in here");
+                //warning.setText("in here");
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
                 //freq1.setProgress((int)Float.parseFloat(editHz.getText().toString())*10);
-                warning.setText("in ontextchange");
+                //warning.setText("in ontextchange");
             }
 
             @Override
@@ -115,28 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 freq1.setProgress((int)(Float.parseFloat(editHz.getText().toString())*10));
-                warning.setText("changed to "+freq1.getProgress()+" user entered "+Float.parseFloat(editHz.getText().toString())*10);
-            }
-        });
-        inc1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((freq1.getProgress()+10)>3600)
-                    freq1.setProgress(3600);
-                else
-                    freq1.setProgress(freq1.getProgress()+10);
-                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
-            }
-        });
-
-        dec1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if((freq1.getProgress()-10)<=0)
-                    freq1.setProgress(10);
-                else
-                    freq1.setProgress(freq1.getProgress()-10);
-                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+//                warning.setText("changed to "+freq1.getProgress()+" user entered "+Float.parseFloat(editHz.getText().toString())*10);
             }
         });
 
@@ -161,6 +143,23 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
         });
+
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(right.isChecked())
+                    right.setChecked(false);
+            }
+        });
+
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(left.isChecked())
+                    left.setChecked(false);
+            }
+        });
+
         addItemsOnSpinner();
         setUpStartButton();
         setUpJournalButton();
@@ -175,11 +174,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("seekbar progress is "+freq1.getProgress()+" i is "+i);
                 if (spinner1.getSelectedItem().toString().equals("Tone")) {
                     Hz = (float)freq1.getProgress()/10;
-                    showhz.setText(String.valueOf(Hz + " Hz"));
+
                     editHz.setText(String.valueOf(Hz));
                 }
-                else
-                    showhz.setText("Only Applicable to Tone");
+
             }
 
             @Override
@@ -243,17 +241,14 @@ public class MainActivity extends AppCompatActivity {
 
                 if(spinner1.getSelectedItem().toString() == "Tone"){
                     //audio.stop();
-                    if(Hz == 0)
-                        warning.setText("Hz cannot be 0");
-                    else {
-                        warning.setText("");
+//                        warning.setText("");
                         generate_default();
                         play(sound);
-                    }
                 }
 
+
                 else {
-                    warning.setText("");
+//                    warning.setText("");
                     stop_current_sound();
                     String selected_mp3 = spinner1.getSelectedItem().toString();
 
@@ -376,13 +371,18 @@ public class MainActivity extends AppCompatActivity {
         stop_current_sound();
         ready = true;
         audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                AudioFormat.CHANNEL_CONFIGURATION_STEREO,
                 AudioFormat.ENCODING_PCM_16BIT,
                 numSamp,
                 AudioTrack.MODE_STATIC);
-
         audio.write(sound, 0, sound.length);
-        audio.setLoopPoints(0, sound.length/4, -1);
+
+        if(right.isChecked())
+            audio.setStereoVolume(0,1);
+        else if(left.isChecked())
+            audio.setStereoVolume(1,0);
+
+        //audio.setLoopPoints(0, sound.length/4, -1);
         audio.play();
 
         play_state = 2;
