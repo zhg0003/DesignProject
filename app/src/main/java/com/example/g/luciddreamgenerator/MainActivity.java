@@ -30,10 +30,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
-//to do
-//spawn a pause and stop button once start button is pressed
-//add a button that takes user to alarm
-//
 
 public class MainActivity extends AppCompatActivity {
     //UI stuff
@@ -57,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinner2; // sound two
     private TextView editHz;
     //AudioTrack related stuff
-    private final int sampleRate = 8000;
+    private final int sampleRate = 44100;
     private final int duration = 3; // in seconds
     private final int numSamp = duration * sampleRate;
     private final double Sample[] = new double[numSamp];
@@ -68,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AudioTrack audio;
     private boolean ready = false;
-
+    private Thread toneGen;
     //sound related stuff
     private float Hz ;
     private float amp;
@@ -204,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
-
     }
 
 
@@ -238,12 +233,21 @@ public class MainActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(spinner1.getSelectedItem().toString() == "Tone"){
                     //audio.stop();
 //                        warning.setText("");
                         generate_default();
+                        Runnable toneStream = new Runnable() {
+                            @Override
+                            public void run() {
+                                while (play_state == 2) {
+                                    audio.write(sound, 0, sound.length);
+                                }
+                            }
+                        };
+                        toneGen = new Thread(toneStream);
                         play(sound);
+                        toneGen.start();
                 }
 
 
@@ -367,24 +371,24 @@ public class MainActivity extends AppCompatActivity {
 
     void play(byte[] sound)
     {
-        //https://stackoverflow.com/questions/8698633/how-to-generate-a-particular-sound-frequency
-        stop_current_sound();
-        ready = true;
-        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                AudioFormat.CHANNEL_CONFIGURATION_STEREO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                numSamp,
-                AudioTrack.MODE_STATIC);
-        audio.write(sound, 0, sound.length);
 
+        //https://stackoverflow.com/questions/8698633/how-to-generate-a-particular-sound-frequency
+        if(play_state != 0)
+            stop_current_sound();
+        play_state = 2;
+        ready = true;
+        //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
+        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                4* AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT),
+                AudioTrack.MODE_STREAM);
+        audio.write(sound, 0, sound.length);
         if(right.isChecked())
             audio.setStereoVolume(0,1);
         else if(left.isChecked())
             audio.setStereoVolume(1,0);
 
-        //audio.setLoopPoints(0, sound.length/4, -1);
         audio.play();
-
-        play_state = 2;
     }
 }

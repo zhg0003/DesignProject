@@ -34,7 +34,7 @@
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:background="#33e3e3e3"
+        android:background="?attr/colorButtonNormal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -87,8 +87,8 @@
         android:id="@+id/textView4"
         android:layout_width="31dp"
         android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="56dp"
         android:text="Hz:"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
