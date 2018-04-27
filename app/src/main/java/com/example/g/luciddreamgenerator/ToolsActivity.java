@@ -14,6 +14,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -42,8 +44,8 @@ import java.util.Random;
 
 public class ToolsActivity extends AppCompatActivity {
     RadioGroup intervalSelect;
+    RadioGroup songSelect;
     Switch sw;
-    Spinner spin;
     long interval;
     boolean random = false;
     boolean active = false;
@@ -59,19 +61,21 @@ public class ToolsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tools);
         interval = AlarmManager.INTERVAL_HALF_HOUR;
         intervalSelect = (RadioGroup) findViewById(R.id.radioGroup);
-        spin = (Spinner) findViewById(R.id.spinner2);
+        songSelect = (RadioGroup) findViewById(R.id.songRadioGroup);
         sw = (Switch) findViewById(R.id.switch1);
 
         //load previous settings
         loadSettings();
         setUpBackButton();
+        //setUpInfoButton();
 
         //set switch to on or off
         if (saved_active.equals("On")) {
+            active = true;
             sw.setChecked(true);
         }
 
-        //set radio button to previously saved radio button
+        //set interval radio button to previously saved radio button
         if (saved_interval.equals("Half Hour")) {
             intervalSelect.check(R.id.halfRbtn);
         }
@@ -83,6 +87,20 @@ public class ToolsActivity extends AppCompatActivity {
         }
         else if (saved_interval.equals("Random")) {
             intervalSelect.check(R.id.randRbtn);
+        }
+
+        //set song radio button to previously saved radio button
+        if (saved_song.equals("Coin")) {
+            songSelect.check(R.id.coinRbtn);
+        }
+        else if (saved_interval.equals("Dream")) {
+            songSelect.check(R.id.dreamRbtn);
+        }
+        else if (saved_interval.equals("Notification")) {
+            songSelect.check(R.id.notificationRbtn);
+        }
+        else if (saved_interval.equals("None")) {
+            songSelect.check(R.id.noneRbtn);
         }
 
         //Set up interval to be used in the repeating alarm
@@ -117,32 +135,27 @@ public class ToolsActivity extends AppCompatActivity {
             }
         });
 
-        //Select sound to be used in the repeating alarm
-        List<String> list = new ArrayList<>();
-        list.add("Coin");
-        list.add("Dream");
-        list.add("Notification");
-        list.add("None");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(adapter);
-
-        if (saved_song.equals("Coin")) {spin.setSelection(0);}
-        else if (saved_song.equals("Dream")) {spin.setSelection(1);}
-        else if (saved_song.equals("Notification")) {spin.setSelection(2);}
-        else if (saved_song.equals("None")) {spin.setSelection(3);}
-
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //Set up sound to be used in the repeating alarm
+        songSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                saved_song = spin.getSelectedItem().toString();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton rb = (RadioButton) group.findViewById(checkedId);
+
+                switch(rb.getId()) {
+                    case R.id.coinRbtn:
+                        saved_song = "Coin";
+                        break;
+                    case R.id.dreamRbtn:
+                        saved_song = "Dream";
+                        break;
+                    case R.id.notificationRbtn:
+                        saved_song = "Notification";
+                        break;
+                    case R.id.noneRbtn:
+                        saved_song = "None";
+                        break;
+                }
                 setAlarm();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -159,6 +172,15 @@ public class ToolsActivity extends AppCompatActivity {
                     saved_active = "Off";
                 }
                 setAlarm();
+            }
+        });
+
+        ImageButton info_button = (ImageButton) findViewById(R.id.imageButton);
+
+        info_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast();
             }
         });
 
@@ -179,11 +201,20 @@ public class ToolsActivity extends AppCompatActivity {
     public void setAlarm() {
         final AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent i = new Intent(ToolsActivity.this, AlarmReceiver.class);
-        i.putExtra("SONG_ID", saved_song);
+        Bundle extras = new Bundle();
+        extras.putString("SONG_ID", saved_song);
+        if (random) {extras.putString("RANDOM_BOOL", "true");}
+        else {extras.putString("RANDOM_BOOL", "false");}
+        i.putExtras(extras);
         PendingIntent pi = PendingIntent.getBroadcast(getApplicationContext(),0,i,PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (random && active){
-            am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
+            if (Build.VERSION.SDK_INT < 19) {
+                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
+            }
+            else {
+                am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);
+            }
             already_active = true;
         }
         else if (!random && active) {
@@ -193,6 +224,7 @@ public class ToolsActivity extends AppCompatActivity {
         else if (!active) {
             am.cancel(pi);
         }
+        saveSettings();
     }
 
     public void loadSettings() {
@@ -217,5 +249,29 @@ public class ToolsActivity extends AppCompatActivity {
         sb.append(saved_song).append("~");
         editor.putString("settings", sb.toString());
         editor.apply();
+    }
+
+    public void showToast() {
+        // Set the toast and duration
+        final Toast t;
+        int toastDurationInMilliSeconds = 30000;
+        final String explanation = "Train your mind to ask yourself if you are dreaming using a unique sound " +
+                "throughout the day and while you are dreaming.";
+        t = Toast.makeText(this, explanation, Toast.LENGTH_LONG);
+
+        // Set the countdown to display the toast
+        CountDownTimer toastCountDown;
+        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1000 /*Tick duration*/) {
+            public void onTick(long millisUntilFinished) {
+                t.show();
+            }
+            public void onFinish() {
+                t.cancel();
+            }
+        };
+
+        // Show the toast and starts the countdown
+        t.show();
+        toastCountDown.start();
     }
 }
