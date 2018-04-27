@@ -55,9 +55,14 @@ public class MainActivity extends AppCompatActivity {
     //AudioTrack related stuff
     private final int sampleRate = 44100;
     private final int duration = 3; // in seconds
-    private final int numSamp = duration * sampleRate;
+    //private final int numSamp = duration * sampleRate;
+
+    private final int numSamp = sampleRate;
     private final double Sample[] = new double[numSamp];
     private final byte sound[] = new byte[2*numSamp];
+    private final int bufferSize = sampleRate;
+
+
     private float default_Hz = 440;
 
     private int play_state = 0; //0 means nothing is playing, 1 means default sound playing, 2 means tone is playing
@@ -236,17 +241,17 @@ public class MainActivity extends AppCompatActivity {
                 if(spinner1.getSelectedItem().toString() == "Tone"){
                     //audio.stop();
 //                        warning.setText("");
-                        generate_default();
+                        final byte[] samples = generate_default();
                         Runnable toneStream = new Runnable() {
                             @Override
                             public void run() {
                                 while (play_state == 2) {
-                                    audio.write(sound, 0, sound.length);
+                                    audio.write(samples, 0, samples.length);
                                 }
                             }
                         };
                         toneGen = new Thread(toneStream);
-                        play(sound);
+                        play(samples);
                         toneGen.start();
                 }
 
@@ -338,24 +343,42 @@ public class MainActivity extends AppCompatActivity {
         return sound;
     }
 
-    void generate_default() //generate the default wave
+    byte[] generate_default() //generate the default wave
     {
         //https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
-        for(int i = 0;i<numSamp;i++)
-        {
-            //wave formula, i is t
-            Sample[i] = Math.sin(2*Math.PI*i / (sampleRate/Hz));
-        }
+        int x = (int)( (double)bufferSize * Hz / sampleRate ); // added
+        int mSampleCount = (int)( (double)x * sampleRate / Hz ); // added
 
-        int idx = 0;
-        for (final double dVal : Sample) {
-            // scale to maximum amplitude
-            final short val = (short) ((dVal * 32767));
-            // in 16 bit wav PCM, first byte is the low order byte
-            sound[idx++] = (byte) (val & 0x00ff);
-            sound[idx++] = (byte) ((val & 0xff00) >>> 8);
+        byte[] samples = new byte[ mSampleCount ]; // changed from bufferSize
 
+        for( int i = 0; i != mSampleCount; ++i ) { // changed from bufferSize
+            double t = (double)i * (1.0/sampleRate);
+            double f = Math.sin( t * 2*Math.PI * Hz );
+            samples[i] = (byte)(f * 127);
         }
+//        for(int i = 0;i<numSamp;i++)
+//        {
+//            //wave formula, i is t
+//            Sample[i] = Math.sin(2*Math.PI*i / (sampleRate/Hz));
+//        }
+//
+//        int idx = 0;
+//        for (final double dVal : Sample) {
+//            // scale to maximum amplitude
+//            final short val = (short) ((dVal * 32767));
+//            // in 16 bit wav PCM, first byte is the low order byte
+//            sound[idx++] = (byte) (val & 0x00ff);
+//            sound[idx++] = (byte) ((val & 0xff00) >>> 8);
+//
+//        }
+        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
+                AudioTrack.MODE_STREAM);
+        audio.write(samples, 0, samples.length);
+        audio.setLoopPoints(0,mSampleCount,-1);
+        return samples;
     }
 
     void stop_current_sound(){
@@ -378,17 +401,12 @@ public class MainActivity extends AppCompatActivity {
         play_state = 2;
         ready = true;
         //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
-        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                AudioFormat.CHANNEL_OUT_STEREO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                4* AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT),
-                AudioTrack.MODE_STREAM);
-        audio.write(sound, 0, sound.length);
         if(right.isChecked())
             audio.setStereoVolume(0,1);
         else if(left.isChecked())
             audio.setStereoVolume(1,0);
 
         audio.play();
+
     }
 }
