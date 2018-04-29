@@ -23,7 +23,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="left"
-        android:text="Sound"
+        android:text="Sound 1"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:background="#33e3e3e3"
+        android:background="?attr/colorButtonNormal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:gravity="left"
-        android:text="Frequency"
+        android:text="Frequency 1"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -57,41 +57,33 @@
         android:layout_marginStart="8dp"
         android:background="#33e3e3e3"
         android:max="3600"
-        android:min="1"
+        android:min="5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="95dp"
-        android:layout_height="50dp"
+        android:layout_width="90dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="12dp"
         android:layout_marginStart="60dp"
         android:drawableLeft="@android:drawable/ic_media_play"
         android:text="Play"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="95dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="72dp"
         android:drawableLeft="@android:drawable/checkbox_off_background"
         android:text="Stop"
+        android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="31dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="70dp"
-        android:text="Hz:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <Button
         android:id="@+id/button10"
@@ -120,25 +112,24 @@
 
     <EditText
         android:id="@+id/enterHz"
-        android:layout_width="118dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="224dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="62dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="1dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/button10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.22"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="1"
+        android:textColorLink="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <Button
         android:id="@+id/inc01"
         android:layout_width="67dp"
         android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
-        android:text="+0.1Hz"
+        android:layout_marginStart="112dp"
+        android:text="+0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -146,9 +137,8 @@
         android:id="@+id/dec01"
         android:layout_width="67dp"
         android:layout_height="35dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
-        android:text="-0.1Hz"
+        android:layout_marginStart="36dp"
+        android:text="-0.1"
         app:layout_constraintStart_toEndOf="@+id/inc01"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -156,30 +146,186 @@
         android:id="@+id/leftChannel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="left"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterHz" />
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <CheckBox
         android:id="@+id/rightChannel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
         android:text="right"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leftChannel" />
+        app:layout_constraintStart_toEndOf="@+id/leftChannel"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="84dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="50dp"
         android:text="Channels"
-        app:layout_constraintBottom_toTopOf="@+id/leftChannel"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="21dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left"
+        android:text="Hz"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <CheckBox
+        android:id="@+id/_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:text="default"
+        app:layout_constraintStart_toEndOf="@+id/rightChannel"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Sound 2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rightChannel" />
+
+    <Spinner
+        android:id="@+id/sound2item"
+        android:layout_width="191dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:background="?attr/colorButtonNormal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Frequency 2"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sound2item" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="350dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:background="#33e3e3e3"
+        android:max="3600"
+        android:min="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Hz"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <EditText
+        android:id="@+id/enterHz2"
+        android:layout_width="62dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="1"
+        android:textColorLink="@android:color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <Button
+        android:id="@+id/inc01_2"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="112dp"
+        android:text="+0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <Button
+        android:id="@+id/dec01_2"
+        android:layout_width="67dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="36dp"
+        android:text="-0.1"
+        app:layout_constraintStart_toEndOf="@+id/inc01_2"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <CheckBox
+        android:id="@+id/disableSound2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:text="disable sound 2"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar2"
+        app:layout_constraintStart_toEndOf="@+id/sound2item" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="60dp"
+        android:text="Channels"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/warning" />
+
+    <CheckBox
+        android:id="@+id/leftChannel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:text="left"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <CheckBox
+        android:id="@+id/rightChannel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:text="right"
+        app:layout_constraintStart_toEndOf="@+id/leftChannel2"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+
+    <CheckBox
+        android:id="@+id/_default2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="44dp"
+        android:text="default"
+        app:layout_constraintStart_toEndOf="@+id/rightChannel2"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
 </android.support.constraint.ConstraintLayout>

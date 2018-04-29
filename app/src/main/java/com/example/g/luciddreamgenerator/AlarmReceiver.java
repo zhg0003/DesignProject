@@ -1,5 +1,6 @@
 package com.example.g.luciddreamgenerator;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -14,6 +15,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.provider.MediaStore;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import android.support.v4.app.NotificationCompat;
 
 import java.io.IOException;
+import java.util.Random;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static android.content.Context.POWER_SERVICE;
@@ -34,24 +37,36 @@ public class AlarmReceiver extends BroadcastReceiver{
         PendingIntent pi;
         NotificationCompat.Builder mBuilder;
         Uri alert = null;
-        String song = intent.getStringExtra("SONG_ID");
-        String check = "song null";
+        Bundle extras = intent.getExtras();
+        String song = extras.getString("SONG_ID");
+        String random = extras.getString("RANDOM_BOOL");
+        Random rand = new Random();
+        long randNum;
+        long interval = 0;
+        String message;
+        if (random.equals("true")) {
+            randNum = (long) rand.nextInt((int) AlarmManager.INTERVAL_HOUR * 2 -
+                    (int) AlarmManager.INTERVAL_HALF_HOUR) + AlarmManager.INTERVAL_HALF_HOUR;
+            interval = randNum;
+            message = "";// + ((interval / 1000) / 60);
+        }
+        else {
+            message = "";
+        }
 
         if (song != null) {
             if (song.equals("Dream")) {
                 alert = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.dream);
-                check = song;
-            } else if (song.equals("Notification")) {
+            }
+            else if (song.equals("Notification")) {
                 alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                check = song;
-            } else if (song.equals("Coin")) {
+            }
+            else if (song.equals("Coin")) {
                 alert = Uri.parse("android.resource://" + context.getPackageName() + "/" + R.raw.coin);
-                check = song;
             }
             if (alert == null) {
                 // alert is null, using backup
                 alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-                check = "alert null";
             }
         }
 
@@ -74,10 +89,10 @@ public class AlarmReceiver extends BroadcastReceiver{
         }
 
         mBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
                 .setContentTitle("Am I dreaming?")
-                .setContentText("")
+                .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSound(alert, AudioManager.STREAM_ALARM)
@@ -127,6 +142,17 @@ public class AlarmReceiver extends BroadcastReceiver{
             catch (IOException e) {
                 System.out.println("OOPS");
             }
+        }
+
+        if (random.equals("true") && Build.VERSION.SDK_INT >= 19) {
+            final AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+            Intent randomIntent = new Intent(context, AlarmReceiver.class);
+            Bundle nextExtras = new Bundle();
+            nextExtras.putString("SONG_ID", song);
+            nextExtras.putString("RANDOM_BOOL", "true");
+            randomIntent.putExtras(extras);
+            PendingIntent alarmPI = PendingIntent.getBroadcast(context.getApplicationContext(),0,randomIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + interval, alarmPI);
         }
     }
 }
