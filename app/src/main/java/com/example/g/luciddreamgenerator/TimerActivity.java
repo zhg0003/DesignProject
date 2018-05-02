@@ -408,7 +408,7 @@ public class TimerActivity extends AppCompatActivity {
                                 if (my_timer != null)
                                     my_timer.cancel();
                                 stopPlaying();
-                                mp = MediaPlayer.create(TimerActivity.this, R.raw.alarm);
+                                mp = MediaPlayer.create(TimerActivity.this, R.raw.ocean);
                                 mp.start();
                                 //startActivity(new Intent(TimerActivity.this, JournalActivity.class));
 

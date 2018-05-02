@@ -27,7 +27,14 @@
                 android:text="Back" />
 
             <Button
-                android:id="@+id/button11"
+                android:id="@+id/editBtn"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Edit" />
+
+            <Button
+                android:id="@+id/deleteBtn"
                 android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

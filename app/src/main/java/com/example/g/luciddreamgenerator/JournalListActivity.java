@@ -2,7 +2,9 @@ package com.example.g.luciddreamgenerator;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -33,18 +35,28 @@ public class JournalListActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_list);
-        setUpBackButton();
-        setUpDeleteButton();
 
-        Button deleteButton = (Button) findViewById(R.id.button11);
-        deleteButton.setAlpha(0.5f);
-        deleteButton.setClickable(false);
+        setUpBackButton();
+        setUpEditButton();
+        setUpDeleteButton();
 
         loadDreams(); // Here we load dreams from local storage into ram
 
         if (getIntent().getStringExtra("DREAM_CONTENT") != null) { // If we just wrote down a new dream, get that new dream
             String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
             dreams.add(new_dream);
+        }
+
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
+        SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
+
+        int editedIndex = settings2.getInt("editDreamIndex", -1);
+        if (editedIndex >= 0) { // dream was edited
+            dreams.set(editedIndex, settings.getString("editDream", ""));
+            SharedPreferences.Editor editor = settings2.edit();
+            editor.putInt("editDreamIndex", -1);
+            editor.apply();
+
         }
 
         String[] dreams_array = new String[dreams.size()]; // The rest of onCreate sets up dream_list
@@ -108,21 +120,23 @@ public class JournalListActivity extends ListActivity {
     protected void onListItemClick(ListView dream_list, View v, int position, long id) { // Position is 0 indexed
         //dreams.remove(position);
 
-        Button deleteButton = (Button) findViewById(R.id.button11);
+        Button deleteButton = (Button) findViewById(R.id.deleteBtn);
+        Button editButton = (Button) findViewById(R.id.editBtn);
+        editButton.setAlpha(1.0f);
         deleteButton.setAlpha(1.0f);
+        editButton.setClickable(true);
         deleteButton.setClickable(true);
-        String item = String.valueOf(position);
-        Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < dream_list.getCount(); i++) {
             dream_list.getChildAt(i).setBackgroundColor(Color.WHITE);
             dream_list.getChildAt(i).setSelected(false);
+            dream_list.getChildAt(i).setAlpha(1.0f);
         }
         //this.dream_list
         dream_list.getChildAt(position).setBackgroundColor(Color.LTGRAY);
         dream_list.getChildAt(position).setSelected(true);
+        dream_list.getChildAt(position).setAlpha(0.9f);
         //saveDreams();
-
 
         //startActivity(getIntent());
 
@@ -140,25 +154,77 @@ public class JournalListActivity extends ListActivity {
         });
     }
 
-    public void setUpDeleteButton(){
-        Button deleteButton = (Button) findViewById(R.id.button11);
+    public void setUpEditButton(){
+        Button editButton = (Button) findViewById(R.id.editBtn);
+        editButton.setAlpha(0.5f);
+        editButton.setClickable(false);
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteDream();
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
+                SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
+
+                SharedPreferences.Editor editor = settings.edit();
+                SharedPreferences.Editor editor2 = settings2.edit();
+
+                for (int i = 0; i < dream_list.getCount(); i++)
+                {
+                    if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
+                        String dreamToBeEdited = dreams.get(i);
+                        editor.putString("editDream", dreamToBeEdited);
+                        editor2.putInt("editDreamIndex", i);
+                        editor.apply();
+                        editor2.apply();
+                    }
+                }
+                saveDreams();
+                startActivity(new Intent(JournalListActivity.this, EditActivity.class));
+
             }
         });
     }
 
+    public void setUpDeleteButton(){
+        Button deleteButton = (Button) findViewById(R.id.deleteBtn);
+        deleteButton.setAlpha(0.5f);
+        deleteButton.setClickable(false);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder deleteAlert = new AlertDialog.Builder(JournalListActivity.this);
+                deleteAlert.setMessage("Are you sure you want to delete this dream?").setCancelable(false);
+                deleteAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDream();
+                    }
+                });
+
+                deleteAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog alert = deleteAlert.create();
+                alert.setTitle("Delete dream");
+                alert.show();
+            }
+        });
+    }
+
+
     public void deleteDream(){
 
-        String item = String.valueOf(dream_list.getCount());
-        Toast.makeText(this, item + " number of items", Toast.LENGTH_LONG).show();
+        //String item = String.valueOf(dream_list.getCount());
+        //Toast.makeText(this, item + " number of items", Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < dream_list.getCount(); i++)
         {
-            if (dream_list.getChildAt(i).isSelected()) {
+            if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
                 dream_list.getChildAt(i).setBackgroundColor(Color.RED);
                 dreams.remove(i);
                 saveDreams();

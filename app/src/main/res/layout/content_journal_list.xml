@@ -8,13 +8,13 @@
     tools:context="com.example.g.luciddreamgenerator.JournalListActivity"
     tools:showIn="@layout/activity_journal_list">
 
-
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:divider="#000000"
         android:dividerHeight="1dp"
+        android:focusable="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
