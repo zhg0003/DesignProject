@@ -100,7 +100,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Custom Field 1"
+        android:hint="Custom Field 1"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/editText3"
         app:layout_constraintStart_toEndOf="@+id/checkBox1" />
@@ -112,7 +112,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Custom Field 2"
+        android:hint="Custom Field 2"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/editText4"
         app:layout_constraintEnd_toEndOf="@+id/editText0" />
@@ -132,7 +132,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Custom Field 3"
+        android:hint="Custom Field 3"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/editText5"
         app:layout_constraintStart_toEndOf="@+id/checkBox3" />
@@ -152,7 +152,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Custom Field 4"
+        android:hint="Custom Field 4"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/editText6"
         app:layout_constraintEnd_toEndOf="@+id/editText2" />
@@ -180,7 +180,7 @@
             android:layout_marginBottom="24dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Custom Field 5"
+            android:hint="Custom Field 5"
             android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/checkBox5" />
@@ -192,7 +192,7 @@
             android:layout_marginBottom="24dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Custom Field 6"
+            android:hint="Custom Field 6"
             android:textSize="13sp"
             app:layout_constraintBottom_toTopOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="@+id/editText4" />
