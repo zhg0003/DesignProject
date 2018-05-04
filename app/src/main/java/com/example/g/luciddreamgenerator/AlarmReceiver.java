@@ -137,6 +137,11 @@ public class AlarmReceiver extends BroadcastReceiver{
                         player.setLooping(false);
                         player.prepare();
                         player.start();
+                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                player.release();
+                            }
+                        });
                 }
             }
             catch (IOException e) {
