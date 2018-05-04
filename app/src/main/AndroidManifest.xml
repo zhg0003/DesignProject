@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.g.luciddreamgenerator">
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".JournalActivity"
             android:label="Write Down Your Dream"
@@ -27,16 +31,23 @@
         <activity
             android:name=".MainActivity"
             android:label="Generate Audio"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TimerActivity"
             android:label="@string/title_activity_timer"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ToolsActivity"
             android:label="ToolsActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <receiver android:name=".AlarmReceiver"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".EditActivity"
+            android:label="EditActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".AlarmReceiver" />
+
     </application>
 
 </manifest>

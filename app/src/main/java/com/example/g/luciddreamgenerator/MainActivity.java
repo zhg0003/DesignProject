@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.sql.BatchUpdateException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,35 +40,56 @@ public class MainActivity extends AppCompatActivity {
 
     private CheckBox left;
     private CheckBox right;
+    private CheckBox _default;
+    private CheckBox left2;
+    private CheckBox right2;
+    private CheckBox _default2;
+    private CheckBox disableSound2;
 
-    private Button generate;
-    private Button goToWrite;
     private Button inc01;
     private Button dec01;
-
-    private TextView result;
-    //private TextView warning;
+    private Button inc01_2;
+    private Button dec01_2;
 
     private Spinner spinner1; // sound one
+    private Spinner sound2List;
+
     private SeekBar freq1;
+    private SeekBar freq2;
+
     private SeekBar amp1;
-    private Spinner spinner2; // sound two
+
     private TextView editHz;
+    private TextView editHz2;
+
     //AudioTrack related stuff
     private final int sampleRate = 44100;
     private final int duration = 3; // in seconds
-    private final int numSamp = duration * sampleRate;
+    //private final int numSamp = duration * sampleRate;
+
+    private final int numSamp = sampleRate;
     private final double Sample[] = new double[numSamp];
     private final byte sound[] = new byte[2*numSamp];
+    private final int bufferSize = sampleRate;
+
+
     private float default_Hz = 440;
 
-    private int play_state = 0; //0 means nothing is playing, 1 means default sound playing, 2 means tone is playing
+    /*
+     *0 means nothing is playing, 1 means default sound playing, 2 means tone is playing
+     *3 means both sound 1 and 2 are playing
+     */
+    private int play_state = 0;
 
     private AudioTrack audio;
-    private boolean ready = false;
+    private AudioTrack audio2;
+
     private Thread toneGen;
+    private Thread toneGen2;
     //sound related stuff
     private float Hz ;
+    private float Hz2;
+
     private float amp;
     private MediaPlayer mp;
 
@@ -74,50 +97,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("in here");
         setContentView(R.layout.activity_main);
+        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
+                AudioTrack.MODE_STREAM);
+
+        audio2 = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+                AudioFormat.CHANNEL_OUT_STEREO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                bufferSize,
+                AudioTrack.MODE_STREAM);
+
+        setUpCheckBoxes();
+        addItemsOnSpinner();
+        setUpStartButton();
+        setUpJournalButton();
+        setUpCancelButton();
+        setUpFrequencyBar();
+        setUpHzInput();
+        setUpAdjustButtons();
+    }
+
+    public void setUpAdjustButtons(){
         inc01=findViewById(R.id.inc01);
         dec01=findViewById(R.id.dec01);
-
-        left=findViewById(R.id.leftChannel);
-        right=findViewById(R.id.rightChannel);
-
-        freq1 = (SeekBar) findViewById(R.id.seekBar);
-
-        editHz = findViewById(R.id.enterHz);
-
-        freq1.setProgress(70);
-        Hz = (float)freq1.getProgress()/10;
-
-        editHz.setText(String.valueOf(Hz));
-        //warning = findViewById(R.id.warning);
-        //warning.setText("");
-        editHz.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                 System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
-                //warning.setText("in here");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                System.out.println("i i1 i2 are: "+i+" "+i1+" "+i2);
-                //freq1.setProgress((int)Float.parseFloat(editHz.getText().toString())*10);
-                //warning.setText("in ontextchange");
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                System.out.println("in afterchange");
-                if(editHz.getText().length() == 0){
-                    editHz.setText("1");
-                }
-
-                freq1.setProgress((int)(Float.parseFloat(editHz.getText().toString())*10));
-//                warning.setText("changed to "+freq1.getProgress()+" user entered "+Float.parseFloat(editHz.getText().toString())*10);
-            }
-        });
-
+        inc01_2=findViewById(R.id.inc01_2);
+        dec01_2=findViewById(R.id.dec01_2);
         dec01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,35 +146,165 @@ public class MainActivity extends AppCompatActivity {
                 //startActivity(new Intent(MainActivity.this, MenuActivity.class));
             }
         });
+        dec01_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if((freq2.getProgress()-1)<=0)
+                    freq2.setProgress(1);
+                else
+                    freq2.setProgress(freq2.getProgress()-1);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
 
+        inc01_2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if((freq2.getProgress()+1)<=0)
+                    freq2.setProgress(3600);
+                else
+                    freq2.setProgress(freq2.getProgress()+1);
+                //startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
+    }
+
+    public void setUpHzInput(){
+        editHz = findViewById(R.id.enterHz);
+        editHz2 = findViewById(R.id.enterHz2);
+
+        editHz.setText(String.valueOf(Hz));
+        editHz.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //warning.setText("in here");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //freq1.setProgress((int)Float.parseFloat(editHz.getText().toString())*10);
+                //warning.setText("in ontextchange");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editHz.getText().length() == 0){
+                    editHz.setText("1");
+                }
+
+                freq1.setProgress((int)(Float.parseFloat(editHz.getText().toString())*10));
+            }
+        });
+
+        editHz2.setText(String.valueOf(Hz2));
+        editHz2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //warning.setText("in here");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //freq1.setProgress((int)Float.parseFloat(editHz.getText().toString())*10);
+                //warning.setText("in ontextchange");
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editHz2.getText().length() == 0){
+                    editHz2.setText("1");
+                }
+
+                freq2.setProgress((int)(Float.parseFloat(editHz2.getText().toString())*10));
+            }
+        });
+    }
+    public void setUpCheckBoxes(){
+        disableSound2=findViewById(R.id.disableSound2);
+
+
+        left=findViewById(R.id.leftChannel);
+        right=findViewById(R.id.rightChannel);
+        _default=findViewById(R.id._default);
+
+        left2=findViewById(R.id.leftChannel2);
+        right2=findViewById(R.id.rightChannel2);
+        _default2=findViewById(R.id._default2);
+
+        _default.setChecked(true);
+        _default2.setChecked(true);
+
+        _default.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(_default.isChecked()) {
+                    right.setChecked(false);
+                    left.setChecked(false);
+                }
+            }
+        });
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(right.isChecked())
+                if(left.isChecked()) {
                     right.setChecked(false);
+                    _default.setChecked(false);
+                }
             }
         });
 
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(left.isChecked())
+                if(right.isChecked()) {
                     left.setChecked(false);
+                    _default.setChecked(false);
+                }
+
             }
         });
 
-        addItemsOnSpinner();
-        setUpStartButton();
-        setUpJournalButton();
-        setUpCancelButton();
-        setUpFrequencyBar();
+        _default2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(_default2.isChecked()) {
+                    right2.setChecked(false);
+                    left2.setChecked(false);
+                }
+            }
+        });
+        left2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(left2.isChecked()) {
+                    right2.setChecked(false);
+                    _default2.setChecked(false);
+                }
+            }
+        });
+        right2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(right2.isChecked()) {
+                    left2.setChecked(false);
+                    _default2.setChecked(false);
+                }
+            }
+        });
     }
 
     public void setUpFrequencyBar(){
+        freq1 = (SeekBar) findViewById(R.id.seekBar);
+        freq2 = findViewById(R.id.seekBar2);
+
+        freq1.setProgress(700);
+        freq2.setProgress(700);
+
+        Hz = (float)freq1.getProgress()/10;
+        Hz2 = (float)freq1.getProgress()/10;
         freq1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                System.out.println("seekbar progress is "+freq1.getProgress()+" i is "+i);
                 if (spinner1.getSelectedItem().toString().equals("Tone")) {
                     Hz = (float)freq1.getProgress()/10;
 
@@ -186,11 +323,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        freq2.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (sound2List.getSelectedItem().toString().equals("Tone")) {
+                    Hz2 = (float)freq2.getProgress()/10;
+                    editHz2.setText(String.valueOf(Hz2));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
     public void addItemsOnSpinner() {
-
+        sound2List = findViewById(R.id.sound2item);
         spinner1 = (Spinner) findViewById(R.id.spinner);
+
         List<String> list = new ArrayList<String>();
         list.add("Tone");
         list.add("Ocean");
@@ -200,6 +358,18 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
+        sound2List.setAdapter(dataAdapter);
+//        List<String> list2 = new ArrayList<String>();
+//        list2.add("Tone");
+//        list2.add("Ocean");
+//        list2.add("Rain");
+//        list2.add("Wind");
+//        ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, list2);
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner1.setAdapter(dataAdapter);
+
+
     }
 
 
@@ -233,26 +403,53 @@ public class MainActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(play_state != 0)
+                    stop_current_sound();
+
                 if(spinner1.getSelectedItem().toString() == "Tone"){
                     //audio.stop();
 //                        warning.setText("");
-                        generate_default();
+                        final byte[] samples1 = generate_default(Hz,1);
                         Runnable toneStream = new Runnable() {
                             @Override
                             public void run() {
-                                while (play_state == 2) {
-                                    audio.write(sound, 0, sound.length);
+                                play_state = 2;
+                                System.out.println("in sound 1 thread, play state is "+play_state);
+                                while (play_state == 2 || play_state == 3) {
+                                    audio.write(samples1, 0, samples1.length);
                                 }
+                                System.out.println("thread ending for sound 1 current state is "+play_state);
                             }
                         };
                         toneGen = new Thread(toneStream);
-                        play(sound);
+                        //if(audio.getPlayState())
+                        play(1);
                         toneGen.start();
+
+
+                        if(!disableSound2.isChecked()){
+                            play_state = 3;
+                            final byte[] samples2 = generate_default(Hz2,2);
+                            Runnable toneStream2 = new Runnable() {
+                                @Override
+                                public void run() {
+                                    play_state = 3;
+                                    System.out.println("in sound 2 thread, state is "+play_state);
+                                    while (play_state == 3) {
+                                        audio2.write(samples2, 0, samples2.length);
+                                    }
+                                    System.out.println("thread ending for sound 2 current state is "+play_state);
+                                }
+                            };
+                            toneGen2 = new Thread(toneStream2);
+                            play(2);
+                            toneGen2.start();
+                        }
                 }
 
 
                 else {
-//                    warning.setText("");
+//                  warning.setText("");
                     stop_current_sound();
                     String selected_mp3 = spinner1.getSelectedItem().toString();
 
@@ -306,7 +503,7 @@ public class MainActivity extends AppCompatActivity {
 
     byte[] generate(){ //apply linear interpolation
         //obtain 1 hz of sample from the audio
-        generate_default();
+        generate_default(Hz,1);
         int ratio = (int)Math.floor(default_Hz/Hz); //ratio of increase of index. ex old index is 1, new index in the newsample will be 1*ratio
         int OldSamplesPerPeriod = sampleRate / (int)default_Hz; //this is the amount of data points we have
 
@@ -338,24 +535,42 @@ public class MainActivity extends AppCompatActivity {
         return sound;
     }
 
-    void generate_default() //generate the default wave
+    byte[] generate_default(float hz, int soundn) //generate the default wave, and write it into the corresponding audio object based on soundn
     {
         //https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
-        for(int i = 0;i<numSamp;i++)
-        {
-            //wave formula, i is t
-            Sample[i] = Math.sin(2*Math.PI*i / (sampleRate/Hz));
+        int x = (int)( (double)bufferSize * hz / sampleRate ); // added
+        int mSampleCount = (int)( (double)x * sampleRate / hz ); // added
+
+        byte[] samples = new byte[ mSampleCount ]; // changed from bufferSize
+
+        for( int i = 0; i != mSampleCount; ++i ) { // changed from bufferSize
+            double t = (double)i * (1.0/sampleRate);
+            double f = Math.sin( t * 2*Math.PI * hz );
+            samples[i] = (byte)(f * 127);
+        }
+//        for(int i = 0;i<numSamp;i++)
+//        {
+//            //wave formula, i is t
+//            Sample[i] = Math.sin(2*Math.PI*i / (sampleRate/Hz));
+//        }
+//
+//        int idx = 0;
+//        for (final double dVal : Sample) {
+//            // scale to maximum amplitude
+//            final short val = (short) ((dVal * 32767));
+//            // in 16 bit wav PCM, first byte is the low order byte
+//            sound[idx++] = (byte) (val & 0x00ff);
+//            sound[idx++] = (byte) ((val & 0xff00) >>> 8);
+//
+//        }
+        if(soundn == 1) {
+            audio.write(samples, 0, samples.length);
         }
 
-        int idx = 0;
-        for (final double dVal : Sample) {
-            // scale to maximum amplitude
-            final short val = (short) ((dVal * 32767));
-            // in 16 bit wav PCM, first byte is the low order byte
-            sound[idx++] = (byte) (val & 0x00ff);
-            sound[idx++] = (byte) ((val & 0xff00) >>> 8);
-
+        if(soundn == 2) {
+            audio2.write(samples, 0, samples.length);
         }
+        return samples;
     }
 
     void stop_current_sound(){
@@ -366,29 +581,39 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(play_state == 2)
             audio.stop();
+        else if(play_state == 3){
+            audio.stop();
+            audio2.stop();
+        }
         play_state = 0;
     }
 
-    void play(byte[] sound)
+    void play(int soundn)
     {
-
         //https://stackoverflow.com/questions/8698633/how-to-generate-a-particular-sound-frequency
-        if(play_state != 0)
-            stop_current_sound();
-        play_state = 2;
-        ready = true;
-        //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
-        audio = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
-                AudioFormat.CHANNEL_OUT_STEREO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                4* AudioTrack.getMinBufferSize(44100, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT),
-                AudioTrack.MODE_STREAM);
-        audio.write(sound, 0, sound.length);
-        if(right.isChecked())
-            audio.setStereoVolume(0,1);
-        else if(left.isChecked())
-            audio.setStereoVolume(1,0);
 
-        audio.play();
+
+
+        //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
+        if(soundn == 1) {
+            if (right.isChecked())
+                audio.setStereoVolume(0, 1);
+            else if (left.isChecked())
+                audio.setStereoVolume(1, 0);
+            audio.play();
+            System.out.println("current state before changing is "+play_state);
+            //play_state = 2;
+            System.out.println("end of play function for sound 1");
+        }
+        else{
+            if (right2.isChecked())
+                audio2.setStereoVolume(0, 1);
+            else if (left2.isChecked())
+                audio2.setStereoVolume(1, 0);
+            audio2.play();
+            System.out.println("current state before changing is "+play_state);
+            //play_state = 2;
+            System.out.println("end of play function for sound 2");
+        }
     }
 }
