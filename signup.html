@@ -4,54 +4,56 @@
         <meta charset="utf-8">
         <meta name= "viewport" content="width-device-width">
         <meta name="author" content="Sean Malloy">
-        <title>Lucid Dream Generator | Welcome</title>
+        <title>Lucid You | Signup</title>
         <link rel = "stylesheet" type="text/css" href= "CSS/style.css"/>
      </head>
     
     <body>
         <header>
-            <div class = "container">
-                <div id = "heading">
-                        <h1>Lucid Dream Generator</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href = "index.html">Home</a></li>
-                        <li class="current"><a href = "signup.html">sign up</a></li>
-                        <li><a href = "login.html">Login</a></li>
-                        <li><a href = "LogDreams.html">Log Dreams</a></li><br>
-                        <li><a href = "forum.html">Forum</a></li>
-                        <li><a href = "Records.html">Records</a></li>
-                        <li><a href = "help.html">Help</a></li>
-                        <li><a href = "Contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-
-            <img id = "logo" src="./imgs/cow-sleeping-on-cloud.png"/>
-
-            </div>
+            <start>
+                <h1>Lucid You</h1>
+                <img id = "logo" src="./imgs/cow-sleeping-on-cloud.png"/>
+            </start>
+            <nav>
+                <a href = "index.html">Home</a>
+                <a id="signup-link" class="current" href = "signup.html">sign up</a>
+                <a id = "login-link" href = "login.html">Login</a>
+                <a href = "LogDreams.html">Log Dreams</a>
+                <a href = "settings.html">Settings</a>
+                <a href = "forum.html">Forum</a>
+                <a href = "Records.html">My Records</a>
+                <a href = "help.html">Help</a>
+                <a href = "Contact.html">Contact</a>
+                <button id="logout" class="button" onclick = "logout()">Logout</button>
+            </nav>
         </header>
         
         
-        <section id = "showcase">
-            <div class="container">
-                <h1>Sign-Up</h1>
-                <div class "input">
-                    <form>
-                        <label>Enter username:</label>
-                        <input type="text" placeholder="Enter username">
-                        <br><label>Enter password:</label>
-                        <input type="text" placeholder="Enter password">
-                        <br><label>Re-Enter password:</label>
-                        <input type="text" placeholder="Re-Enter password">
-                    </form>
-                </div>
-                        <button type = "submit" class="button_1 " onclick="signup()">sign-up</button>
+        <main>
+            <h1>Sign-Up</h1>
+            <div class = "credentials">
+                <credential>
+                    <label>Enter username:</label>
+                    <input id="txtEmail" type="email" placeholder="Enter Email">
+                </credential>
+                <credential>
+                    <br><label>Enter password:</label>
+                    <input id="txtPassword" type="password" placeholder="Enter password">
+                </credential>
+                <credential>
+                    <br><label>Re-Enter password:</label>
+                    <input id="txtPassword2" type="password" placeholder="Re-Enter password">
+                </credential>
+                
+                <h1 id="incorrect_password">password doesn't match!</h1>
+                <h1 id="weak-pwd">Your Password is too weak! (min 8 characters)</h1>
+                <h1 id="exists">This email is already registered!</h1>
+                <h1 id="invalid">This email is Invalid!</h1>
+                    
             </div>
-        </section>
+                <button id = "btnLogin" onclick = "signup()">sign-up</button>
+        </main>
         
-        <p id="signed" class = "onfinish"></p>
-        <script src="script.js"></script>
         
         
         
@@ -59,6 +61,22 @@
             <p>Lucid Dream Generator, copyright &copy;2018</p>
         </footer>
         
+
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyADpIdrh3Agqt1NXpdNNPpSbACr2aex-3o",
+            authDomain: "lucid-you.firebaseapp.com",
+            databaseURL: "https://lucid-you.firebaseio.com",
+            projectId: "lucid-you",
+            storageBucket: "lucid-you.appspot.com",
+            messagingSenderId: "94511730340"
+          };
+          firebase.initializeApp(config);
+        </script>
+        <script src="script.js"></script>
         
     </body>
    

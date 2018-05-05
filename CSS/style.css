@@ -1,36 +1,77 @@
-/* Global */
+/* Global Variables */
 body{
     background-color: #7fdaff;*/
-    font-family: Arial, sans-serif;
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
     font-size: 15px;
-    line-height: 1.5;
+    line-height: 1.25;
     padding: 0;
     margin: 0;
+     min-height: 100vh;
 }
 
-ul{
-    margin:0;
-    padding:0;
-    text-decoration: none;
-    font-size: 16px;
+button{
+    background: #3c66f0;
+    color: #fff;
+    border:0px;
+    border-radius: 5px;
+    margin:10px;
+    padding: 15px;
+    display: block;
+    width: 20%;
+    
 }
 
-ul a{
-    text-decoration: none;
-    font-size: 16px; 
+button.hover{
+    background: #fff;
+    color: #3c66f0;
+    border: 1px solid #3c66f0;
+    cursor: pointer;
 }
 
 .container{
-    width: 80%;
+    width: 100%;
     margin: auto;
     overflow: hidden;
 }
 
+a{
+    font-weight:bold;
+    font-size: 16px;
+}
 
-.page-title {
+.onfinish {
     text-align: center;
-    font-size: 30px;
-    margin-top: 20px;
+    font-size: 20px;
+}
+
+#wrong{
+    display: none;
+}
+
+#logout {
+    margin:5;
+    padding:2px;
+    text-decoration: none;
+    font-size: 16px;
+    display: none;
+}
+
+#weak-pwd {
+    display: none;
+}
+
+#exists {
+    display: none;
+}
+
+#invalid {
+    display: none;
+}
+
+#incorrect_password{
+ display: none;   
 }
 
 
@@ -39,9 +80,24 @@ ul a{
 header{
     background: #0146b5;
     color: white;
+    display: flex;
     padding-top: 30px;
     min-height: 70px;
     border-bottom:#960101 5px solid;
+    justify-content: space-between;
+}
+
+start{
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    flex-grow: 0;
+}
+
+header img{
+    display: flex;
+    flex: 1;
+    flex-grow: 0;
 }
 
 header a{
@@ -49,24 +105,17 @@ header a{
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
+    padding: 2%;
+    margin: 1%;
+    
 }
-
-header li{
-    float:left;
-    display: inline;
-    padding: 0 20px 0 20px;
-}
-
-header #logo{
-    float:left;
-}
-
-header #heading h1{
-    margin: 0;
-}
-
-header nav{
-    float: right;
+nav{
+    flex-grow: 0;
+    flex: 0.4;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header .current a{
@@ -79,46 +128,79 @@ header a:hover{
     font-weight: bold;
 }
 
-/* Showcase */
 
-#showcase{
-    min-height: 400px;
+
+
+/* main */
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
+    min-height: 100px;
     text-align: left;
+    padding: 10px;
+    
 }
 
-#showcase li{
-    display: inline;
-    text-decoration: none;
-    font-size: 16px; 
+main container{
+    flex: row;
 }
 
-#showcase h1{
+
+main h1{
     margin-top: 20px;
     font-size: 30px;
     text-align: center;
 }
 
-#showcase form input[id = "exp"]{
+data{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.credentials{
+    display: flex;
+    flex-direction: column;
     padding: 10px;
-    height: 100px;
-    width: 95%;
-    margin-bottom: 10px;
 }
 
-#showcase input {
-/*    float: left;*/
+credential{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+input {
+    margin: 5px;
     padding: 10px;
     height: 5px;
-    width: 200px;
     margin-bottom: 5px;
+    
+    border-radius:10px;
+    border: 3.5px solid #3c66f0;
+    
 }
 
-#showcase p{
+field{
+    display: flex;
+    flex-direction: column;
+    width: 25%
+}
+
+#exp{
+    width: 80%;
+    height: 100%
+}
+
+main p{
     font-size: 18px;
 }
 
 /*Footer*/
 footer{
+    flex: 1 0 auto;
     padding:20px;
     margin-top: 100px;
     color:#ffffff;
@@ -127,31 +209,63 @@ footer{
 }
 
 
-/*Media section*/
 
-@media(max-width: 768px){
-    header #heading, header nav, header nav li, #showcase input{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Small Screens*/
+
+@media(max-width: 780px){
+    header{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    start{
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    
+    main{
+        align-items: center;
+    }
+    
+    credential{
+        flex-direction: column;
+    }
+    
+    field{
+        width: 50%;
+    }
+    
+    data{
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+    }
+    
+    
+    #logout{
         float:none;
         text-align: center;
         width: 100%;
-    }
-    
-    #showcase button {
-        width:100%;
-        margin-bottom: 5px;
-        
+        display: none;
     }
     
     header{
         padding-bottom: :20px;
     }
-    #showcase h1{
-        margin-top: 40px;
-    }
-}
-
-
-.onfinish {
-    text-align: center;
-    font-size: 20px;
 }
