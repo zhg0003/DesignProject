@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class ToolsActivity extends AppCompatActivity {
     boolean random = false;
     boolean active = false;
     boolean already_active = false;
+    boolean toast = false;
     String saved_active = "Off";
     String saved_interval = "Half Hour";
     String saved_song = "Coin";
@@ -67,6 +69,9 @@ public class ToolsActivity extends AppCompatActivity {
         //load previous settings
         loadSettings();
         setUpBackButton();
+        setUpPlayCoinButton();
+        setUpPlayDreamButton();
+        setUpPlayNotifButton();
         //setUpInfoButton();
 
         //set switch to on or off
@@ -180,7 +185,16 @@ public class ToolsActivity extends AppCompatActivity {
         info_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast();
+                //showToast();
+                Snackbar snackbar;
+                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                        "Train your mind to ask yourself if you are dreaming using a unique sound " +
+                                "throughout the day and while you are dreaming.\n",
+                        10000);
+                View snackbarView = snackbar.getView();
+                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                textView.setMaxLines(5);
+                snackbar.show();
             }
         });
 
@@ -194,6 +208,96 @@ public class ToolsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 saveSettings();
                 startActivity(new Intent(ToolsActivity.this, MenuActivity.class));
+            }
+        });
+    }
+
+    public void setUpPlayCoinButton() {
+        ImageButton play_coin_button = (ImageButton) findViewById(R.id.playCoinBtn);
+        final Uri alert = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.coin);
+        play_coin_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MediaPlayer player = new MediaPlayer();
+                try {
+                    player.setDataSource(ToolsActivity.this, alert);
+                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+                        player.setLooping(false);
+                        player.prepare();
+                        player.start();
+                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                player.release();
+                            }
+                        });
+                    }
+                }
+                catch (IOException e) {
+                    System.out.println("OOPS");
+                }
+            }
+        });
+    }
+
+    public void setUpPlayDreamButton() {
+        ImageButton play_coin_button = (ImageButton) findViewById(R.id.playDreamBtn);
+        final Uri alert = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.dream);
+        play_coin_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MediaPlayer player = new MediaPlayer();
+                try {
+                    player.setDataSource(ToolsActivity.this, alert);
+                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+                        player.setLooping(false);
+                        player.prepare();
+                        player.start();
+                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                player.release();
+                            }
+                        });
+                    }
+                }
+                catch (IOException e) {
+                    System.out.println("OOPS");
+                }
+            }
+        });
+    }
+
+    public void setUpPlayNotifButton() {
+        ImageButton play_coin_button = (ImageButton) findViewById(R.id.playNotifBtn);
+        final Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        play_coin_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MediaPlayer player = new MediaPlayer();
+                try {
+                    player.setDataSource(ToolsActivity.this, alert);
+                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
+                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
+                        player.setLooping(false);
+                        player.prepare();
+                        player.start();
+                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            public void onCompletion(MediaPlayer mp) {
+                                player.release();
+                            }
+                        });
+                    }
+                }
+                catch (IOException e) {
+                    System.out.println("OOPS");
+                }
             }
         });
     }
@@ -249,29 +353,5 @@ public class ToolsActivity extends AppCompatActivity {
         sb.append(saved_song).append("~");
         editor.putString("settings", sb.toString());
         editor.apply();
-    }
-
-    public void showToast() {
-        // Set the toast and duration
-        final Toast t;
-        int toastDurationInMilliSeconds = 30000;
-        final String explanation = "Train your mind to ask yourself if you are dreaming using a unique sound " +
-                "throughout the day and while you are dreaming.";
-        t = Toast.makeText(this, explanation, Toast.LENGTH_LONG);
-
-        // Set the countdown to display the toast
-        CountDownTimer toastCountDown;
-        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1000 /*Tick duration*/) {
-            public void onTick(long millisUntilFinished) {
-                t.show();
-            }
-            public void onFinish() {
-                t.cancel();
-            }
-        };
-
-        // Show the toast and starts the countdown
-        t.show();
-        toastCountDown.start();
     }
 }
