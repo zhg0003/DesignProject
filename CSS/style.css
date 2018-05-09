@@ -58,6 +58,10 @@ a{
     display: none;
 }
 
+#empty{
+    display: none;
+}
+
 
 #weak-pwd {
     display: none;
@@ -230,12 +234,13 @@ main p{
 
 .tile{
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
+    width: 43%;
     background: white;
     padding: 10px;
     border-radius:10px;
     border: 3.5px solid #3c66f0;
-    margin: 20px;
+    margin: 10px;
 }
 
 /*Footer*/
@@ -304,7 +309,10 @@ footer{
         width: 100%;
         display: none;
     }
-
+    
+    .tile{
+        width:100%;
+    }
     
     header{
         padding-bottom: :20px;

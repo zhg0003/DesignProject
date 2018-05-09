@@ -8,7 +8,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       records.style.display = "flex";
       var currentUser = firebase.auth().currentUser.email;
       
-      
       firestore.collection('USERS').doc(currentUser).collection('records').get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
               var tile = document.createElement('div');
