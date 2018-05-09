@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name= "viewport" content="width-device-width">
+        <meta name= "viewport" content="width=device-width">
         <meta name="author" content="Sean Malloy">
         <title>Lucid You | Settings</title>
         <link rel = "stylesheet" type="text/css" href= "CSS/style.css"/>
@@ -10,22 +10,24 @@
     
     <body>
         <header>
-            <main>
+            <start>
                 <h1>Lucid You</h1>
                 <img id = "logo" src="./imgs/cow-sleeping-on-cloud.png"/>
-            </main>
+            </start>
 
                 <nav>
                         <a href = "index.html">Home</a>
                         <a id="signup-link" href = "signup.html">sign up</a>
                         <a id = "login-link" href = "login.html">Login</a>
-                        <a href = "LogDreams.html">Log Dreams</a>
-                        <a class = "current" href = "settings.html">Settings</a>
+                        <a id="logDreams" href = "LogDreams.html">Log Dreams</a>
+                        <a id="settings" class = "current" href = "settings.html">Settings</a>
                         <a href = "forum.html">Forum</a>
-                        <a href = "Records.html">My Records</a>
+                        <a id="records" href = "Records.html">My Records</a>
                         <a href = "help.html">Help</a>
                         <a href = "Contact.html">Contact</a>
                         <button id="logout" class="button" onclick = "logout()">Logout</button>
+                        <p id="not_logged_in">Not Logged in!</p>
+                        <p id="logged_in">Logged In as: </p>
                 </nav>
         </header>
         
@@ -56,7 +58,7 @@
           };
           firebase.initializeApp(config);
         </script>
-        <script src="script.js"></script>
+        <script src="./Javascript/User.js"></script>
     </body>
    
 </html>

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name= "viewport" content="width-device-width">
+        <meta name= "viewport" content="width=device-width">
         <meta name="author" content="Sean Malloy">
         <title>Lucid You | Records</title>
         <link rel = "stylesheet" type="text/css" href= "CSS/style.css"/>
@@ -14,25 +14,31 @@
                 <h1>Lucid You</h1>
                 <img id = "logo" src="./imgs/cow-sleeping-on-cloud.png"/>
             </start>
-            <nav>
+                <nav>
                         <a href = "index.html">Home</a>
                         <a id="signup-link" href = "signup.html">sign up</a>
                         <a id = "login-link" href = "login.html">Login</a>
-                        <a href = "LogDreams.html">Log Dreams</a>
-                        <a href = "settings.html">Settings</a>
+                        <a id="logDreams" href = "LogDreams.html">Log Dreams</a>
+                        <a id="settings" href = "settings.html">Settings</a>
                         <a href = "forum.html">Forum</a>
-                        <a class="current" href = "about.html">My Records</a>
+                        <a id="records" class="current" href = "Records.html">My Records</a>
                         <a href = "help.html">Help</a>
                         <a href = "Contact.html">Contact</a>
                         <button id="logout" class="button" onclick = "logout()">Logout</button>
-            </nav>
+                        <p id="not_logged_in">Not Logged in!</p>
+                        <p id="logged_in">Logged In as: </p>
+                </nav>
         </header>
+        
         
         
         <main>
             <h1 class = "page-title">Record History</h1>
             
-            <p id = "recordings"></p>
+            <records id="recordings">
+                
+            </records>
+            <h1 id="login">Please Login to Check Logged Dreams!</h1>
         </main>
 
         
@@ -55,7 +61,8 @@
           };
           firebase.initializeApp(config);
         </script>
-        <script src="database.js"></script>
+        <script src="./Javascript/User.js"></script>
+        <script src="./Javascript/myRecords.js"></script>
         
     </body>
    

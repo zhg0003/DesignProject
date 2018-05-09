@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name= "viewport" content="width-device-width">
+        <meta name= "viewport" content="width=device-width">
         <meta name="author" content="Sean Malloy">
         <title>Lucid You | Log Dreams</title>
         <link rel = "stylesheet" type="text/css" href= "CSS/style.css"/>
@@ -18,20 +18,29 @@
                 <a href = "index.html">Home</a>
                 <a id="signup-link" href = "signup.html">sign up</a>
                 <a id = "login-link" href = "login.html">Login</a>
-                <a class="current" href = "LogDreams.html">Log Dreams</a>
-                <a href = "settings.html">Settings</a>
+                <a id="logDreams" class="current" href = "LogDreams.html">Log Dreams</a>
+                <a id="settings" href = "settings.html">Settings</a>
                 <a href = "forum.html">Forum</a>
-                <a href = "Records.html">My Records</a>
+                <a id="records" href = "Records.html">My Records</a>
                 <a href = "help.html">Help</a>
                 <a href = "Contact.html">Contact</a>
                 <button id="logout" class="button" onclick = "logout()">Logout</button>
+                <p id="not_logged_in">Not Logged in!</p>
+                <p id="logged_in">Logged In as: </p>
             </nav>
         </header>
         
         
         <main>
             <h1>Dream Log</h1>
-            <h2>Input Data</h2>
+            <inputs id = "inputs">
+            <h2>What did you dream about?</h2>
+            <top_input>
+                <label>Enter Experience</label>
+                <input id="exp" type= "text" placeholder="Enter Experience">
+                <label>Custom Tags</label>
+                <input id="tags" type= "text" placeholder="Enter Custom Tags">
+            </top_input>
             <data>
                 <field>
                     <label>Enter Sound 1</label>
@@ -47,7 +56,14 @@
                 </field>
                 <field>
                     <label>Enter Rating</label>
-                    <input id="rating" type= "text" placeholder="Enter Rating">
+                    <select id="rating" size="1">
+                        <option value= 0>No Rating</option>
+                        <option value= 1>1 Star</option>
+                        <option value= 2>2 Star</option>
+                        <option value= 3>3 Star</option>
+                        <option value= 4>4 Star</option>
+                        <option value= 5>5 Star</option>
+                    </select>
                 </field>
                 <field>
                     <label>Enter Sound 2</label>
@@ -67,10 +83,11 @@
                 </field>
 
             </data>
-                    <label>Enter Experience</label>
-                    <input id="exp" type= "text" placeholder="Enter Experience">
+
             
             <button id="submit">Submit</button>
+            </inputs>
+            <h1 id="login">Please Log In to log dreams!</h1>
         </main>
         
 
@@ -100,7 +117,8 @@
 //            // Initialize Cloud Firestore through Firebase
 
         </script>
-        <script src="script.js"></script>
+        <script src="./Javascript/User.js"></script>
+        <script src="./Javascript/logDream.js"></script>
         
     </body>
    

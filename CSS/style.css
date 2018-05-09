@@ -58,8 +58,16 @@ a{
     display: none;
 }
 
+
 #weak-pwd {
     display: none;
+}
+
+#logged_in{
+    margin: 10px;
+}
+#not_logged_in{
+    margin: 10px;
 }
 
 #exists {
@@ -89,15 +97,14 @@ header{
 
 start{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex: 2;
-    flex-grow: 0;
+    flex-grow: 1;
+    align-items: center;
 }
 
 header img{
-    display: flex;
-    flex: 1;
-    flex-grow: 0;
+    margin-left: 20px;
 }
 
 header a{
@@ -106,10 +113,13 @@ header a{
     text-transform: uppercase;
     font-size: 16px;
     padding: 2%;
+    font-weight: bold;
     margin: 1%;
     
 }
 nav{
+    font-size: 16px;
+    font-weight: bolder;
     flex-grow: 0;
     flex: 0.4;
     display: inline-flex;
@@ -118,9 +128,9 @@ nav{
     align-items: center;
 }
 
-header .current a{
+header .current{
     color: lightgreen;
-    font-weight: bold;
+    font-weight: bolder;
 }
 
 header a:hover{
@@ -160,7 +170,18 @@ data{
     flex-wrap: wrap;
     
 }
+
+select{
+    margin: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius:10px;
+    border: 3.5px solid #3c66f0;
+        
+}
+
 .credentials{
+    font-size: 20px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -175,7 +196,7 @@ credential{
 input {
     margin: 5px;
     padding: 10px;
-    height: 5px;
+    height: 16px;
     margin-bottom: 5px;
     
     border-radius:10px;
@@ -189,13 +210,32 @@ field{
     width: 25%
 }
 
-#exp{
+
+top_input{
+    display: flex;
+    flex-direction: column;
     width: 80%;
     height: 100%
 }
 
 main p{
-    font-size: 18px;
+    font-size: 20px;
+    margin: 10px 20px;
+}
+
+#recordings{
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+}
+
+.tile{
+    display: flex;
+    flex-wrap: wrap; 
+    background: white;
+    padding: 10px;
+    border-radius:10px;
+    border: 3.5px solid #3c66f0;
+    margin: 20px;
 }
 
 /*Footer*/
@@ -264,6 +304,7 @@ footer{
         width: 100%;
         display: none;
     }
+
     
     header{
         padding-bottom: :20px;
