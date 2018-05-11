@@ -128,12 +128,12 @@ public class JournalListActivity extends ListActivity {
         deleteButton.setClickable(true);
 
         for (int i = 0; i < dream_list.getCount(); i++) {
-            dream_list.getChildAt(i).setBackgroundColor(Color.WHITE);
+            dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
             dream_list.getChildAt(i).setSelected(false);
             dream_list.getChildAt(i).setAlpha(1.0f);
         }
         //this.dream_list
-        dream_list.getChildAt(position).setBackgroundColor(Color.LTGRAY);
+        dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
         dream_list.getChildAt(position).setSelected(true);
         dream_list.getChildAt(position).setAlpha(0.9f);
         //saveDreams();
