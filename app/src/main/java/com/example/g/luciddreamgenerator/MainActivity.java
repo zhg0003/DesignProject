@@ -571,11 +571,11 @@ public class MainActivity extends AppCompatActivity {
         //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
         if(soundn == 1) {
             if (right.isChecked() && !left.isChecked() )
-                audio.setStereoVolume(0, 1);
+                audio.setStereoVolume(0, 0.7f);
             else if (left.isChecked() && !right.isChecked())
-                audio.setStereoVolume(1, 0);
+                audio.setStereoVolume(0.7f, 0);
             else if(left.isChecked() && right.isChecked())
-                audio.setStereoVolume(1,1);
+                audio.setStereoVolume(0.7f,0.7f);
             else if(!left.isChecked() && !right.isChecked())
                 audio.setStereoVolume(0,0);
             audio.play();
@@ -585,11 +585,11 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             if (right2.isChecked() && !left2.isChecked())
-                audio2.setStereoVolume(0, 1);
+                audio2.setStereoVolume(0, 0.7f);
             else if (left2.isChecked() && !right2.isChecked())
-                audio2.setStereoVolume(1, 0);
+                audio2.setStereoVolume(0.7f, 0);
             else if(left2.isChecked() && right2.isChecked())
-                audio2.setStereoVolume(1,1);
+                audio2.setStereoVolume(0.7f,0.7f);
             else if(!left2.isChecked() && !right2.isChecked())
                 audio2.setStereoVolume(0,0);
             audio2.play();
