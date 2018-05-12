@@ -212,7 +212,7 @@ public class JournalActivity extends AppCompatActivity {
                     return;
                 }
 
-                Intent intent = new Intent(getBaseContext(), JournalListActivity.class);
+                //Intent intent = new Intent(getBaseContext(), JournalListActivity.class);
 
                 Date date = new Date();
                 Calendar cal = Calendar.getInstance();
