@@ -3,6 +3,7 @@ package com.example.g.luciddreamgenerator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,21 @@ public class EditActivity extends AppCompatActivity {
         setUpSaveButton();
         setUpCancelButton();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putInt("editDreamIndex", -1);
+            editor.apply();
+            startActivity(new Intent(EditActivity.this, JournalListActivity.class));
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setUpSaveButton(){

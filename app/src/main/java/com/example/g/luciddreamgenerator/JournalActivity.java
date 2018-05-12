@@ -242,18 +242,36 @@ public class JournalActivity extends AppCompatActivity {
                 formattedDream = formattedDream.concat(content);
                 formattedDream = formattedDream.concat("\"");
 
+                SharedPreferences sound_settings = getApplicationContext().getSharedPreferences("sound", 0);
+                SharedPreferences freq_settings = getApplicationContext().getSharedPreferences("freq", 0);
+
+                String firstSound = sound_settings.getString("firstSound", "");
+                String firstFreq = freq_settings.getString("firstFreq", "");
+                String secondSound = sound_settings.getString("secondSound", "");
+                String secondFreq = freq_settings.getString("secondFreq", "");
+
+                formattedDream = formattedDream.concat("\n" + "Sound(s) Played During Dream:");
+                formattedDream = formattedDream.concat("\n -" + firstSound + " at " + firstFreq + "hz");
+                if (secondSound.length() > 0)
+                    formattedDream = formattedDream.concat("\n -" + secondSound + " at " + secondFreq + "hz");
+
+                if (checkbox1.isChecked() || checkbox2.isChecked() || checkbox3.isChecked() || checkbox4.isChecked() || checkbox5.isChecked() || checkbox6.isChecked())
+                    formattedDream = formattedDream.concat("\n" + "Custom Fields:");
+
                 if (checkbox1.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content1);
+                    formattedDream = formattedDream.concat("\n -" + content1);
                 if (checkbox2.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content2);
+                    formattedDream = formattedDream.concat("\n -" + content2);
                 if (checkbox3.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content3);
+                    formattedDream = formattedDream.concat("\n -" + content3);
                 if (checkbox4.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content4);
+                    formattedDream = formattedDream.concat("\n -" + content4);
                 if (checkbox5.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content5);
+                    formattedDream = formattedDream.concat("\n -" + content5);
                 if (checkbox6.isChecked())
-                    formattedDream = formattedDream.concat("\n" + content6);
+                    formattedDream = formattedDream.concat("\n -" + content6);
+
+
 
 
                 if (dreamRating.getRating() != 0)

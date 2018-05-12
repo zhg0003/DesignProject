@@ -1,5 +1,6 @@
 package com.example.g.luciddreamgenerator;
 
+import android.content.SharedPreferences;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -40,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private CheckBox left;
     private CheckBox right;
-    private CheckBox _default;
     private CheckBox left2;
     private CheckBox right2;
-    private CheckBox _default2;
     private CheckBox disableSound2;
 
     private Button inc01;
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if((freq1.getProgress()+1)<=0)
-                    freq1.setProgress(3600);
+                    freq1.setProgress(10000);
                 else
                     freq1.setProgress(freq1.getProgress()+1);
                 //startActivity(new Intent(MainActivity.this, MenuActivity.class));
@@ -161,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if((freq2.getProgress()+1)<=0)
-                    freq2.setProgress(3600);
+                    freq2.setProgress(10000);
                 else
                     freq2.setProgress(freq2.getProgress()+1);
                 //startActivity(new Intent(MainActivity.this, MenuActivity.class));
@@ -222,75 +221,51 @@ public class MainActivity extends AppCompatActivity {
     public void setUpCheckBoxes(){
         disableSound2=findViewById(R.id.disableSound2);
 
-
         left=findViewById(R.id.leftChannel);
         right=findViewById(R.id.rightChannel);
-        _default=findViewById(R.id._default);
+        left.setChecked(true);
+        right.setChecked(true);
 
         left2=findViewById(R.id.leftChannel2);
         right2=findViewById(R.id.rightChannel2);
-        _default2=findViewById(R.id._default2);
+        left2.setChecked(true);
+        right2.setChecked(true);
 
-        _default.setChecked(true);
-        _default2.setChecked(true);
-
-        _default.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(_default.isChecked()) {
-                    right.setChecked(false);
-                    left.setChecked(false);
-                }
-            }
-        });
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(left.isChecked()) {
-                    right.setChecked(false);
-                    _default.setChecked(false);
-                }
-            }
-        });
-
-        right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(right.isChecked()) {
-                    left.setChecked(false);
-                    _default.setChecked(false);
-                }
-
-            }
-        });
-
-        _default2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(_default2.isChecked()) {
-                    right2.setChecked(false);
-                    left2.setChecked(false);
-                }
-            }
-        });
-        left2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(left2.isChecked()) {
-                    right2.setChecked(false);
-                    _default2.setChecked(false);
-                }
-            }
-        });
-        right2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(right2.isChecked()) {
-                    left2.setChecked(false);
-                    _default2.setChecked(false);
-                }
-            }
-        });
+//        left.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(left.isChecked() && !right.isChecked()) {
+//                    left.setChecked(true);
+//                }
+//            }
+//        });
+//
+//        right.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(right.isChecked() && !left.isChecked()) {
+//                    right.setChecked(false);
+//                }
+//
+//            }
+//        });
+//
+//        left2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(left2.isChecked()) {
+//                    right2.setChecked(false);
+//                }
+//            }
+//        });
+//        right2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(right2.isChecked()) {
+//                    left2.setChecked(false);
+//                }
+//            }
+//        });
     }
 
     public void setUpFrequencyBar(){
@@ -393,6 +368,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 stop_current_sound();
+
+                SharedPreferences sound_settings = getApplicationContext().getSharedPreferences("sound", 0);
+                SharedPreferences freq_settings = getApplicationContext().getSharedPreferences("freq", 0);
+
+                SharedPreferences.Editor sound_editor = sound_settings.edit();
+                SharedPreferences.Editor freq_editor = freq_settings.edit();
+
+                sound_editor.putString("firstSound", (String) spinner1.getSelectedItem());
+                freq_editor.putString("firstFreq", Float.toString((float)freq1.getProgress()/10));
+
+                if (!disableSound2.isChecked()) {
+                    sound_editor.putString("secondSound", (String) sound2List.getSelectedItem());
+                    freq_editor.putString("secondFreq", Float.toString((float)freq2.getProgress()/10));
+                }
+                else {
+                    sound_editor.putString("secondSound", "");
+                    freq_editor.putString("secondFreq", "");
+                }
+
+                sound_editor.apply();
+                freq_editor.apply();
+
                 startActivity(new Intent(MainActivity.this, JournalActivity.class));
             }
         });
@@ -596,20 +593,28 @@ public class MainActivity extends AppCompatActivity {
 
         //int buffer=AudioTrack.getMinBufferSize(8000,AudioFormat.CHANNEL_IN_STEREO,AudioFormat.ENCODING_PCM_16BIT);
         if(soundn == 1) {
-            if (right.isChecked())
-                audio.setStereoVolume(0, 1);
-            else if (left.isChecked())
-                audio.setStereoVolume(1, 0);
+            if (right.isChecked() && !left.isChecked() )
+                audio.setStereoVolume(0, 0.7f);
+            else if (left.isChecked() && !right.isChecked())
+                audio.setStereoVolume(0.7f, 0);
+            else if(left.isChecked() && right.isChecked())
+                audio.setStereoVolume(0.7f,0.7f);
+            else if(!left.isChecked() && !right.isChecked())
+                audio.setStereoVolume(0,0);
             audio.play();
             System.out.println("current state before changing is "+play_state);
             //play_state = 2;
             System.out.println("end of play function for sound 1");
         }
         else{
-            if (right2.isChecked())
-                audio2.setStereoVolume(0, 1);
-            else if (left2.isChecked())
-                audio2.setStereoVolume(1, 0);
+            if (right2.isChecked() && !left2.isChecked())
+                audio2.setStereoVolume(0, 0.7f);
+            else if (left2.isChecked() && !right2.isChecked())
+                audio2.setStereoVolume(0.7f, 0);
+            else if(left2.isChecked() && right2.isChecked())
+                audio2.setStereoVolume(0.7f,0.7f);
+            else if(!left2.isChecked() && !right2.isChecked())
+                audio2.setStereoVolume(0,0);
             audio2.play();
             System.out.println("current state before changing is "+play_state);
             //play_state = 2;
