@@ -80,20 +80,20 @@
         android:id="@+id/songRadioGroup"
         android:layout_width="102dp"
         android:layout_height="170dp"
-        android:layout_marginBottom="196dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="72dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:checkedButton="@+id/coinRbtn"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.995"
+        app:layout_constraintHorizontal_bias="0.748"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.45"
+        app:layout_constraintVertical_bias="0.01"
         tools:orientation="vertical">
 
         <RadioButton
@@ -223,14 +223,6 @@
         app:layout_constraintVertical_bias="0.137"
         app:srcCompat="@mipmap/question_mark_button" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="121dp"
-        android:layout_height="65dp"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="422dp" />
-
     <ImageButton
         android:id="@+id/playCoinBtn"
         android:layout_width="38dp"
@@ -247,7 +239,7 @@
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.375"
+        app:layout_constraintVertical_bias="0.368"
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <ImageButton
@@ -266,7 +258,7 @@
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.46"
+        app:layout_constraintVertical_bias="0.450"
         app:srcCompat="@android:drawable/ic_media_play" />
 
     <ImageButton
@@ -285,7 +277,7 @@
         app:layout_constraintHorizontal_bias="0.951"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.545"
+        app:layout_constraintVertical_bias="0.534"
         app:srcCompat="@android:drawable/ic_media_play" />
 
 </android.support.constraint.ConstraintLayout>

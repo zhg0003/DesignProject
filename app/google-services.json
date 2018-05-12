@@ -1,0 +1,78 @@
+{
+  "project_info": {
+    "project_number": "94511730340",
+    "firebase_url": "https://lucid-you.firebaseio.com",
+    "project_id": "lucid-you",
+    "storage_bucket": "lucid-you.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94511730340:android:b8f5f21f823643be",
+        "android_client_info": {
+          "package_name": "com.example.g.luciddreamgenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94511730340-9a0fkl2vih8mh855cbebvfkua59ru2r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGapLbU2mKOKE1lElf7gfrskKLpcfgPbA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94511730340:android:e0cb40501e22f373",
+        "android_client_info": {
+          "package_name": "com.example193LD.g.luciddreamgenerator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94511730340-9a0fkl2vih8mh855cbebvfkua59ru2r9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGapLbU2mKOKE1lElf7gfrskKLpcfgPbA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94511730340-9a0fkl2vih8mh855cbebvfkua59ru2r9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

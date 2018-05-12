@@ -214,11 +214,30 @@ public class JournalActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(getBaseContext(), JournalListActivity.class);
 
+                Date date = new Date();
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+                String hours = Integer.toString(cal.get(Calendar.HOUR));
+                String minutes = Integer.toString(cal.get(Calendar.MINUTE));
+                String am_pm = Integer.toString(cal.get(Calendar.AM_PM));
+                
+                if (am_pm.equals("0"))
+                    am_pm = "am";
+                else
+                    am_pm = "pm";
+
+                if (minutes.length() == 1) {
+                    String temp = minutes;
+                    minutes = "0";
+                    minutes = minutes.concat(temp);
+                }
+
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                 String formattedDream = df.format(c);
-               // Toast.makeText(getBaseContext(), formattedDream, Toast.LENGTH_SHORT).show();
 
+                formattedDream = formattedDream.concat(" - ");
+                formattedDream = formattedDream.concat(hours + ":" + minutes + am_pm);
                 formattedDream = formattedDream.concat(" - \"");
                 formattedDream = formattedDream.concat(content);
                 formattedDream = formattedDream.concat("\"");
