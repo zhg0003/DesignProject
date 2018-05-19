@@ -16,6 +16,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     logged_in_as.style.display = "block";
       
     if(document.getElementById("loggedin") != null){
+        location.replace("./index.html");
         document.getElementById("loggedin").style.display = "block";
     }  
       
