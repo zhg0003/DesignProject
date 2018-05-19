@@ -7,6 +7,7 @@ public class LucidApp extends Application{
     public boolean getLogged() {
         return loggedIn;
     }
+
     public void setLogged(boolean loggedIn) {
         this.loggedIn = loggedIn;
     }

@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getWindow().setBackgroundDrawableResource(R.drawable.woodbg2);
+        //getWindow().setBackgroundDrawableResource(R.drawable.woodbg2);
 
         Button cancelButton = (Button) findViewById(R.id.account_cancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
