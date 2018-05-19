@@ -95,59 +95,17 @@ public class AlarmReceiver extends BroadcastReceiver{
                 .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setSound(alert, AudioManager.STREAM_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setVibrate(new long[]{1000, 1000})
                 .setAutoCancel(true)
                 .setTicker("Are you dreaming?")
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi);
-        nm.notify(uniqueID, mBuilder.build());
 
         if (!song.equals("None")) {
-            /*final MediaPlayer mMediaPlayer = new MediaPlayer();
-            try {
-                mMediaPlayer.setDataSource(context, alert);
-                final AudioManager audioManager = (AudioManager) context
-                        .getSystemService(Context.AUDIO_SERVICE);
-                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                    mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-                    mMediaPlayer.prepare();
-                    CountDownTimer cdt = new CountDownTimer(3000, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                            mMediaPlayer.start();
-                        }
-
-                        public void onFinish() {
-                            mMediaPlayer.stop();
-                        }
-                    };
-                    cdt.start();
-                }
-            } catch (IOException e) {
-                System.out.println("OOPS");
-            }*/
-            final MediaPlayer player = new MediaPlayer();
-            try {
-                player.setDataSource(context, alert);
-                final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-
-                if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
-                        player.setLooping(false);
-                        player.prepare();
-                        player.start();
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            public void onCompletion(MediaPlayer mp) {
-                                player.release();
-                            }
-                        });
-                }
-            }
-            catch (IOException e) {
-                System.out.println("OOPS");
-            }
+            mBuilder.setSound(alert, AudioManager.STREAM_ALARM);
         }
+        nm.notify(uniqueID, mBuilder.build());
 
         if (random.equals("true") && Build.VERSION.SDK_INT >= 19) {
             final AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
