@@ -1,6 +1,7 @@
 package com.example.g.luciddreamgenerator;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,7 @@ public class MenuActivity extends AppCompatActivity {
         setUpJournalButton();
         setUpTrainingButton();
         setUpHelpButton();
+        setUpSyncButton();
     }
 
     public void setUpAudioButton() {
@@ -66,6 +68,25 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(), "Help option coming in version 2", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void setUpSyncButton(){
+        Button b = (Button) findViewById(R.id.button13);
+        final boolean loggedIn = ((LucidApp) getApplication()).getLogged();
+        if (loggedIn) {
+            b.setText("Desync from Website");
+        }
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (loggedIn) {
+                    startActivity(new Intent(MenuActivity.this, LogoutActivity.class));
+                }
+                else {
+                    startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+                }
             }
         });
     }
