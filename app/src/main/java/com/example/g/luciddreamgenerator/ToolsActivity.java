@@ -1,5 +1,6 @@
 package com.example.g.luciddreamgenerator;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -39,9 +41,22 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class ToolsActivity extends AppCompatActivity {
@@ -52,11 +67,13 @@ public class ToolsActivity extends AppCompatActivity {
     boolean random = false;
     boolean active = false;
     boolean already_active = false;
-    boolean toast = false;
     String saved_active = "Off";
     String saved_interval = "Half Hour";
     String saved_song = "Coin";
-    private static final int uniqueID = 12345;
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private static final String TAG = "ToolsActivity";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -66,6 +83,9 @@ public class ToolsActivity extends AppCompatActivity {
         intervalSelect = (RadioGroup) findViewById(R.id.radioGroup);
         songSelect = (RadioGroup) findViewById(R.id.songRadioGroup);
         sw = (Switch) findViewById(R.id.switch1);
+        fireStoreTest();
+        fireGetTest();
+
 
         //load previous settings
         loadSettings();
@@ -98,13 +118,13 @@ public class ToolsActivity extends AppCompatActivity {
         if (saved_song.equals("Coin")) {
             songSelect.check(R.id.coinRbtn);
         }
-        else if (saved_interval.equals("Dream")) {
+        else if (saved_song.equals("Dream")) {
             songSelect.check(R.id.dreamRbtn);
         }
-        else if (saved_interval.equals("Notification")) {
+        else if (saved_song.equals("Notification")) {
             songSelect.check(R.id.notificationRbtn);
         }
-        else if (saved_interval.equals("None")) {
+        else if (saved_song.equals("None")) {
             songSelect.check(R.id.noneRbtn);
         }
 
@@ -218,26 +238,15 @@ public class ToolsActivity extends AppCompatActivity {
         play_coin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MediaPlayer player = new MediaPlayer();
-                try {
-                    player.setDataSource(ToolsActivity.this, alert);
-                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
-                        player.setLooping(false);
-                        player.prepare();
-                        player.start();
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            public void onCompletion(MediaPlayer mp) {
-                                player.release();
-                            }
-                        });
+                MediaPlayer mp = MediaPlayer.create(ToolsActivity.this, alert);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer player) {
+                        player.release();
+                        player = null;
                     }
-                }
-                catch (IOException e) {
-                    System.out.println("OOPS");
-                }
+                });
             }
         });
     }
@@ -248,26 +257,15 @@ public class ToolsActivity extends AppCompatActivity {
         play_coin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MediaPlayer player = new MediaPlayer();
-                try {
-                    player.setDataSource(ToolsActivity.this, alert);
-                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
-                        player.setLooping(false);
-                        player.prepare();
-                        player.start();
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            public void onCompletion(MediaPlayer mp) {
-                                player.release();
-                            }
-                        });
+                MediaPlayer mp = MediaPlayer.create(ToolsActivity.this, alert);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer player) {
+                        player.release();
+                        player = null;
                     }
-                }
-                catch (IOException e) {
-                    System.out.println("OOPS");
-                }
+                });
             }
         });
     }
@@ -278,31 +276,20 @@ public class ToolsActivity extends AppCompatActivity {
         play_coin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final MediaPlayer player = new MediaPlayer();
-                try {
-                    player.setDataSource(ToolsActivity.this, alert);
-                    final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-
-                    if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                        player.setAudioStreamType(AudioManager.STREAM_ALARM);
-                        player.setLooping(false);
-                        player.prepare();
-                        player.start();
-                        player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            public void onCompletion(MediaPlayer mp) {
-                                player.release();
-                            }
-                        });
+                MediaPlayer mp = MediaPlayer.create(ToolsActivity.this, alert);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer player) {
+                        player.release();
                     }
-                }
-                catch (IOException e) {
-                    System.out.println("OOPS");
-                }
+                });
             }
         });
     }
 
     public void setAlarm() {
+        fireStoreTest();
         final AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent i = new Intent(ToolsActivity.this, AlarmReceiver.class);
         Bundle extras = new Bundle();
@@ -314,15 +301,15 @@ public class ToolsActivity extends AppCompatActivity {
 
         if (random && active){
             if (Build.VERSION.SDK_INT < 19) {
-                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
+                am.setInexactRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() - 10000, interval, pi);
             }
             else {
-                am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pi);
+                am.setExact(AlarmManager.RTC_WAKEUP, 10, pi);
             }
             already_active = true;
         }
         else if (!random && active) {
-            am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pi);
+            am.setRepeating(AlarmManager.RTC_WAKEUP, Calendar.getInstance().getTimeInMillis() - 10000, interval, pi);
             already_active = true;
         }
         else if (!active) {
@@ -353,5 +340,86 @@ public class ToolsActivity extends AppCompatActivity {
         sb.append(saved_song).append("~");
         editor.putString("settings", sb.toString());
         editor.apply();
+    }
+
+    public void fireStoreTest() {
+        Button test = (Button) findViewById(R.id.button14);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+// Create a new user with a first, middle, and last name
+                Map<String, Object> user = new HashMap<>();
+                user.put("first", "Alan");
+                user.put("middle", "Mathison");
+                user.put("last", "Turring");
+                user.put("born", 1912);
+
+// Add a new document with a generated ID
+                db.collection("Test")
+                        .add(user)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Snackbar snackbar;
+                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                        "DocumentSnapshot added with ID: " + documentReference.getId(),
+                                        10000);
+                                View snackbarView = snackbar.getView();
+                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                textView.setMaxLines(5);
+                                snackbar.show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Snackbar snackbar;
+                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                        "Error adding document",
+                                        10000);
+                                View snackbarView = snackbar.getView();
+                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                textView.setMaxLines(5);
+                                snackbar.show();
+                            }
+                        });
+            }
+        });
+    }
+
+    public void fireGetTest() {
+        Button test = (Button) findViewById(R.id.button15);
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+        // Create a new user with a first, middle, and last name
+                db.collection("USERS/seanjedi@gmail.com/records")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        Snackbar snackbar;
+                                        snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                                document.getId() + " => " + document.get("date"),
+                                                10000);
+                                        View snackbarView = snackbar.getView();
+                                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                        textView.setMaxLines(5);
+                                        snackbar.show();                                    }
+                                } else {
+                                    Snackbar snackbar;
+                                    snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                            "Error getting documents.",
+                                            10000);
+                                    View snackbarView = snackbar.getView();
+                                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                    textView.setMaxLines(5);
+                                    snackbar.show();                                   }
+                            }
+                        });
+            }
+        });
     }
 }
