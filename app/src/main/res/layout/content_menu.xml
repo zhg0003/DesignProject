@@ -67,6 +67,21 @@
         app:layout_constraintTop_toBottomOf="@+id/button6" />
 
     <Button
+        android:id="@+id/button13"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="#26000000"
+        android:text="Sync with Website"
+        android:textColor="#FFF"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button7" />
+
+    <Button
         android:id="@+id/button8"
         android:layout_width="300dp"
         android:layout_height="55dp"
@@ -78,7 +93,7 @@
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/button13" />
 
     <TextView
         android:id="@+id/textView11"
@@ -89,6 +104,7 @@
         android:layout_marginTop="8dp"
         android:text="A lucid dream assistance application"
         android:textSize="16sp"
+
         android:textColor="#FFF"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"

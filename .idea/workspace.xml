@@ -12,17 +12,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3114b083-3108-4ddf-aff0-87caf97d6009" name="Default" comment="">
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/logo2.png" />
+=======
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/fileContent/fileContent.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileContent/fileContent.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignProject.iml" afterPath="$PROJECT_DIR$/DesignProject.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
@@ -39,6 +41,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_journal_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_journal_list.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_menu.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_menu.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,6 +72,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="JournalListActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,19 +87,47 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon.png">
           <provider selected="true" editor-type-id="images">
             <state />
+=======
+      <file leaf-file-name="JournalActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3465">
+              <caret line="254" column="45" lean-forward="false" selection-start-line="254" selection-start-column="45" selection-end-line="254" selection-end-column="45" />
+              <folding />
+            </state>
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ic_launcher_background.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
+=======
+            <state relative-caret-position="1168">
+              <caret line="103" column="13" lean-forward="false" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="13" />
+              <folding>
+                <element signature="e#764#772#0" expanded="true" />
+                <element signature="e#5077#5312#0" expanded="true" />
+                <element signature="e#5311#5312#0" expanded="true" />
+                <element signature="e#5536#6607#0" expanded="true" />
+                <element signature="e#6606#6607#0" expanded="true" />
+                <element signature="e#6843#7869#0" expanded="true" />
+                <element signature="e#7343#7344#0" expanded="false" />
+                <element signature="e#7404#7405#0" expanded="false" />
+                <element signature="e#7624#7625#0" expanded="false" />
+                <element signature="e#7687#7688#0" expanded="false" />
+                <element signature="e#7868#7869#0" expanded="true" />
+              </folding>
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
           <provider editor-type-id="android-manifest">
@@ -100,6 +136,33 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="196">
               <caret line="15" column="40" lean-forward="true" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+=======
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/EditActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
               <folding />
             </state>
           </provider>
@@ -3057,9 +3120,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_timer.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/MenuActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/TimerActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit.xml" />
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_journal_list.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalListActivity.java" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
@@ -3077,7 +3145,14 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/content_journal.xml" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+=======
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_edit.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/EditActivity.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       </list>
     </option>
   </component>
@@ -3410,7 +3485,14 @@
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="com.example.g.luciddreamgenerator.EditActivity" />
+<<<<<<< HEAD
       <method />
+=======
+      <method>
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526167861690" />
+      </method>
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -3481,7 +3563,12 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526770570277" />
+=======
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526167861690" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3528,7 +3615,12 @@
         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
       </Profilers>
       <method>
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526770570277" />
+=======
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526167861690" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -3710,7 +3802,12 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526770570280" />
+=======
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526167861698" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       </method>
     </configuration>
     <configuration default="false" name="myapplication" type="AndroidRunConfigurationType" factoryName="Android App">
@@ -3758,7 +3855,12 @@
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
       <method>
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526770570280" />
+=======
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526167861698" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       </method>
     </configuration>
     <list size="3">
@@ -3820,7 +3922,11 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6211632" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33117932" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3325031" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3275218" sideWeight="0.49353796" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3831,7 +3937,11 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24945888" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39579967" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39726028" sideWeight="0.49676898" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -4035,6 +4145,20 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_journal_list.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/TimerActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5280">
@@ -4042,6 +4166,16 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/MenuActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="21" column="37" lean-forward="false" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -4150,6 +4284,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/ToolsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -4159,6 +4294,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalActivity.java">
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/RegisterActivity.java">
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
@@ -4245,6 +4383,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_journal_list.xml">
       <provider selected="true" editor-type-id="android-designer2">
         <state />
@@ -4265,18 +4404,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-996">
           <caret line="28" column="26" lean-forward="false" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="373" column="0" lean-forward="false" selection-start-line="373" selection-start-column="0" selection-end-line="373" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="254" column="45" lean-forward="false" selection-start-line="254" selection-start-column="45" selection-end-line="254" selection-end-column="45" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="109" column="18" lean-forward="false" selection-start-line="109" selection-start-column="18" selection-end-line="109" selection-end-column="18" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/EditActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="43" column="62" lean-forward="false" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -4297,6 +4458,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="15" column="40" lean-forward="true" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/g/luciddreamgenerator/JournalListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1168">
+          <caret line="103" column="13" lean-forward="false" selection-start-line="103" selection-start-column="13" selection-end-line="103" selection-end-column="13" />
+          <folding>
+            <element signature="e#764#772#0" expanded="true" />
+            <element signature="e#5077#5312#0" expanded="true" />
+            <element signature="e#5311#5312#0" expanded="true" />
+            <element signature="e#5536#6607#0" expanded="true" />
+            <element signature="e#6606#6607#0" expanded="true" />
+            <element signature="e#6843#7869#0" expanded="true" />
+            <element signature="e#7343#7344#0" expanded="false" />
+            <element signature="e#7404#7405#0" expanded="false" />
+            <element signature="e#7624#7625#0" expanded="false" />
+            <element signature="e#7687#7688#0" expanded="false" />
+            <element signature="e#7868#7869#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="22" lean-forward="false" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+>>>>>>> ce8c3ca5f736205c65f6f3d23e753f2c0a7183e8
           <folding />
         </state>
       </provider>
