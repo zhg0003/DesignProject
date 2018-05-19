@@ -36,7 +36,6 @@ public class JournalListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_list);
 
-        setUpBackButton();
         setUpEditButton();
         setUpDeleteButton();
 
@@ -107,7 +106,7 @@ public class JournalListActivity extends ListActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
             saveDreams();
-            startActivity(new Intent(JournalListActivity.this, JournalActivity.class));
+            startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
             return false;
         }
         return super.onKeyDown(keyCode, event);
@@ -142,17 +141,7 @@ public class JournalListActivity extends ListActivity {
 
     }
 
-    public void setUpBackButton() {
-        Button back_button = (Button) findViewById(R.id.backBtn);
 
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveDreams();
-                startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
-            }
-        });
-    }
 
     public void setUpEditButton(){
         Button editButton = (Button) findViewById(R.id.editBtn);

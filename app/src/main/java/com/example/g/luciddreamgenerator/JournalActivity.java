@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -85,7 +86,6 @@ public class JournalActivity extends AppCompatActivity {
         dreamRating = (RatingBar) findViewById(R.id.ratingBar);
 
         setUpSaveButton();
-        setUpCancelButton();
         loadCustomFields();
     }
 
@@ -158,18 +158,18 @@ public class JournalActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void setUpCancelButton() {
-        Button cancel_button = (Button) findViewById(R.id.button4);
-
-        cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveCustomFields();
-                startActivity(new Intent(JournalActivity.this, MainActivity.class));
-            }
-        });
 
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            saveCustomFields();
+            startActivity(new Intent(JournalActivity.this, MainActivity.class));
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setUpSaveButton() {

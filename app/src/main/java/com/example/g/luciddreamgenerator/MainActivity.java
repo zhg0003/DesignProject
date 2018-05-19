@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -117,6 +118,17 @@ public class MainActivity extends AppCompatActivity {
         setUpFrequencyBar();
         setUpHzInput();
         setUpAdjustButtons();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setUpAdjustButtons(){

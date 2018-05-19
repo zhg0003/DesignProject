@@ -4,199 +4,221 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/woodbg2"
+    android:background="#2C3A57"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.g.luciddreamgenerator.JournalActivity"
     tools:showIn="@layout/activity_journal">
 
     <EditText
         android:id="@+id/editText0"
-        android:layout_width="348dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="200dp"
+        android:layout_height="380dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="#26000000"
         android:ems="10"
+        android:gravity="top|left"
+        android:hint="ex. I dreamed I was falling."
         android:inputType="textMultiLine"
         android:singleLine="false"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
+        android:textSize="13sp"
+        android:padding="20px"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginBottom="8dp"
         android:text="What Did You Dream About?"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editText0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/editText0" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:layout_marginStart="8dp"
-        android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ratingBar" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="64dp"
         android:layout_marginEnd="8dp"
-        android:text="Cancel"
+        android:layout_marginStart="8dp"
+        android:background="#26000000"
+        android:text="Save"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ratingBar" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="How Would You Rate Your Dream Quality?"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+        android:layout_marginTop="16dp"
+        android:text="Rate Your Dream Quality"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/editText0"
+        app:layout_constraintTop_toBottomOf="@+id/editText6" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/editText0"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox3"
-        app:layout_constraintStart_toStartOf="@+id/editText0" />
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText1"
+        app:layout_constraintTop_toTopOf="@+id/editText1" />
 
     <CheckBox
         android:id="@+id/checkBox2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox4"
-        app:layout_constraintEnd_toStartOf="@+id/editText2" />
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText2"
+        app:layout_constraintTop_toTopOf="@+id/editText2" />
 
     <EditText
         android:id="@+id/editText1"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="ex. Scary Dream"
         android:inputType="textPersonName"
-        android:hint="Custom Field 1"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText3"
-        app:layout_constraintStart_toEndOf="@+id/checkBox1" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editText0" />
 
     <EditText
         android:id="@+id/editText2"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Custom Theme"
         android:inputType="textPersonName"
-        android:hint="Custom Field 2"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
-        app:layout_constraintEnd_toEndOf="@+id/editText0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText1" />
 
     <CheckBox
         android:id="@+id/checkBox3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox5"
-        app:layout_constraintStart_toStartOf="@+id/checkBox1" />
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText3"
+        app:layout_constraintTop_toTopOf="@+id/editText3" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Custom Theme"
         android:inputType="textPersonName"
-        android:hint="Custom Field 3"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
-        app:layout_constraintStart_toEndOf="@+id/checkBox3" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <CheckBox
         android:id="@+id/checkBox4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox6"
-        app:layout_constraintEnd_toStartOf="@+id/editText4" />
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText4"
+        app:layout_constraintTop_toTopOf="@+id/editText4" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="140dp"
         android:layout_height="34dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="Custom Theme"
         android:inputType="textPersonName"
-        android:hint="Custom Field 4"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/editText6"
-        app:layout_constraintEnd_toEndOf="@+id/editText2" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
     <CheckBox
-            android:id="@+id/checkBox5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
-            app:layout_constraintStart_toStartOf="@+id/checkBox3" />
+        android:id="@+id/checkBox5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText5"
+        app:layout_constraintTop_toTopOf="@+id/editText5" />
 
-        <CheckBox
-            android:id="@+id/checkBox6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
-            app:layout_constraintEnd_toStartOf="@+id/editText6" />
+    <CheckBox
+        android:id="@+id/checkBox6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toStartOf="@+id/editText6"
+        app:layout_constraintTop_toTopOf="@+id/editText6" />
 
-        <EditText
-            android:id="@+id/editText5"
-            android:layout_width="140dp"
-            android:layout_height="34dp"
-            android:layout_marginBottom="24dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Custom Field 5"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/checkBox5" />
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Custom Theme"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
-        <EditText
-            android:id="@+id/editText6"
-            android:layout_width="140dp"
-            android:layout_height="34dp"
-            android:layout_marginBottom="24dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Custom Field 6"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
-            app:layout_constraintEnd_toEndOf="@+id/editText4" />
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="140dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Custom Theme"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#66FFFFFF"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText5" />
 
 
 </android.support.constraint.ConstraintLayout>

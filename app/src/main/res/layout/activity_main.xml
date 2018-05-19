@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/woodbg2"
+    android:background="#2C3A57"
     tools:context="com.example.g.luciddreamgenerator.MainActivity">
 
     <TextView
@@ -25,6 +25,7 @@
         android:layout_marginTop="8dp"
         android:gravity="left"
         android:text="Sound 1"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +36,7 @@
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:background="?attr/colorButtonNormal"
+        android:background="#26000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -47,6 +48,7 @@
         android:layout_marginStart="8dp"
         android:gravity="left"
         android:text="Frequency 1"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -56,7 +58,7 @@
         android:layout_width="350dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:background="#33e3e3e3"
+        android:background="#26000000"
         android:max="10000"
         android:min="5"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +72,8 @@
         android:layout_marginStart="60dp"
         android:drawableLeft="@android:drawable/ic_media_play"
         android:text="Play"
+        android:textColor="#FFF"
+        android:background="#26000000"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintStart_toStartOf="parent" />
@@ -82,6 +86,8 @@
         android:layout_marginEnd="72dp"
         android:drawableLeft="@android:drawable/checkbox_off_background"
         android:text="Stop"
+        android:textColor="#FFF"
+        android:background="#26000000"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/button10"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -92,7 +98,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="Write Down Dream"
+        android:text="Log Dream"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/result"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -120,6 +128,7 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:text="1"
+        android:textColor="#FFF"
         android:textColorLink="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textView18"
@@ -131,6 +140,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="36dp"
         android:text="+0.1"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/dec01"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -140,6 +151,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="112dp"
         android:text="-0.1"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -150,6 +163,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:text="left"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -160,6 +174,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="44dp"
         android:text="right"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/leftChannel"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -170,6 +185,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="50dp"
         android:text="Channels"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
 
@@ -181,6 +197,7 @@
         android:layout_marginTop="8dp"
         android:gravity="left"
         android:text="Hz"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
@@ -192,6 +209,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Sound 2"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rightChannel" />
@@ -201,7 +219,7 @@
         android:layout_width="191dp"
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:background="?attr/colorButtonNormal"
+        android:background="#26000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -211,6 +229,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Frequency 2"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sound2item" />
@@ -220,7 +239,7 @@
         android:layout_width="350dp"
         android:layout_height="30dp"
         android:layout_marginStart="8dp"
-        android:background="#33e3e3e3"
+        android:background="#26000000"
         android:max="10000"
         android:min="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -233,6 +252,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Hz"
+        android:textColor="#FFF"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
@@ -246,6 +266,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="1"
+        android:textColor="#FFF"
         android:textColorLink="@android:color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/textView20"
@@ -257,6 +278,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="36dp"
         android:text="+0.1"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/dec01_2"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
@@ -266,6 +289,8 @@
         android:layout_height="35dp"
         android:layout_marginStart="112dp"
         android:text="-0.1"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="@+id/textView20"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
@@ -276,6 +301,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
         android:text="disable sound 2"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toTopOf="@+id/seekBar2"
         app:layout_constraintStart_toEndOf="@+id/sound2item" />
 
@@ -286,6 +312,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="60dp"
         android:text="Channels"
+        android:textColor="#FFF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/warning" />
 
@@ -296,6 +323,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:text="left"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 
@@ -306,6 +334,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="44dp"
         android:text="right"
+        android:textColor="#FFF"
         app:layout_constraintStart_toEndOf="@+id/leftChannel2"
         app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
 

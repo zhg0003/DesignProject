@@ -21,6 +21,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -68,7 +69,6 @@ public class ToolsActivity extends AppCompatActivity {
 
         //load previous settings
         loadSettings();
-        setUpBackButton();
         setUpPlayCoinButton();
         setUpPlayDreamButton();
         setUpPlayNotifButton();
@@ -200,16 +200,16 @@ public class ToolsActivity extends AppCompatActivity {
 
     }
 
-    public void setUpBackButton() {
-        Button back_button = (Button) findViewById(R.id.backBtn);
-
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveSettings();
-                startActivity(new Intent(ToolsActivity.this, MenuActivity.class));
-            }
-        });
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            saveSettings();
+            startActivity(new Intent(ToolsActivity.this, MenuActivity.class));
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setUpPlayCoinButton() {

@@ -31,7 +31,6 @@ public class EditActivity extends AppCompatActivity {
         editText.setText(dreamToBeEdited);
 
         setUpSaveButton();
-        setUpCancelButton();
 
     }
 
@@ -50,6 +49,8 @@ public class EditActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+
     public void setUpSaveButton(){
         Button saveButton = (Button) findViewById(R.id.button11);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -65,19 +66,6 @@ public class EditActivity extends AppCompatActivity {
         });
     }
 
-    public void setUpCancelButton(){
-        Button cancelButton = (Button) findViewById(R.id.button12);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt("editDreamIndex", -1);
-                editor.apply();
-                startActivity(new Intent(EditActivity.this, JournalListActivity.class));
 
-            }
-        });
-    }
 
 }
