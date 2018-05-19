@@ -11,7 +11,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       
       firestore.collection('USERS').doc(currentUser).collection('records').orderBy("date", "desc").get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
-              console.log(doc.id);
               var tile = document.createElement('div');
               tile.className = "tile";
               tile.id = "tile:" + tileNum;
@@ -71,6 +70,7 @@ firebase.auth().onAuthStateChanged(function(user) {
               var button = document.createElement("button");
               button.textContent = "Delete Log!";
               button.className = "deleteMe";
+              addOnclickDelete(button, deleteLog, tile.id, doc.data().date, currentUser);
 //              addOnclick2(button, )
               tile.appendChild(button);
               
@@ -85,18 +85,24 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-function addOnclick2(element, func, param, param2) {
+function addOnclickDelete(button, func, tile, date, user) {
 
 	// the closure of noarg includes local variables
 	// "func" and "param"
 	function noarg() {
-		func(param, param2);
+		func(tile, date, user);
 		}
 
-	element.onclick = noarg;  // it will remember its closure
+	button.onclick = noarg;  // it will remember its closure
 }
 
-function disappear(param){
-    var div = document.getElementById(param);
+function deleteLog(tile, date, currentUser){
+    
+    firestore.collection('USERS').doc(currentUser).collection('records').doc(date).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
+    var div = document.getElementById(tile);
     div.style.display = "none";
 }
