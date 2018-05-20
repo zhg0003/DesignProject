@@ -388,7 +388,7 @@ public class ToolsActivity extends AppCompatActivity {
     }
 
     public void fireGetTest() {
-        Button test = (Button) findViewById(R.id.button15);
+        Button test = (Button) findViewById(R.id.button14);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,8 @@ package com.example.g.luciddreamgenerator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -11,15 +13,25 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class JournalActivity extends AppCompatActivity {
@@ -49,12 +61,23 @@ public class JournalActivity extends AppCompatActivity {
     String content6;
     RatingBar dreamRating;
 
+    boolean isLoggedin;
+    String username;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        isLoggedin = ((LucidApp) getApplication()).getLogged();
+        username = user.getEmail();
+
 
         dreamEdit = (EditText)findViewById(R.id.editText0);
         myEdit1 = (EditText)findViewById(R.id.editText1);
@@ -63,7 +86,6 @@ public class JournalActivity extends AppCompatActivity {
         myEdit4 = (EditText)findViewById(R.id.editText4);
         myEdit5 = (EditText)findViewById(R.id.editText5);
         myEdit6 = (EditText)findViewById(R.id.editText6);
-
 
 
         content = dreamEdit.getText().toString();
@@ -178,6 +200,7 @@ public class JournalActivity extends AppCompatActivity {
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Map<String, Object> data = new HashMap<>();
 
                 content = dreamEdit.getText().toString();
                 content1 = myEdit1.getText().toString();
@@ -235,12 +258,15 @@ public class JournalActivity extends AppCompatActivity {
                 Date c = Calendar.getInstance().getTime();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                 String formattedDream = df.format(c);
+                data.put("date", formattedDream);
 
                 formattedDream = formattedDream.concat(" - ");
                 formattedDream = formattedDream.concat(hours + ":" + minutes + am_pm);
                 formattedDream = formattedDream.concat(" - \"");
                 formattedDream = formattedDream.concat(content);
                 formattedDream = formattedDream.concat("\"");
+
+                data.put("exp", content);
 
                 SharedPreferences sound_settings = getApplicationContext().getSharedPreferences("sound", 0);
                 SharedPreferences freq_settings = getApplicationContext().getSharedPreferences("freq", 0);
@@ -252,8 +278,13 @@ public class JournalActivity extends AppCompatActivity {
 
                 formattedDream = formattedDream.concat("\n" + "Sound(s) Played During Dream:");
                 formattedDream = formattedDream.concat("\n -" + firstSound + " at " + firstFreq + "hz");
-                if (secondSound.length() > 0)
+                data.put("sound1", firstSound);
+                data.put("freq1", firstFreq);
+                if (secondSound.length() > 0) {
                     formattedDream = formattedDream.concat("\n -" + secondSound + " at " + secondFreq + "hz");
+                    data.put("sound2", secondSound);
+                    data.put("freq2", secondFreq);
+                }
 
                 if (checkbox1.isChecked() || checkbox2.isChecked() || checkbox3.isChecked() || checkbox4.isChecked() || checkbox5.isChecked() || checkbox6.isChecked())
                     formattedDream = formattedDream.concat("\n" + "Custom Fields:");
@@ -272,10 +303,12 @@ public class JournalActivity extends AppCompatActivity {
                     formattedDream = formattedDream.concat("\n -" + content6);
 
 
-
+                data.put("tags", content1);
 
                 if (dreamRating.getRating() != 0)
                     formattedDream = formattedDream.concat("\nDream Quality: " + String.valueOf(dreamRating.getRating()) + " stars.");
+
+                data.put("rating", String.valueOf(dreamRating.getRating()));
 
                 saveCustomFields();
                 loadDreams();
@@ -284,7 +317,13 @@ public class JournalActivity extends AppCompatActivity {
                 //intent.putExtra("DREAM_CONTENT", formattedDream);
                 //startActivity(intent);
 
-                Toast.makeText(getBaseContext(), "Journal Entry Added.", Toast.LENGTH_LONG).show();
+                insertDb(data, isLoggedin);
+
+                if (isLoggedin)
+                    Toast.makeText(getBaseContext(), "Journal Entry Added. Also inputted to website.", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getBaseContext(), "Journal Entry Added.", Toast.LENGTH_LONG).show();
+
                 startActivity(new Intent(JournalActivity.this, MenuActivity.class));
             }
         });
@@ -312,5 +351,35 @@ public class JournalActivity extends AppCompatActivity {
         editor.putString("dreams", sb.toString());
         editor.apply();
     }
+
+    protected void insertDb(Map<String, Object> user, boolean loggedIn) {
+        if (loggedIn) {
+
+            Date c = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            String formattedDate = df.format(c);
+
+// Add a new document with a generated ID
+            db.collection("USERS/" + username + "/records/").document(formattedDate)
+                    .set(user)
+
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Snackbar snackbar;
+                            snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                    "Error adding document",
+                                    10000);
+                            View snackbarView = snackbar.getView();
+                            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                            textView.setMaxLines(5);
+                            snackbar.show();
+                        }
+                    });
+        }
+    }
+
+
+
 
 }
