@@ -38,15 +38,15 @@ firebase.auth().onAuthStateChanged(function(user) {
         date: date,
         exp: exp
     }).then(function(){
-        document.querySelector("#sound1").value = " ";
-        document.querySelector("#freq1").value = " ";
-        document.querySelector("#amp1").value = " ";
-        document.querySelector("#sound2").value = " ";
-        document.querySelector("#freq2").value = " ";
-        document.querySelector("#amp2").value = " ";
-        document.querySelector("#exp").value = " ";
-        document.getElementById("rating").value = " ";
-        document.getElementById("tags").value = " ";
+        document.querySelector("#sound1").value = "";
+        document.querySelector("#freq1").value = "";
+        document.querySelector("#amp1").value = "";
+        document.querySelector("#sound2").value = "";
+        document.querySelector("#freq2").value = "";
+        document.querySelector("#amp2").value = "";
+        document.querySelector("#exp").value = "";
+        document.getElementById("rating").value = "";
+        document.getElementById("tags").value = "";
         document.getElementById("loggedDream").style.display = "block";
         console.log("status saved!");
     }).catch(function(error){
