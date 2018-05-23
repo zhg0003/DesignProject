@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -366,11 +367,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Toast.makeText(LoginActivity.this, "Please Enter Username/Password",
                             Toast.LENGTH_LONG).show();
                 } else {
+                    final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+                    progressDialog.setMessage("verifying..");
+                    progressDialog.show();
                     Task<AuthResult> authResultTask = mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
@@ -379,6 +384,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                         ((LucidApp) getApplication()).setLogged(true);
                                         startActivity(new Intent(LoginActivity.this, MenuActivity.class));
                                     } else {
+                                        progressDialog.dismiss();
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
                                         Toast.makeText(LoginActivity.this, "Invalid Username/Password",

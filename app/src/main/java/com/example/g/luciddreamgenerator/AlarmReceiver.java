@@ -89,8 +89,8 @@ public class AlarmReceiver extends BroadcastReceiver{
         }
 
         mBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
                 .setContentTitle("Am I dreaming?")
                 .setContentText(message)
                 .setStyle(new NotificationCompat.BigTextStyle())
