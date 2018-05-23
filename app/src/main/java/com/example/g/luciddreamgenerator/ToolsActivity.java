@@ -71,9 +71,6 @@ public class ToolsActivity extends AppCompatActivity {
     String saved_interval = "Half Hour";
     String saved_song = "Coin";
     // Access a Cloud Firestore instance from your Activity
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private static final String TAG = "ToolsActivity";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -83,9 +80,6 @@ public class ToolsActivity extends AppCompatActivity {
         intervalSelect = (RadioGroup) findViewById(R.id.radioGroup);
         songSelect = (RadioGroup) findViewById(R.id.songRadioGroup);
         sw = (Switch) findViewById(R.id.switch1);
-        fireStoreTest();
-        fireGetTest();
-
 
         //load previous settings
         loadSettings();
@@ -289,7 +283,6 @@ public class ToolsActivity extends AppCompatActivity {
     }
 
     public void setAlarm() {
-        fireStoreTest();
         final AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent i = new Intent(ToolsActivity.this, AlarmReceiver.class);
         Bundle extras = new Bundle();
@@ -340,86 +333,5 @@ public class ToolsActivity extends AppCompatActivity {
         sb.append(saved_song).append("~");
         editor.putString("settings", sb.toString());
         editor.apply();
-    }
-
-    public void fireStoreTest() {
-        Button test = (Button) findViewById(R.id.button14);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-// Create a new user with a first, middle, and last name
-                Map<String, Object> user = new HashMap<>();
-                user.put("first", "Alan");
-                user.put("middle", "Mathison");
-                user.put("last", "Turring");
-                user.put("born", 1912);
-
-// Add a new document with a generated ID
-                db.collection("Test")
-                        .add(user)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Snackbar snackbar;
-                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                        "DocumentSnapshot added with ID: " + documentReference.getId(),
-                                        10000);
-                                View snackbarView = snackbar.getView();
-                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                textView.setMaxLines(5);
-                                snackbar.show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Snackbar snackbar;
-                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                        "Error adding document",
-                                        10000);
-                                View snackbarView = snackbar.getView();
-                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                textView.setMaxLines(5);
-                                snackbar.show();
-                            }
-                        });
-            }
-        });
-    }
-
-    public void fireGetTest() {
-        Button test = (Button) findViewById(R.id.button14);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-        // Create a new user with a first, middle, and last name
-                db.collection("USERS/seanjedi@gmail.com/records")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (DocumentSnapshot document : task.getResult()) {
-                                        Snackbar snackbar;
-                                        snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                                document.getId() + " => " + document.get("date"),
-                                                10000);
-                                        View snackbarView = snackbar.getView();
-                                        TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                        textView.setMaxLines(5);
-                                        snackbar.show();                                    }
-                                } else {
-                                    Snackbar snackbar;
-                                    snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                            "Error getting documents.",
-                                            10000);
-                                    View snackbarView = snackbar.getView();
-                                    TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                    textView.setMaxLines(5);
-                                    snackbar.show();                                   }
-                            }
-                        });
-            }
-        });
     }
 }

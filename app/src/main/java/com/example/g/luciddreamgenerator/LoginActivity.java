@@ -3,6 +3,7 @@ package com.example.g.luciddreamgenerator;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -81,13 +82,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         //getWindow().setBackgroundDrawableResource(R.drawable.woodbg2);
 
-        Button cancelButton = (Button) findViewById(R.id.account_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-            }
-        });
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email_login);
         //populateAutoComplete();
@@ -116,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         setUpLoginButton();
         setUpRegisterButton();
+        setUpPasswordButton();
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -405,6 +400,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+    }
+
+    public void setUpPasswordButton() {
+        Button b = (Button) findViewById(R.id.forgot_password_button);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
             }
         });
     }

@@ -85,14 +85,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         setContentView(R.layout.activity_register);
        // getWindow().setBackgroundDrawableResource(R.drawable.woodbg2);
 
-        Button cancelButton = (Button) findViewById(R.id.register_cancel);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, MenuActivity.class));
-            }
-        });
-
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email_register);
         //populateAutoComplete();

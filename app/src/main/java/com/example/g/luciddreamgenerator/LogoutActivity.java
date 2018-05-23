@@ -18,22 +18,12 @@ public class LogoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logout);
         getWindow().setBackgroundDrawableResource(R.drawable.background2);
 
-
         Button logoutButton = (Button) findViewById(R.id.logoutBtn);
-        Button cancelButton = (Button) findViewById(R.id.cancelBtn);
-
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 ((LucidApp) getApplication()).setLogged(false);
-                startActivity(new Intent(LogoutActivity.this, MenuActivity.class));
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 startActivity(new Intent(LogoutActivity.this, MenuActivity.class));
             }
         });

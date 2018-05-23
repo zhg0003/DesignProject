@@ -28,7 +28,7 @@ public class MenuActivity extends AppCompatActivity {
         setUpAudioButton();
         setUpJournalButton();
         setUpTrainingButton();
-        setUpHelpButton();
+        //setUpHelpButton();
         setUpSyncButton();
     }
 
@@ -62,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    public void setUpHelpButton(){
+    /*public void setUpHelpButton(){
         Button b = (Button) findViewById(R.id.button8);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class MenuActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Help option coming in version 2", Toast.LENGTH_LONG).show();
             }
         });
-    }
+    }*/
 
     public void setUpSyncButton(){
         Button b = (Button) findViewById(R.id.button13);
