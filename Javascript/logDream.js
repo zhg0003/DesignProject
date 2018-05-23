@@ -7,11 +7,24 @@ firebase.auth().onAuthStateChanged(function(user) {
       document.getElementById("inputs").style.display = "block";
       document.getElementById("login").style.display = "none";
       var currentUser = firebase.auth().currentUser.email;
-      
+      var nullSector = firestore.collection('USERS').doc('null').collection('records');
       var docRef = firestore.collection('USERS').doc(currentUser).collection('records');
       var saveButton = document.getElementById("submit");
+      var docSettings = firestore.collection('USERS').doc(currentUser).collection('settings').doc('settings');
+      docSettings.get().then(function(doc) {
+        if (doc.exists) {
+            settings = doc.data().forum;
+        } else {
+        // doc.data() will be undefined in this case
+            docSettings.set({
+                forum: 'no'
+            }).catch(function(error){
+                console.log("got an error", error);
+            });
+        }
+      });
 
-      saveButton.addEventListener("click", function(){
+    saveButton.addEventListener("click", function(){
     var sound1 = document.querySelector("#sound1").value;
     var freq1 = document.querySelector("#freq1").value;
     var amp1 = document.querySelector("#amp1").value;
@@ -52,8 +65,24 @@ firebase.auth().onAuthStateChanged(function(user) {
     }).catch(function(error){
         console.log("got an error", error);
     });
+        if(settings == "yes"){
+            nullSector.doc(date).set({
+                sound1: sound1,
+                tags: tags,
+                rating: rating,
+                freq1: freq1,
+                amp1: amp1,
+                sound2: sound2,
+                freq2: freq2,
+                amp2: amp2,
+                date: date,
+                exp: exp,
+                user: currentUser
+            });
+        }
     })
   } else {
+      location.replace("./index.html");
       document.getElementById("inputs").style.display = "none";
       document.getElementById("login").style.display = "block";
   }

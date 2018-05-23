@@ -180,10 +180,15 @@ main h1{
     text-align: center;
 }
 
-data{
+data1{
     display: flex;
     flex-wrap: wrap;
 }
+data2{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 
 select{
     margin: 5px;
@@ -314,7 +319,15 @@ footer{
         margin: 0px;
         margin-top:10px;
     }
-    
+    top_input{
+        width: 100%;
+    }
+    #exp{
+        height: 50px;
+    }
+    #tags{
+        height: 50px;
+    }
     
     nav{
        padding-left: 0px; 
@@ -330,11 +343,21 @@ footer{
     }
     
     field{
-        width: 50%;
+        width: 100%;
     }
     
     data{
         flex-direction: row;
+        width: 100%;
+        align-items: center;
+    }
+    data1{
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    data2{
+        flex-direction: column;
         width: 100%;
         align-items: center;
     }

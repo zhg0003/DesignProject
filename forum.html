@@ -29,7 +29,34 @@
         </nav>        
         
         <main>
-                <h1>Area to show database of public Lucid Dream Logs</h1> 
+            <h1 class = "page-title">Forum</h1>
+            <orders>
+            <field>
+                <label>Sort By:</label>
+                <sort>
+                <select id="sort" size="1">
+                    <option value= date>Date</option>
+                    <option value= rating>Rating</option>
+                    <option value= sound1>Sound1</option>
+                    <option value= freq1>Frequency1</option>
+                    <option value= amp1>Amplitude1</option>
+                </select>
+                </sort>
+            </field>
+            <field>
+                <label>Order:</label>
+                <sort>
+                <select id="order" size="1">
+                    <option value= desc>Descending</option>
+                    <option value= asc>Ascending</option>
+                </select>
+                </sort>
+            </field>
+                <button id="sorting">Display!</button>
+            </orders>
+            <records id="recordings">
+                
+            </records>
         </main>
         
         
@@ -53,7 +80,7 @@
           firebase.initializeApp(config);
         </script>
         <script src="./Javascript/User.js"></script>
-        <script src="./Javascript/myRecords.js"></script>
+        <script src="./Javascript/forum.js"></script>
     </body>
    
 </html>
