@@ -4,6 +4,7 @@ import android.app.Application;
 
 public class LucidApp extends Application{
     private boolean loggedIn  = false;
+    private boolean isSynced = false;
     public boolean getLogged() {
         return loggedIn;
     }

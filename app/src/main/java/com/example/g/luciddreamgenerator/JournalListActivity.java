@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.Button;
@@ -16,6 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.SharedPreferences;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.Arrays;
 import java.util.ArrayList;
 
@@ -25,16 +36,30 @@ import java.util.List;
 import java.util.LinkedList;
 
 
+
 public class JournalListActivity extends ListActivity {
 
     private ListView dream_list;
     List<String> dreams = new LinkedList<String>();
     ArrayAdapter<String> adapter;
 
+    boolean isLoggedin;
+    String username;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_list);
+
+        isLoggedin = ((LucidApp) getApplication()).getLogged();
+        username = user.getEmail();
+
+        if (isLoggedin)
+            syncWithDatabase();
 
         setUpEditButton();
         setUpDeleteButton();
@@ -67,6 +92,54 @@ public class JournalListActivity extends ListActivity {
         dream_list = getListView();
         dream_list.setAdapter(adapter);
 
+    }
+
+    protected void syncWithDatabase(){
+        db.collection("USERS/" + username + "/records/")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                String date = document.get("date").toString();
+                                String exp = document.get("exp").toString();
+                                String freq1 = document.get("freq1").toString();
+                                String freq2 = document.get("freq2").toString();
+                                String sound1 = document.get("sound1").toString();
+                                String sound2 = document.get("sound2").toString();
+
+                                String dream = date;
+                                dream = dream.concat(" - ");
+                                dream = dream.concat(exp + '\n');
+                                dream = dream.concat(freq1 + '\n');
+                                dream = dream.concat(freq2 + '\n');
+
+                                dreams.add(dream);
+
+
+                                /*
+                                Snackbar snackbar;
+                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                        document.getId() + " => " + document.get("date"),
+                                        10000);
+                                View snackbarView = snackbar.getView();
+                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                                textView.setMaxLines(5);
+                                snackbar.show();
+                                                    */
+                            }
+                        } else {
+                            Snackbar snackbar;
+                            snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
+                                    "Error getting documents.",
+                                    10000);
+                            View snackbarView = snackbar.getView();
+                            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
+                            textView.setMaxLines(5);
+                            snackbar.show();                                   }
+                    }
+                });
     }
     
 
