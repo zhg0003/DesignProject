@@ -103,36 +103,30 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#26000000"
                 android:text="Log In"
-                android:textColor="#FFF"
-                android:textStyle="italic" />
+                android:textColor="#FFF" />
 
             <Button
                 android:id="@+id/create_account_button"
-                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#26000000"
                 android:text="Create an account?"
-                android:textColor="#FFF"
-                android:textStyle="italic" />
+                android:textColor="#FFF" />
 
             <Button
-                android:id="@+id/account_cancel"
-                style="?android:textAppearanceSmall"
+                android:id="@+id/forgot_password_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="#26000000"
-                android:text="Cancel"
-                android:textColor="#FFF"
-                android:textStyle="italic" />
+                android:text="Forgot Password?"
+                android:textColor="#FFF" />
 
         </LinearLayout>
     </ScrollView>
