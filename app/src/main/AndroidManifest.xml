@@ -18,7 +18,9 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MenuActivity">
+        <activity android:name=".MenuActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +30,7 @@
         <activity
             android:name=".JournalActivity"
             android:label="Write Down Your Dream"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".JournalListActivity"
@@ -36,6 +39,7 @@
         <activity
             android:name=".MainActivity"
             android:label="Generate Audio"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".TimerActivity"
@@ -44,19 +48,23 @@
         <activity
             android:name=".EditActivity"
             android:label="Edit Dream"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ToolsActivity"
             android:label="ToolsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <receiver android:name=".AlarmReceiver" />
 
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_login" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_register" />
         <activity android:name=".LogoutActivity" />
         <activity android:name=".ForgotPasswordActivity"></activity>
