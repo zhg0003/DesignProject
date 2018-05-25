@@ -43,7 +43,7 @@ public class JournalListActivity extends ListActivity {
     List<String> dreams = new LinkedList<String>();
     ArrayAdapter<String> adapter;
 
-    boolean isLoggedin;
+    boolean isLoggedin = false;
     String username;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,8 +55,11 @@ public class JournalListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_journal_list);
 
-        isLoggedin = ((LucidApp) getApplication()).getLogged();
-        username = user.getEmail();
+        try {
+            isLoggedin = ((LucidApp) getApplication()).getLogged();
+            username = user.getEmail();
+        }
+        catch (NullPointerException e) {}
 
         if (isLoggedin)
             syncWithDatabase();
@@ -196,8 +199,8 @@ public class JournalListActivity extends ListActivity {
         Button editButton = (Button) findViewById(R.id.editBtn);
         editButton.setAlpha(1.0f);
         deleteButton.setAlpha(1.0f);
-        editButton.setClickable(true);
-        deleteButton.setClickable(true);
+        editButton.setEnabled(true);
+        deleteButton.setEnabled(true);
 
         for (int i = 0; i < dream_list.getCount(); i++) {
             dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
@@ -219,7 +222,7 @@ public class JournalListActivity extends ListActivity {
     public void setUpEditButton(){
         Button editButton = (Button) findViewById(R.id.editBtn);
         editButton.setAlpha(0.5f);
-        editButton.setClickable(false);
+        editButton.setEnabled(false);
 
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,7 +253,7 @@ public class JournalListActivity extends ListActivity {
     public void setUpDeleteButton(){
         Button deleteButton = (Button) findViewById(R.id.deleteBtn);
         deleteButton.setAlpha(0.5f);
-        deleteButton.setClickable(false);
+        deleteButton.setEnabled(false);
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

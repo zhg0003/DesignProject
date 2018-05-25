@@ -42,6 +42,10 @@
             android:label="@string/title_activity_timer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".EditActivity"
+            android:label="Edit Dream"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ToolsActivity"
             android:label="ToolsActivity"
             android:theme="@style/AppTheme.NoActionBar" />

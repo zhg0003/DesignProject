@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/woodbg2"
+    android:background="#2C3A57"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.g.luciddreamgenerator.EditActivity"
     tools:showIn="@layout/activity_edit">
@@ -17,7 +17,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Edit Dream Content"
-        android:textSize="36px"
+        android:textSize="48px"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -31,7 +32,9 @@
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="textMultiLine"
+        android:gravity="top|left"
         android:singleLine="false"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/button11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +47,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Save"
+        android:background="#26000000"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

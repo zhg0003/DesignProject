@@ -75,9 +75,13 @@ public class JournalActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        isLoggedin = ((LucidApp) getApplication()).getLogged();
-        username = user.getEmail();
+        try {
+            isLoggedin = ((LucidApp) getApplication()).getLogged();
+        } catch(NullPointerException e) {}
 
+        try {
+            username = user.getEmail();
+        } catch(NullPointerException e) {}
 
         dreamEdit = (EditText)findViewById(R.id.editText0);
         myEdit1 = (EditText)findViewById(R.id.editText1);
