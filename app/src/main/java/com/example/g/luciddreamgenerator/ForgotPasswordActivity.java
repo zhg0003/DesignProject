@@ -103,13 +103,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = mEmailView.getText().toString();
-                final ProgressDialog progressDialog = new ProgressDialog(ForgotPasswordActivity.this);
-                progressDialog.setMessage("verifying..");
-                progressDialog.show();
                 if (email.equals("")) {
                     Toast.makeText(ForgotPasswordActivity.this, "Please Enter Email Address",
                             Toast.LENGTH_LONG).show();
                 } else {
+                    final ProgressDialog progressDialog = new ProgressDialog(ForgotPasswordActivity.this);
+                    progressDialog.setMessage("verifying..");
+                    progressDialog.show();
                     mAuth.sendPasswordResetEmail(email)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

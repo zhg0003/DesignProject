@@ -3,6 +3,7 @@ package com.example.g.luciddreamgenerator;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -365,11 +366,15 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                     Toast.makeText(RegisterActivity.this, "Password doesn't match",
                             Toast.LENGTH_SHORT).show();
                 } else {
+                    final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
+                    progressDialog.setMessage("verifying..");
+                    progressDialog.show();
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        progressDialog.dismiss();
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
@@ -378,6 +383,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                                         startActivity(new Intent(RegisterActivity.this, MenuActivity.class));
                                         //updateUI(user);
                                     } else {
+                                        progressDialog.dismiss();
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                         Toast.makeText(RegisterActivity.this, "Account already exists.",
