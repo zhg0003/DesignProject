@@ -3,6 +3,7 @@ package com.example.g.luciddreamgenerator;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -118,6 +119,18 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         mRegisterFormView = findViewById(R.id.register_form);
         mProgressView = findViewById(R.id.register_progress);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            setLoggedtoTrue();
+            startActivity(new Intent(RegisterActivity.this, MenuActivity.class));
+        }
+        //updateUI(currentUser);
     }
 
     private void populateAutoComplete() {

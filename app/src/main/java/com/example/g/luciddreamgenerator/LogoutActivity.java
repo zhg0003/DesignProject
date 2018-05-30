@@ -9,14 +9,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LogoutActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
         getWindow().setBackgroundDrawableResource(R.drawable.background2);
+        mAuth = FirebaseAuth.getInstance();
 
         Button logoutButton = (Button) findViewById(R.id.logoutBtn);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -27,5 +31,17 @@ public class LogoutActivity extends AppCompatActivity {
                 startActivity(new Intent(LogoutActivity.this, MenuActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            ((LucidApp) getApplication()).setLogged(false);
+            startActivity(new Intent(LogoutActivity.this, MenuActivity.class));
+        }
+        //updateUI(currentUser);
     }
 }
