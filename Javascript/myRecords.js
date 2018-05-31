@@ -1,7 +1,7 @@
 var firestore = firebase.firestore();
 var tileNum = 0;
 var nullSector = firestore.collection('USERS').doc('null').collection('records');
-
+document.getElementById("empty").style.display = "flex";
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -16,7 +16,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       
       
       
-                for(var i = 0; i < tileNum; i++){
+      for(var i = 0; i < tileNum; i++){
               var tileID = "tile:" + i;
               var oldTiles = document.getElementById(tileID);
               if(oldTiles != null){
@@ -90,11 +90,12 @@ firebase.auth().onAuthStateChanged(function(user) {
                   addOnclickDelete(button, deleteLog, tile.id, doc.data().date, currentUser);
     //              addOnclick2(button, )
                   tile.appendChild(button);
-
                   records.appendChild(tile);
-
+                  document.getElementById("empty").style.display = "none";
               });
           });
+
+
 
       sortButton.addEventListener("click", function(){
           for(var i = 0; i < tileNum; i++){
