@@ -198,7 +198,6 @@ select{
     border-radius:10px;
     border: 3.5px solid #2C8D7D;
     height: 50px;
-        
 }
 
 orders button{
@@ -270,6 +269,9 @@ main p{
 sort{
     display: flex;
 }
+select{
+    width: 100%;
+}
 
 sort button{
     width: 100%;
@@ -312,15 +314,19 @@ footer{
     }
     orders{
         flex-direction: column;
-        width: 
+        width: ;
     }
     orders button{
         width: 100%;
         margin: 0px;
         margin-top:10px;
     }
-    top_input{
+    button{
         width: 100%;
+    }
+    
+    top_input{
+        width: 95%;
     }
     #exp{
         height: 50px;
@@ -334,12 +340,18 @@ footer{
     }
     
     main{
-        display: flex;
+/*        display: flex;*/
         align-items: center;
     }
     
     credential{
         flex-direction: column;
+    }
+    #username{
+        width:80%;
+    }
+    #password{
+        width: 80%;
     }
     
     field{
@@ -353,16 +365,26 @@ footer{
     }
     data1{
         flex-direction: column;
-        width: 100%;
+        width: 95%;
         align-items: center;
     }
     data2{
         flex-direction: column;
-        width: 100%;
+        width: 95%;
         align-items: center;
     }
-    
-    
+    #txtEmail{
+        width: 80%;
+    }
+    #txtPassword{
+        width: 80%;
+    }
+    #txtPassword2{
+        width: 80%;
+    }
+    #sorting{
+        width: 30%
+    }
     #logout{
         float:none;
         text-align: center;

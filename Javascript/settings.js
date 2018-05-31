@@ -30,16 +30,56 @@ firebase.auth().onAuthStateChanged(function(user) {
             });
             firestore.collection('USERS').doc(currentUser).collection('records').get().then(function(querySnapshot) {
               querySnapshot.forEach(function(doc) {
-                  var sound1 = doc.data().sound1;
-                  var tags = doc.data().tags;
-                  var rating = doc.data().rating;
-                  var freq1 = doc.data().freq1;
-                  var amp1 = doc.data().amp1;
-                  var sound2 = doc.data().sound2;
-                  var freq2 = doc.data().freq2;
-                  var amp2 = doc.data().amp2;
-                  var date = doc.data().date;
-                  var exp = doc.data().exp;
+                  if(doc.data().sound1 != undefined && doc.data().sound1.trim() != ""){
+                    var sound1 = doc.data().sound1; 
+                  }else{
+                    var sound1 = "";
+                  }
+                  if(doc.data().tags != undefined && doc.data().tags.trim() != ""){
+                    var tags = doc.data().tags; 
+                  }else{
+                    var tags = "";
+                  }
+                if(doc.data().rating != undefined && doc.data().rating.trim() != ""){
+                    var rating = doc.data().rating; 
+                  }else{
+                    var rating = "";
+                  }
+                  if(doc.data().freq1 != undefined && doc.data().freq1.trim() != ""){
+                    var freq1 = doc.data().freq1; 
+                  }else{
+                    var freq1 = "";
+                  }
+                  if(doc.data().amp1 != undefined && doc.data().amp1.trim() != ""){
+                    var amp1 = doc.data().amp1; 
+                  }else{
+                    var amp1 = "";
+                  }
+                  if(doc.data().sound2 != undefined && doc.data().sound2.trim() != ""){
+                    var sound2 = doc.data().sound2; 
+                  }else{
+                    var sound2 = "";
+                  }
+                  if(doc.data().freq2 != undefined && doc.data().freq2.trim() != ""){
+                    var freq2 = doc.data().freq2; 
+                  }else{
+                    var freq2 = "";
+                  }
+                  if(doc.data().amp2 != undefined && doc.data().amp2.trim() != ""){
+                    var amp2 = doc.data().amp2; 
+                  }else{
+                    var amp2 = "";
+                  }
+                  if(doc.data().date != undefined && doc.data().date.trim() != ""){
+                    var date = doc.data().date; 
+                  }else{
+                    var date = "";
+                  }
+                  if(doc.data().exp != undefined && doc.data().exp.trim() != ""){
+                    var exp = doc.data().exp; 
+                  }else{
+                    var exp = "";
+                  }
                   console.log(date);
                   nullSector.doc(date).set({
                       sound1: sound1,
