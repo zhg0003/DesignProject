@@ -18,7 +18,10 @@ firebase.auth().onAuthStateChanged(function(user) {
     if(document.getElementById("loggedin") != null){
         location.replace("./index.html");
         document.getElementById("loggedin").style.display = "block";
-    }  
+    }
+    if(document.getElementById("signupLink") != null){
+        document.getElementById("signupLink").style.display = "none";
+    }
       
 
     if(document.getElementById("weak-pwd") != null){
@@ -51,6 +54,9 @@ firebase.auth().onAuthStateChanged(function(user) {
       if(document.getElementById("loggedin") != null){
             document.getElementById("loggedin").style.display = "none";
         }
+      if(document.getElementById("signupLink") != null){
+        document.getElementById("signupLink").style.display = "block";
+      }
       
       
       document.getElementById("not_logged_in").style.display = "block";
