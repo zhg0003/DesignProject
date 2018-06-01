@@ -13,38 +13,16 @@
     tools:context="com.example.g.luciddreamgenerator.RegisterActivity">
 
     <!-- Login progress -->
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="338dp"
-        android:layout_height="150dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="sans-serif-light"
-        android:gravity="center"
-        android:text="Lucid You"
-        android:textColor="#FFF"
-        android:textSize="80sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView24"
+    <ImageView
+        android:id="@+id/imageView4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="A lucid dream assistance application"
-        android:textColor="#FFF"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        android:layout_height="90dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo2" />
 
     <ProgressBar
         android:id="@+id/register_progress"
