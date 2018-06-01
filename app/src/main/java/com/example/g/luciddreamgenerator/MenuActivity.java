@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +15,17 @@ import android.view.View;
 import android.support.v7.app.ActionBar;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MenuActivity extends AppCompatActivity {
+
+    boolean isLoggedin = false;
+    String username;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +36,19 @@ public class MenuActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        try {
+            isLoggedin = ((LucidApp) getApplication()).getLogged();
+            username = user.getEmail();
+        }
+        catch (NullPointerException e) {}
+
         /* Set up buttons */
         setUpAudioButton();
         setUpJournalButton();
         setUpTrainingButton();
         //setUpHelpButton();
         setUpSyncButton();
+        setUpLoginText();
     }
 
     public void setUpAudioButton() {
@@ -85,14 +103,13 @@ public class MenuActivity extends AppCompatActivity {
 
     public void setUpSyncButton(){
         Button b = (Button) findViewById(R.id.button13);
-        final boolean loggedIn = ((LucidApp) getApplication()).getLogged();
-        if (loggedIn) {
+        if (isLoggedin) {
             b.setText("Desync from Website");
         }
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (loggedIn) {
+                if (isLoggedin) {
                     startActivity(new Intent(MenuActivity.this, LogoutActivity.class));
                 }
                 else {
@@ -102,5 +119,14 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    public void setUpLoginText(){
+        TextView loginTxt = (TextView) findViewById(R.id.loginTxt);
+        if (isLoggedin) {
+            loginTxt.setText(username + " is logged in");
+        }
+        else {
+            loginTxt.setText("");
+        }
+    }
 
 }
