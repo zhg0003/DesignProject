@@ -69,10 +69,10 @@ public class JournalListActivity extends ListActivity {
 
         loadDreams(); // Here we load dreams from local storage into ram
 
-        if (getIntent().getStringExtra("DREAM_CONTENT") != null) { // If we just wrote down a new dream, get that new dream
-            String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
-            dreams.add(new_dream);
-        }
+       // if (getIntent().getStringExtra("DREAM_CONTENT") != null) { // If we just wrote down a new dream, get that new dream
+        //    String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
+        //    dreams.add(new_dream);
+       // }
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
         SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
