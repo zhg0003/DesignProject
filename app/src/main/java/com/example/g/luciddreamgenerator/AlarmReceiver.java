@@ -98,7 +98,7 @@ public class AlarmReceiver extends BroadcastReceiver{
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setVibrate(new long[]{1000, 1000})
                 .setAutoCancel(true)
-                .setTicker("Are I dreaming?")
+                .setTicker("Am I dreaming?")
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi);
 
