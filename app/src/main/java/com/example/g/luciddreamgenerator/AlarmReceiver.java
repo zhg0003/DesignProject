@@ -89,7 +89,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         }
 
         mBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher_small)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
                 .setContentTitle("Am I dreaming?")
                 .setContentText(message)
@@ -98,7 +98,7 @@ public class AlarmReceiver extends BroadcastReceiver{
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setVibrate(new long[]{1000, 1000})
                 .setAutoCancel(true)
-                .setTicker("Are you dreaming?")
+                .setTicker("Am I dreaming?")
                 .setWhen(System.currentTimeMillis())
                 .setContentIntent(pi);
 
