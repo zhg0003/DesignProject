@@ -361,7 +361,7 @@ public class JournalActivity extends AppCompatActivity {
         if (loggedIn) {
 
             Date c = Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS");
             String formattedDate = df.format(c);
 
 // Add a new document with a generated ID
