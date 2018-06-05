@@ -158,26 +158,30 @@ public class JournalListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView dream_list, View v, int position, long id) { // Position is 0 indexed
         //dreams.remove(position);
-
-        Button deleteButton = (Button) findViewById(R.id.deleteBtn);
-        Button editButton = (Button) findViewById(R.id.editBtn);
-        editButton.setAlpha(1.0f);
-        deleteButton.setAlpha(1.0f);
-        editButton.setEnabled(true);
-        deleteButton.setEnabled(true);
-
-        for (int i = 0; i < dream_list.getCount(); i++) {
-            dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-            dream_list.getChildAt(i).setSelected(false);
-            dream_list.getChildAt(i).setAlpha(1.0f);
+        if (isLoggedin) {
+            Toast.makeText(JournalListActivity.this, "Edit/Delete functionality for remotely stored dreams coming soon...", Toast.LENGTH_LONG).show();
         }
-        //this.dream_list
-        dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
-        dream_list.getChildAt(position).setSelected(true);
-        dream_list.getChildAt(position).setAlpha(0.9f);
-        //saveDreams();
+        else {
+            Button deleteButton = (Button) findViewById(R.id.deleteBtn);
+            Button editButton = (Button) findViewById(R.id.editBtn);
+            editButton.setAlpha(1.0f);
+            deleteButton.setAlpha(1.0f);
+            editButton.setEnabled(true);
+            deleteButton.setEnabled(true);
 
-        //startActivity(getIntent());
+            for (int i = 0; i < dream_list.getCount(); i++) {
+                dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                dream_list.getChildAt(i).setSelected(false);
+                dream_list.getChildAt(i).setAlpha(1.0f);
+            }
+            //this.dream_list
+            dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
+            dream_list.getChildAt(position).setSelected(true);
+            dream_list.getChildAt(position).setAlpha(0.9f);
+            //saveDreams();
+
+            //startActivity(getIntent());
+        }
 
     }
 
