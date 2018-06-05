@@ -315,18 +315,18 @@ public class JournalActivity extends AppCompatActivity {
                 data.put("rating", String.valueOf(dreamRating.getRating()));
 
                 saveCustomFields();
-                loadDreams();
-                dreams.add(formattedDream);
-                saveDreams();
-                //intent.putExtra("DREAM_CONTENT", formattedDream);
-                //startActivity(intent);
 
-                insertDb(data, isLoggedin);
 
-                if (isLoggedin)
+                if (isLoggedin) {
+                    insertDb(data, isLoggedin);
                     Toast.makeText(getBaseContext(), "Journal Entry Added. Also inputted to website.", Toast.LENGTH_LONG).show();
-                else
+                }
+                else {
+                    loadDreams();
+                    dreams.add(formattedDream);
+                    saveDreams();
                     Toast.makeText(getBaseContext(), "Journal Entry Added.", Toast.LENGTH_LONG).show();
+                }
 
                 startActivity(new Intent(JournalActivity.this, MenuActivity.class));
             }

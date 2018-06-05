@@ -61,13 +61,13 @@ public class JournalListActivity extends ListActivity {
         }
         catch (NullPointerException e) {}
 
-        if (isLoggedin)
+        if (isLoggedin) // Here we load dreams from firebase
             syncWithDatabase();
+        else
+            loadDreams(); // Here we load dreams from local storage
 
         setUpEditButton();
         setUpDeleteButton();
-
-        loadDreams(); // Here we load dreams from local storage into ram
 
        // if (getIntent().getStringExtra("DREAM_CONTENT") != null) { // If we just wrote down a new dream, get that new dream
         //    String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
@@ -86,6 +86,9 @@ public class JournalListActivity extends ListActivity {
 
         }
 
+        Toast.makeText(this, String.valueOf(dreams.size()), Toast.LENGTH_LONG).show(); // dreams is 0 here ...
+
+
         String[] dreams_array = new String[dreams.size()]; // The rest of onCreate sets up dream_list
         dreams_array = dreams.toArray(dreams_array);
 
@@ -98,6 +101,9 @@ public class JournalListActivity extends ListActivity {
     }
 
     protected void syncWithDatabase(){
+       // Toast.makeText(this, "syncing database", Toast.LENGTH_LONG).show();
+        dreams = new ArrayList<String>();
+
         db.collection("USERS/" + username + "/records/")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -181,7 +187,9 @@ public class JournalListActivity extends ListActivity {
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
-            saveDreams();
+            if (!isLoggedin)
+                saveDreams();
+
             startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
             return false;
         }
