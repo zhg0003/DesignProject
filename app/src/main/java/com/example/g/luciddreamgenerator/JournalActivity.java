@@ -333,6 +333,7 @@ public class JournalActivity extends AppCompatActivity {
         });
     }
 
+
     protected void loadDreams() {
         String[] temp_loaded_dreams;
         SharedPreferences settings = getApplicationContext().getSharedPreferences("stored_dreams", 0);

@@ -74,7 +74,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:background="#26000000"
-        android:text="Sync with Website"
+        android:text="Login"
         android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -62,17 +62,14 @@ public class JournalListActivity extends ListActivity {
         catch (NullPointerException e) {}
 
         if (isLoggedin) // Here we load dreams from firebase
-            syncWithDatabase();
+            loadDatabaseDreams();
         else
             loadDreams(); // Here we load dreams from local storage
 
         setUpEditButton();
         setUpDeleteButton();
 
-       // if (getIntent().getStringExtra("DREAM_CONTENT") != null) { // If we just wrote down a new dream, get that new dream
-        //    String new_dream = getIntent().getStringExtra("DREAM_CONTENT");
-        //    dreams.add(new_dream);
-       // }
+
 
         SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
         SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
@@ -86,8 +83,6 @@ public class JournalListActivity extends ListActivity {
 
         }
 
-        Toast.makeText(this, String.valueOf(dreams.size()), Toast.LENGTH_LONG).show(); // dreams is 0 here ...
-
 
         String[] dreams_array = new String[dreams.size()]; // The rest of onCreate sets up dream_list
         dreams_array = dreams.toArray(dreams_array);
@@ -100,55 +95,16 @@ public class JournalListActivity extends ListActivity {
 
     }
 
-    protected void syncWithDatabase(){
-       // Toast.makeText(this, "syncing database", Toast.LENGTH_LONG).show();
-        dreams = new ArrayList<String>();
 
-        db.collection("USERS/" + username + "/records/")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                String date = document.get("date").toString();
-                                String exp = document.get("exp").toString();
-                                String freq1 = document.get("freq1").toString();
-                                String freq2 = document.get("freq2").toString();
-                                String sound1 = document.get("sound1").toString();
-                                String sound2 = document.get("sound2").toString();
+    protected void loadDatabaseDreams() {
+        String[] temp_loaded_dreams;
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("database_dreams", 0);
+        String loaded_dreams = settings.getString("database_dreams", "");
+        temp_loaded_dreams = loaded_dreams.split("~>_");
+        dreams = new ArrayList<String>(Arrays.asList(temp_loaded_dreams));
 
-                                String dream = date;
-                                dream = dream.concat(" - ");
-                                dream = dream.concat(exp + '\n');
-                                dream = dream.concat(freq1 + '\n');
-                                dream = dream.concat(freq2 + '\n');
-
-                                dreams.add(dream);
-
-
-                                /*
-                                Snackbar snackbar;
-                                snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                        document.getId() + " => " + document.get("date"),
-                                        10000);
-                                View snackbarView = snackbar.getView();
-                                TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                                textView.setMaxLines(5);
-                                snackbar.show();
-                                                    */
-                            }
-                        } else {
-                            Snackbar snackbar;
-                            snackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                                    "Error getting documents.",
-                                    10000);
-                            View snackbarView = snackbar.getView();
-                            TextView textView = (TextView) snackbarView.findViewById(android.support.design.R.id.snackbar_text);
-                            textView.setMaxLines(5);
-                            snackbar.show();                                   }
-                    }
-                });
+        if (temp_loaded_dreams[0].isEmpty()) // remove initial empty dream
+            dreams.clear();
     }
     
 
@@ -235,24 +191,28 @@ public class JournalListActivity extends ListActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
-                SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
-
-                SharedPreferences.Editor editor = settings.edit();
-                SharedPreferences.Editor editor2 = settings2.edit();
-
-                for (int i = 0; i < dream_list.getCount(); i++)
-                {
-                    if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
-                        String dreamToBeEdited = dreams.get(i);
-                        editor.putString("editDream", dreamToBeEdited);
-                        editor2.putInt("editDreamIndex", i);
-                        editor.apply();
-                        editor2.apply();
-                    }
+                if (isLoggedin) {
+                    Toast.makeText(JournalListActivity.this, "Edit/Delete functionality for remotely stored dreams coming soon...", Toast.LENGTH_LONG).show();
                 }
-                saveDreams();
-                startActivity(new Intent(JournalListActivity.this, EditActivity.class));
+                else {
+                    SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
+                    SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
+
+                    SharedPreferences.Editor editor = settings.edit();
+                    SharedPreferences.Editor editor2 = settings2.edit();
+
+                    for (int i = 0; i < dream_list.getCount(); i++) {
+                        if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
+                            String dreamToBeEdited = dreams.get(i);
+                            editor.putString("editDream", dreamToBeEdited);
+                            editor2.putInt("editDreamIndex", i);
+                            editor.apply();
+                            editor2.apply();
+                        }
+                    }
+                    saveDreams();
+                    startActivity(new Intent(JournalListActivity.this, EditActivity.class));
+                }
 
             }
         });
@@ -266,25 +226,30 @@ public class JournalListActivity extends ListActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder deleteAlert = new AlertDialog.Builder(JournalListActivity.this);
-                deleteAlert.setMessage("Are you sure you want to delete this dream?").setCancelable(false);
-                deleteAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        deleteDream();
-                    }
-                });
+                if (isLoggedin){
+                    Toast.makeText(JournalListActivity.this, "Edit/Delete functionality for remotely stored dreams coming soon...", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    AlertDialog.Builder deleteAlert = new AlertDialog.Builder(JournalListActivity.this);
+                    deleteAlert.setMessage("Are you sure you want to delete this dream?").setCancelable(false);
+                    deleteAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteDream();
+                        }
+                    });
 
-                deleteAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                    deleteAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
 
-                AlertDialog alert = deleteAlert.create();
-                alert.setTitle("Delete dream");
-                alert.show();
+                    AlertDialog alert = deleteAlert.create();
+                    alert.setTitle("Delete dream");
+                    alert.show();
+                }
             }
         });
     }
