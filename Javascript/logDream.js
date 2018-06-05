@@ -68,7 +68,8 @@ firebase.auth().onAuthStateChanged(function(user) {
         rating = '-1';
     }
     
-    
+    if(sound1 != -1 || sound2 != -1 || freq1 != -1 || freq2 != -1 || amp1 != -1 || amp2 != -1 || tags != -1 || exp != -1){
+        
     console.log("I am trying to save input to Firestore");
     docRef.doc(date).set({
         sound1: sound1,
@@ -111,6 +112,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                 user: currentUser
             });
         }
+    }
     })
       //IF your not logged in, it brings you to the homepage!
   } else {
