@@ -387,11 +387,11 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor sound_editor = sound_settings.edit();
                 SharedPreferences.Editor freq_editor = freq_settings.edit();
 
-                sound_editor.putString("firstSound", (String) spinner1.getSelectedItem());
+                sound_editor.putString("firstSound", spinner1.getSelectedItem().toString());
                 freq_editor.putString("firstFreq", Float.toString((float)freq1.getProgress()/10));
 
                 if (!disableSound2.isChecked()) {
-                    sound_editor.putString("secondSound", (String) sound2List.getSelectedItem());
+                    sound_editor.putString("secondSound", sound2List.getSelectedItem().toString());
                     freq_editor.putString("secondFreq", Float.toString((float)freq2.getProgress()/10));
                 }
                 else {
