@@ -321,16 +321,13 @@ public class JournalActivity extends AppCompatActivity {
                 saveCustomFields();
 
 
-                if (isLoggedin) {
-                    insertDb(data, isLoggedin);
-                    Toast.makeText(getBaseContext(), "Journal Entry Added. Also inputted to website.", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    loadDreams();
-                    dreams.add(formattedDream);
-                    saveDreams();
-                    Toast.makeText(getBaseContext(), "Journal Entry Added.", Toast.LENGTH_LONG).show();
-                }
+                if (isLoggedin)
+                    ((LucidApp) getApplication()).setRecentlyLogged(true);
+
+                loadDreams();
+                dreams.add(formattedDream);
+                saveDreams();
+                Toast.makeText(getBaseContext(), "Journal Entry Added.", Toast.LENGTH_LONG).show();
 
                 startActivity(new Intent(JournalActivity.this, MenuActivity.class));
             }
