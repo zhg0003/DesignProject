@@ -247,7 +247,7 @@ public class JournalActivity extends AppCompatActivity {
                 String hours = Integer.toString(cal.get(Calendar.HOUR));
                 String minutes = Integer.toString(cal.get(Calendar.MINUTE));
                 String am_pm = Integer.toString(cal.get(Calendar.AM_PM));
-                
+
                 if (am_pm.equals("0"))
                     am_pm = "am";
                 else
@@ -260,13 +260,13 @@ public class JournalActivity extends AppCompatActivity {
                 }
 
                 Date c = Calendar.getInstance().getTime();
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                String formattedDream = df.format(c);
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+                String formattedDream = "- " + df.format(c);
                 data.put("date", formattedDream);
 
-                formattedDream = formattedDream.concat(" - ");
-                formattedDream = formattedDream.concat(hours + ":" + minutes + am_pm);
-                formattedDream = formattedDream.concat(" - \"");
+                //formattedDream = formattedDream.concat(" - ");
+                //formattedDream = formattedDream.concat(hours + ":" + minutes + am_pm);
+                formattedDream = formattedDream.concat("\n- \"");
                 formattedDream = formattedDream.concat(content);
                 formattedDream = formattedDream.concat("\"");
 
@@ -280,37 +280,41 @@ public class JournalActivity extends AppCompatActivity {
                 String secondSound = sound_settings.getString("secondSound", "");
                 String secondFreq = freq_settings.getString("secondFreq", "");
 
-                formattedDream = formattedDream.concat("\n" + "Sound(s) Played During Dream:");
-                formattedDream = formattedDream.concat("\n -" + firstSound + " at " + firstFreq + "hz");
+                formattedDream = formattedDream.concat("\n- " + "Sound(s) Played During Dream:");
+                formattedDream = formattedDream.concat("\n  *" + firstSound + " at " + firstFreq + "hz");
                 data.put("sound1", firstSound);
                 data.put("freq1", firstFreq);
                 if (secondSound.length() > 0) {
-                    formattedDream = formattedDream.concat("\n -" + secondSound + " at " + secondFreq + "hz");
+                    formattedDream = formattedDream.concat("\n  *" + secondSound + " at " + secondFreq + "hz");
                     data.put("sound2", secondSound);
                     data.put("freq2", secondFreq);
                 }
+                else {
+                    data.put("sound2", " ");
+                    data.put("freq2", " ");
+                }
 
                 if (checkbox1.isChecked() || checkbox2.isChecked() || checkbox3.isChecked() || checkbox4.isChecked() || checkbox5.isChecked() || checkbox6.isChecked())
-                    formattedDream = formattedDream.concat("\n" + "Custom Fields:");
+                    formattedDream = formattedDream.concat("\n- " + "Custom Fields:");
 
                 if (checkbox1.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content1);
+                    formattedDream = formattedDream.concat("\n  *" + content1);
                 if (checkbox2.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content2);
+                    formattedDream = formattedDream.concat("\n  *" + content2);
                 if (checkbox3.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content3);
+                    formattedDream = formattedDream.concat("\n  *" + content3);
                 if (checkbox4.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content4);
+                    formattedDream = formattedDream.concat("\n  *" + content4);
                 if (checkbox5.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content5);
+                    formattedDream = formattedDream.concat("\n  *" + content5);
                 if (checkbox6.isChecked())
-                    formattedDream = formattedDream.concat("\n -" + content6);
+                    formattedDream = formattedDream.concat("\n  *" + content6);
 
 
                 data.put("tags", content1);
 
                 if (dreamRating.getRating() != 0)
-                    formattedDream = formattedDream.concat("\nDream Quality: " + String.valueOf(dreamRating.getRating()) + " stars.");
+                    formattedDream = formattedDream.concat("\n- Dream Quality: " + String.valueOf(dreamRating.getRating()) + " stars.");
 
                 data.put("rating", String.valueOf(dreamRating.getRating()));
 
@@ -361,7 +365,7 @@ public class JournalActivity extends AppCompatActivity {
         if (loggedIn) {
 
             Date c = Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss.SSS");
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
             String formattedDate = df.format(c);
 
 // Add a new document with a generated ID
