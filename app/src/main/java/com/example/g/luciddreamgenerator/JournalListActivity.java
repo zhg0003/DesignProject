@@ -45,6 +45,8 @@ public class JournalListActivity extends ListActivity {
 
     boolean isLoggedin = false;
     String username;
+    View selectedView;
+    int selectedPosition;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -138,7 +140,6 @@ public class JournalListActivity extends ListActivity {
     }
 */
 
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
@@ -147,7 +148,6 @@ public class JournalListActivity extends ListActivity {
             if (!isLoggedin)
                 saveDreams();
 
-            finish();
             startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
             return false;
         }
@@ -160,30 +160,29 @@ public class JournalListActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView dream_list, View v, int position, long id) { // Position is 0 indexed
         //dreams.remove(position);
+        super.onListItemClick(dream_list, v, position, id);
         Button deleteButton = (Button) findViewById(R.id.deleteBtn);
         Button editButton = (Button) findViewById(R.id.editBtn);
         editButton.setAlpha(1.0f);
         deleteButton.setAlpha(1.0f);
         editButton.setEnabled(true);
         deleteButton.setEnabled(true);
+        selectedView = getListView().getChildAt(position);
+        selectedPosition = getListView().getPositionForView((View) v.getParent());
 
-        for (int i = 0; i < dream_list.getCount(); i++) {
-            try {
-                dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                dream_list.getChildAt(i).setAlpha(1.0f);
-            }
-            catch(NullPointerException e){};
+        /*for (int i = 0; i < getListView().getChildCount() - 1; i++) {
+            getListAdapter().getView(i, v, null).setBackgroundColor(Color.TRANSPARENT);
+            getListAdapter().getView(i, v, null).setSelected(false);
+            getListAdapter().getView(i, v, null).setAlpha(1.0f);
         }
         //this.dream_list
-            try {
-                dream_list.getChildAt(position - dream_list.getFirstVisiblePosition()).setBackgroundColor(Color.parseColor("#66ACACAC"));
-                dream_list.getChildAt(position - dream_list.getFirstVisiblePosition()).setAlpha(0.9f);
-            }
-            catch(NullPointerException e){};
-
+        Toast.makeText(getBaseContext(), "position: " + getListView().getChildCount(), Toast.LENGTH_SHORT).show();
+        getListAdapter().getView(position, v, null).setBackgroundColor(Color.parseColor("#66ACACAC"));
+        getListAdapter().getView(position, v, null).setSelected(true);
+        getListAdapter().getView(position, v, null).setAlpha(0.9f);
         //saveDreams();
 
-        //startActivity(getIntent());
+        //startActivity(getIntent());*/
     }
 
 
@@ -202,23 +201,18 @@ public class JournalListActivity extends ListActivity {
                 else {
                     SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
                     SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
-
+                    boolean dreamFound = false;
                     SharedPreferences.Editor editor = settings.edit();
                     SharedPreferences.Editor editor2 = settings2.edit();
-
-                    for (int i = 0; i < dream_list.getCount(); i++) {
-                        try {
-                            if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
-                                dream_list.getChildAt(i).setAlpha(1.0f);
-                                String dreamToBeEdited = dreams.get(i + dream_list.getFirstVisiblePosition());
-                                editor.putString("editDream", dreamToBeEdited);
-                                editor2.putInt("editDreamIndex", i + dream_list.getFirstVisiblePosition());
-                                editor.apply();
-                                editor2.apply();
-                            }
-                        }
-                        catch(NullPointerException e){};
-                    }
+                    //for (int i = 0; i < dream_list.getChildCount(); i++) {
+                    //if (dream_list.getChildAt(i).equals(selectedView)) {
+                    String dreamToBeEdited = dreams.get(dream_list.getCheckedItemPosition());
+                    editor.putString("editDream", dreamToBeEdited);
+                    editor2.putInt("editDreamIndex", dream_list.getCheckedItemPosition());
+                    editor.apply();
+                    editor2.apply();
+                    //}
+                    //}
                     saveDreams();
                     startActivity(new Intent(JournalListActivity.this, EditActivity.class));
                 }
@@ -266,20 +260,16 @@ public class JournalListActivity extends ListActivity {
 
     public void deleteDream(){
 
-
-        for (int i = 0; i < dream_list.getCount(); i++)
-        {
-            try {
-                if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
-                    dream_list.getChildAt(i).setAlpha(1.0f);
-                    dream_list.getChildAt(i).setBackgroundColor(Color.RED);
-                    dreams.remove(i + dream_list.getFirstVisiblePosition());
-                    saveDreams();
-                    finish();
-                    startActivity(getIntent());
-                }
-            }
-            catch(NullPointerException e){};
-        }
+        //String item = String.valueOf(dream_list.getCount());
+        //Toast.makeText(this, item + " number of items", Toast.LENGTH_LONG).show();
+        //for (int i = 0; i < dream_list.getChildCount(); i++) {
+            //if (dream_list.getChildAt(i).equals(selectedView)) {
+        //dream_list.getChildAt(dream_list.getCheckedItemPosition()).setBackgroundColor(Color.RED);
+        dreams.remove(dream_list.getCheckedItemPosition());
+        saveDreams();
+        finish();
+        startActivity(getIntent());
+        //    }
+        //}
     }
 }

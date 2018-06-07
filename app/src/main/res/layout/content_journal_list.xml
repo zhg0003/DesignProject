@@ -21,6 +21,8 @@
         android:divider="#2C3A57"
         android:dividerHeight="10dp"
         android:focusable="false"
+        android:choiceMode="singleChoice"
+        android:listSelector="#66ACACAC"
         android:footerDividersEnabled="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
