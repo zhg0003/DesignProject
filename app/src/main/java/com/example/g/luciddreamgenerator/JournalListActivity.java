@@ -45,8 +45,7 @@ public class JournalListActivity extends ListActivity {
 
     boolean isLoggedin = false;
     String username;
-    View selectedView;
-    int selectedPosition;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -167,8 +166,6 @@ public class JournalListActivity extends ListActivity {
         deleteButton.setAlpha(1.0f);
         editButton.setEnabled(true);
         deleteButton.setEnabled(true);
-        selectedView = getListView().getChildAt(position);
-        selectedPosition = getListView().getPositionForView((View) v.getParent());
 
         /*for (int i = 0; i < getListView().getChildCount() - 1; i++) {
             getListAdapter().getView(i, v, null).setBackgroundColor(Color.TRANSPARENT);
@@ -201,7 +198,6 @@ public class JournalListActivity extends ListActivity {
                 else {
                     SharedPreferences settings = getApplicationContext().getSharedPreferences("editingDream", 0);
                     SharedPreferences settings2 = getApplicationContext().getSharedPreferences("editingDreamIndex", 0);
-                    boolean dreamFound = false;
                     SharedPreferences.Editor editor = settings.edit();
                     SharedPreferences.Editor editor2 = settings2.edit();
                     //for (int i = 0; i < dream_list.getChildCount(); i++) {
