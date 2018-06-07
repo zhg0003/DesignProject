@@ -220,6 +220,7 @@ public class ToolsActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
             saveSettings();
+            finish();
             startActivity(new Intent(ToolsActivity.this, MenuActivity.class));
             return false;
         }

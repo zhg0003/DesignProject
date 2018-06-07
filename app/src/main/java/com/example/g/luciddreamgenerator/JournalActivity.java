@@ -192,6 +192,7 @@ public class JournalActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
             saveCustomFields();
+            finish();
             startActivity(new Intent(JournalActivity.this, MainActivity.class));
             return false;
         }

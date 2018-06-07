@@ -146,6 +146,7 @@ public class JournalListActivity extends ListActivity {
             if (!isLoggedin)
                 saveDreams();
 
+            finish();
             startActivity(new Intent(JournalListActivity.this, MenuActivity.class));
             return false;
         }
@@ -166,14 +167,20 @@ public class JournalListActivity extends ListActivity {
         deleteButton.setEnabled(true);
 
         for (int i = 0; i < dream_list.getCount(); i++) {
-            dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-            dream_list.getChildAt(i).setSelected(false);
-            dream_list.getChildAt(i).setAlpha(1.0f);
+            try {
+                dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                dream_list.getChildAt(i).setSelected(false);
+                dream_list.getChildAt(i).setAlpha(1.0f);
+            }
+            catch(NullPointerException e){};
         }
         //this.dream_list
-        dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
-        dream_list.getChildAt(position).setSelected(true);
-        dream_list.getChildAt(position).setAlpha(0.9f);
+        try {
+            dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
+            dream_list.getChildAt(position).setSelected(true);
+            dream_list.getChildAt(position).setAlpha(0.9f);
+        }
+        catch(NullPointerException e){};
         //saveDreams();
 
         //startActivity(getIntent());
@@ -200,13 +207,17 @@ public class JournalListActivity extends ListActivity {
                     SharedPreferences.Editor editor2 = settings2.edit();
 
                     for (int i = 0; i < dream_list.getCount(); i++) {
-                        if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
-                            String dreamToBeEdited = dreams.get(i);
-                            editor.putString("editDream", dreamToBeEdited);
-                            editor2.putInt("editDreamIndex", i);
-                            editor.apply();
-                            editor2.apply();
+                        try {
+                            if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
+                                dream_list.getChildAt(i).setAlpha(1.0f);
+                                String dreamToBeEdited = dreams.get(i);
+                                editor.putString("editDream", dreamToBeEdited);
+                                editor2.putInt("editDreamIndex", i);
+                                editor.apply();
+                                editor2.apply();
+                            }
                         }
+                        catch(NullPointerException e){};
                     }
                     saveDreams();
                     startActivity(new Intent(JournalListActivity.this, EditActivity.class));
@@ -260,13 +271,17 @@ public class JournalListActivity extends ListActivity {
 
         for (int i = 0; i < dream_list.getCount(); i++)
         {
-            if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
-                dream_list.getChildAt(i).setBackgroundColor(Color.RED);
-                dreams.remove(i);
-                saveDreams();
-                finish();
-                startActivity(getIntent());
+            try {
+                if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
+                    dream_list.getChildAt(i).setAlpha(1.0f);
+                    dream_list.getChildAt(i).setBackgroundColor(Color.RED);
+                    dreams.remove(i);
+                    saveDreams();
+                    finish();
+                    startActivity(getIntent());
+                }
             }
+            catch(NullPointerException e){};
         }
     }
 }

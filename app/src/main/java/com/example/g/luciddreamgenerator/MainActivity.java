@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK))
         {
+            finish();
             startActivity(new Intent(MainActivity.this, MenuActivity.class));
             return false;
         }
