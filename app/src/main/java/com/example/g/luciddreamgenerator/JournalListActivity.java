@@ -138,6 +138,7 @@ public class JournalListActivity extends ListActivity {
     }
 */
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
@@ -169,18 +170,17 @@ public class JournalListActivity extends ListActivity {
         for (int i = 0; i < dream_list.getCount(); i++) {
             try {
                 dream_list.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-                dream_list.getChildAt(i).setSelected(false);
                 dream_list.getChildAt(i).setAlpha(1.0f);
             }
             catch(NullPointerException e){};
         }
         //this.dream_list
-        try {
-            dream_list.getChildAt(position).setBackgroundColor(Color.parseColor("#66ACACAC"));
-            dream_list.getChildAt(position).setSelected(true);
-            dream_list.getChildAt(position).setAlpha(0.9f);
-        }
-        catch(NullPointerException e){};
+            try {
+                dream_list.getChildAt(position - dream_list.getFirstVisiblePosition()).setBackgroundColor(Color.parseColor("#66ACACAC"));
+                dream_list.getChildAt(position - dream_list.getFirstVisiblePosition()).setAlpha(0.9f);
+            }
+            catch(NullPointerException e){};
+
         //saveDreams();
 
         //startActivity(getIntent());
@@ -210,9 +210,9 @@ public class JournalListActivity extends ListActivity {
                         try {
                             if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
                                 dream_list.getChildAt(i).setAlpha(1.0f);
-                                String dreamToBeEdited = dreams.get(i);
+                                String dreamToBeEdited = dreams.get(i + dream_list.getFirstVisiblePosition());
                                 editor.putString("editDream", dreamToBeEdited);
-                                editor2.putInt("editDreamIndex", i);
+                                editor2.putInt("editDreamIndex", i + dream_list.getFirstVisiblePosition());
                                 editor.apply();
                                 editor2.apply();
                             }
@@ -266,8 +266,6 @@ public class JournalListActivity extends ListActivity {
 
     public void deleteDream(){
 
-        //String item = String.valueOf(dream_list.getCount());
-        //Toast.makeText(this, item + " number of items", Toast.LENGTH_LONG).show();
 
         for (int i = 0; i < dream_list.getCount(); i++)
         {
@@ -275,7 +273,7 @@ public class JournalListActivity extends ListActivity {
                 if (dream_list.getChildAt(i).getAlpha() == 0.9f) {
                     dream_list.getChildAt(i).setAlpha(1.0f);
                     dream_list.getChildAt(i).setBackgroundColor(Color.RED);
-                    dreams.remove(i);
+                    dreams.remove(i + dream_list.getFirstVisiblePosition());
                     saveDreams();
                     finish();
                     startActivity(getIntent());
